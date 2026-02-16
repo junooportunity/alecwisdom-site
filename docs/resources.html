@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-NKXE9654HJ"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-NKXE9654HJ');
+    </script>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Resources</title>
+    
+    <!-- Favicon -->
+    
+    <link rel="icon" type="image/x-icon" href="Images/icons/icon.ico?v=3">
+    <link rel="icon" type="image/png" sizes="16x16" href="Images/icons/icon-16x16.png?v=3">
+    <link rel="icon" type="image/png" sizes="32x32" href="Images/icons/icon-32x32.png?v=3">
+    <link rel="apple-touch-icon" sizes="180x180" href="Images/icons/apple-icon.png?v=3">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            font-weight: 400;
+            background: #0a0a0a;
+            color: #cccccc;
+            font-size: 11px;
+            line-height: 1.5;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            padding: 2rem;
+        }
+
+        .resources-container {
+            max-width: fit-content;
+            width: auto;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 1.5rem;
+            font-weight: 400;
+            color: #cccccc;
+            text-align: center;
+            margin-bottom: 3rem;
+            letter-spacing: 0.2em;
+        }
+
+        .resource-section {
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        .resource-section:first-child {
+            margin-top: 3rem;
+        }
+
+        .resource-section h2 {
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 0.75rem;
+            font-weight: 400;
+            color: #cccccc;
+            margin: 0 auto 2rem auto;
+            letter-spacing: 0.2em;
+            text-align: center;
+            padding: 5px 16px;
+            background: linear-gradient(
+                135deg,
+                rgba(255, 255, 255, 0.12) 0%,
+                rgba(255, 255, 255, 0.08) 50%,
+                rgba(255, 255, 255, 0.12) 100%
+            );
+            backdrop-filter: blur(40px) saturate(180%) brightness(1.1);
+            -webkit-backdrop-filter: blur(40px) saturate(180%) brightness(1.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            display: inline-block;
+            width: auto;
+            transition: all 0.3s ease;
+        }
+
+        .resource-section h2:hover {
+            color: #cccccc;
+            background: linear-gradient(
+                135deg,
+                rgba(255, 255, 255, 0.18) 0%,
+                rgba(255, 255, 255, 0.12) 50%,
+                rgba(255, 255, 255, 0.18) 100%
+            );
+            backdrop-filter: blur(50px) saturate(200%) brightness(1.15);
+            -webkit-backdrop-filter: blur(50px) saturate(200%) brightness(1.15);
+            transform: translateY(-2px);
+            box-shadow:
+                0 12px 40px rgba(0, 0, 0, 0.3),
+                0 4px 12px rgba(0, 0, 0, 0.2),
+                inset 0 2px 4px rgba(255, 255, 255, 0.3),
+                inset 0 -2px 2px rgba(255, 255, 255, 0.15);
+        }
+
+        .accordion-toggle {
+            cursor: pointer;
+            user-select: none;
+        }
+
+
+        .accordion-content {
+            max-height: 1500px;
+            overflow: hidden;
+            transition: max-height 0.4s ease, opacity 0.3s ease;
+            opacity: 1;
+        }
+
+        .accordion-content.collapsed {
+            max-height: 0;
+            opacity: 0;
+        }
+
+        .pdf-embed-container {
+            width: 100%;
+            max-width: 500px;
+            margin: 1rem auto 0 auto;
+            position: relative;
+            border-radius: 16px;
+            isolation: isolate;
+            box-shadow: 0px 8px 40px rgba(0, 0, 0, 0.4);
+            overflow: hidden;
+        }
+
+        .pdf-embed-container::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            z-index: 10;
+            border-radius: 16px;
+            box-shadow: inset 0 0 20px 2px rgba(255, 255, 255, 0.1);
+            background-color: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            pointer-events: none;
+        }
+
+        .pdf-embed {
+            width: 100%;
+            height: auto;
+            border: none;
+            display: block;
+            border-radius: 16px;
+        }
+
+        .resource-links {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .resource-link {
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 0.9rem;
+            font-weight: 400;
+            color: #cccccc;
+            text-decoration: none;
+            padding: 8px 0;
+            background: none;
+            border: none;
+            border-radius: 0;
+            transition: none;
+            display: block;
+            text-align: center;
+        }
+
+        .resource-description {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.6);
+            margin-top: 0.5rem;
+            text-transform: none;
+            font-style: italic;
+        }
+
+        /* Mobile font size reduction */
+        @media (max-width: 600px) {
+            body {
+                font-size: 9px !important;
+                padding: 1rem 1rem 0.5rem 1rem !important;
+            }
+
+            .resource-link {
+                font-size: 0.7rem !important;
+                padding: 6px 0 !important;
+            }
+
+            .resource-section {
+                margin-bottom: 1.5rem !important;
+            }
+
+            .resource-section:first-child {
+                margin-top: 2rem !important;
+                padding-top: 0 !important;
+            }
+
+            .resource-section:first-child h2 {
+                margin-top: 0 !important;
+            }
+
+            .resource-section:last-child {
+                margin-bottom: 0 !important;
+            }
+
+            .resource-section h2 {
+                font-size: 10px !important;
+                padding: 4px 12px !important;
+                margin-bottom: 1rem !important;
+            }
+
+            .resource-description {
+                font-size: 0.7rem !important;
+            }
+
+            h1 {
+                font-size: 1.2rem !important;
+                margin-bottom: 1.5rem !important;
+            }
+
+            .resource-links {
+                gap: 0.3rem !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="resources-container">
+        <!-- Reading List & Playlist Links -->
+        <div class="resource-section" style="margin-bottom: 2rem;">
+            <div style="display: flex; flex-direction: column; gap: 0.5rem; align-items: center;">
+                <h2 class="accordion-toggle" style="cursor: pointer; margin: 0;" onclick="window.parent.document.getElementById('closePageModal').click(); setTimeout(() => window.parent.document.getElementById('readingListButton').click(), 100);">READING LIST</h2>
+                <h2 class="accordion-toggle" style="cursor: pointer; margin: 0;" onclick="window.parent.document.getElementById('closePageModal').click(); setTimeout(() => window.parent.document.getElementById('playlistButton').click(), 100);">PLAYLIST</h2>
+            </div>
+        </div>
+
+        <div class="resource-section">
+            <h2 class="accordion-toggle collapsed" onclick="toggleAccordion(this)">CINEMATOGRAPHY</h2>
+            <div class="resource-links accordion-content collapsed">
+                <a href="https://theasc.com" target="_blank" rel="noopener noreferrer" class="resource-link">
+                    ASC
+                </a>
+                <a href="https://bscine.com" target="_blank" rel="noopener noreferrer" class="resource-link">
+                    BSC
+                </a>
+                <a href="https://www.filmsetobjects.com" target="_blank" rel="noopener noreferrer" class="resource-link">
+                    EVAN OLIVER
+                </a>
+                <a href="https://www.rogerdeakins.com" target="_blank" rel="noopener noreferrer" class="resource-link">
+                    ROGER DEAKINS
+                </a>
+                <a href="https://www.hurlbutvisuals.com" target="_blank" rel="noopener noreferrer" class="resource-link">
+                    SHANE HURLBUT
+                </a>
+                <a href="https://wanderingdp.com" target="_blank" rel="noopener noreferrer" class="resource-link">
+                    PATRICK O'SULLIVAN
+                </a>
+            </div>
+        </div>
+
+        <div class="resource-section">
+            <h2 class="accordion-toggle collapsed" onclick="toggleAccordion(this)">COLOR GRADING</h2>
+            <div class="resource-links accordion-content collapsed">
+                <a href="https://www.demystify-color.com" target="_blank" rel="noopener noreferrer" class="resource-link">
+                    NICO FINK
+                </a>
+                <a href="https://mixinglight.com" target="_blank" rel="noopener noreferrer" class="resource-link">
+                    MIXING LIGHT
+                </a>
+                <a href="https://www.yedlin.net" target="_blank" rel="noopener noreferrer" class="resource-link">
+                    STEVE YEDLIN
+                </a>
+                <a href="https://www.youtube.com/c/CullenKelly" target="_blank" rel="noopener noreferrer" class="resource-link">
+                    CULLEN KELLY
+                </a>
+                <a href="https://www.liftgammagain.com" target="_blank" rel="noopener noreferrer" class="resource-link">
+                    LIFTGAMMAGAIN
+                </a>
+                <a href="https://store.kaurh.com" target="_blank" rel="noopener noreferrer" class="resource-link">
+                    KAUR HENDRICKSON
+                </a>
+                <a href="https://coloristresources.com" target="_blank" rel="noopener noreferrer" class="resource-link">
+                    COLORIST RESOURCES
+                </a>
+            </div>
+        </div>
+
+        <div class="resource-section">
+            <h2 class="accordion-toggle" onclick="toggleAccordion(this)">WRITING</h2>
+            <div class="accordion-content">
+                <div class="pdf-embed-container">
+                    <img class="pdf-embed" src="Images/PDFs/Screenplay Form.webp" alt="Screenplay Form">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleAccordion(header) {
+            header.classList.toggle('collapsed');
+            const content = header.nextElementSibling;
+            content.classList.toggle('collapsed');
+        }
+    </script>
+</body>
+</html>

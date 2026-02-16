@@ -1,0 +1,13 @@
+*.blend
+*.blend1
+*.DS_Store
+Images/on-monism/build_cover.py
+Images/on-monism/back-cover-texture.png
+Images/on-monism/back-cover-new.png
+Images/on-monism/cover-front.png
+Images/on-monism/cover-front-new.png
+Images/on-monism/cover-front-linen.png
+Images/on-monism/cover-pdf.png
+Images/on-monism/cover-bump.png
+monos-pros-monon/*.blend
+monos-pros-monon/Demo Book.blend

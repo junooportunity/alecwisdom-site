@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-NKXE9654HJ"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-NKXE9654HJ');
+    </script>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Reading List</title>
+    
+    <!-- Favicon -->
+    
+    <link rel="icon" type="image/x-icon" href="Images/icons/icon.ico?v=3">
+    <link rel="icon" type="image/png" sizes="16x16" href="Images/icons/icon-16x16.png?v=3">
+    <link rel="icon" type="image/png" sizes="32x32" href="Images/icons/icon-32x32.png?v=3">
+    <link rel="apple-touch-icon" sizes="180x180" href="Images/icons/apple-icon.png?v=3">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            font-weight: 400;
+            background: #0a0a0a;
+            color: #cccccc;
+            font-size: 11px;
+            line-height: 1.5;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            padding: 0;
+            margin: 0;
+        }
+
+        .resources-container {
+            max-width: fit-content;
+            width: auto;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 1.5rem;
+            font-weight: 400;
+            color: #cccccc;
+            text-align: center;
+            margin-bottom: 3rem;
+            letter-spacing: 0.2em;
+        }
+
+        .resource-section {
+            margin-bottom: 3rem;
+        }
+
+        .resource-section h2 {
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 0.75rem;
+            font-weight: 400;
+            color: #cccccc;
+            margin: 1.5rem auto 1.5rem auto;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            text-align: center;
+            text-decoration: none;
+            font-style: normal;
+            padding: 5px 16px;
+            background: linear-gradient(
+                135deg,
+                rgba(255, 255, 255, 0.12) 0%,
+                rgba(255, 255, 255, 0.08) 50%,
+                rgba(255, 255, 255, 0.12) 100%
+            );
+            backdrop-filter: blur(40px) saturate(180%) brightness(1.1);
+            -webkit-backdrop-filter: blur(40px) saturate(180%) brightness(1.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            display: inline-block;
+            width: auto;
+            transition: all 0.3s ease;
+        }
+
+        .resource-section h2:hover {
+            color: #cccccc;
+            background: linear-gradient(
+                135deg,
+                rgba(255, 255, 255, 0.18) 0%,
+                rgba(255, 255, 255, 0.12) 50%,
+                rgba(255, 255, 255, 0.18) 100%
+            );
+            backdrop-filter: blur(50px) saturate(200%) brightness(1.15);
+            -webkit-backdrop-filter: blur(50px) saturate(200%) brightness(1.15);
+            transform: translateY(-2px);
+            box-shadow: 
+                0 12px 40px rgba(0, 0, 0, 0.3),
+                0 4px 12px rgba(0, 0, 0, 0.2),
+                inset 0 2px 4px rgba(255, 255, 255, 0.3),
+                inset 0 -2px 2px rgba(255, 255, 255, 0.15);
+        }
+
+        .resource-links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .resource-link {
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 0.9rem;
+            font-weight: 400;
+            color: #cccccc;
+            text-decoration: none;
+            padding: 8px 0;
+            font-style: italic;
+            text-transform: none;
+            background: none;
+            border: none;
+            border-radius: 0;
+            transition: none;
+            display: block;
+        }
+
+        .resource-description {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.6);
+            margin-top: 0.5rem;
+            text-transform: none;
+            font-style: italic;
+        }
+
+        /* Accordion styles */
+        .accordion-toggle {
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .accordion-content {
+            display: none !important;
+        }
+
+        .accordion-content.expanded {
+            display: flex !important;
+        }
+
+        /* Nested pill style (same as MONIST) */
+        .nested-pill {
+            position: relative;
+            isolation: isolate;
+            box-shadow: 0px 4px 17px rgba(0, 0, 0, 0.15);
+            background: transparent !important;
+            border-radius: 20px;
+            font-family: 'Times New Roman', Times, serif;
+            font-weight: 400;
+            color: #cccccc;
+            letter-spacing: 0.2em;
+            transition: all 0.2s ease;
+            display: inline-block;
+        }
+
+        .nested-pill::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            border-radius: 20px;
+            box-shadow: inset 0 0 8px -6px rgba(255, 255, 255, 0.3);
+            background-color: rgba(255, 255, 255, 0.03);
+            border: 0.5px solid rgba(255, 255, 255, 0.18);
+            pointer-events: none;
+        }
+
+        .nested-pill::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            z-index: -1;
+            border-radius: 20px;
+            backdrop-filter: blur(1.6px);
+            -webkit-backdrop-filter: blur(1.6px);
+        }
+
+        .nested-pill:hover {
+            opacity: 1 !important;
+            color: #ffffff;
+        }
+
+        /* Mobile font size reduction */
+        @media (max-width: 600px) {
+            body {
+                font-size: 9px !important;
+                padding: 0 !important;
+            }
+
+            .resource-link {
+                font-size: 0.7rem !important;
+                padding: 6px 0 !important;
+            }
+
+            .resource-section h2 {
+                font-size: 10px !important;
+                padding: 4px 12px !important;
+                margin: 2rem auto 1.5rem auto !important;
+            }
+
+            h1 {
+                font-size: 1.2rem !important;
+                margin-bottom: 2rem !important;
+            }
+
+            .resource-links {
+                gap: 0.3rem !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="resources-container">
+        <div class="resource-section" style="text-align: center;">
+            <span id="booksToggle" class="nested-pill accordion-toggle" style="font-size: 0.55rem; padding: 3px 12px; opacity: 0.7; cursor: pointer; margin: 1rem 0;" role="button" aria-expanded="false" aria-controls="books-panel" tabindex="0">100 BOOKS</span>
+            <div class="resource-links accordion-content" id="books-panel" style="text-transform: none; font-style: italic; text-align: center; max-width: 600px; margin: 0 auto; padding: 0 1rem;">
+                <div class="resource-link" style="cursor: default;">
+                    A.J. Alston - Śankara On the Absolute
+                </div>
+                <div class="resource-link" style="cursor: default;">
+                    Anonymous - The Cloud of Unknowing
+                </div>
+                <div class="resource-link" style="cursor: default;">
+                    Ibn 'Arabi - Perfect Harmony
+                </div>
+                <div class="resource-link" style="cursor: default;">
+                    Jane Austen - Persuasion
+                </div>
+                <div class="resource-link" style="cursor: default;">
+                    R. Balasubramanian - Advaita Vedānta
+                </div>
+                <div class="resource-link" style="cursor: default;">
+                    Amiri Baraka - The Autobiography of LeRoi Jones
+                </div>
+                <div class="resource-link" style="cursor: default;">
+                    Christopher Beckwith - Greek Buddha
+                </div>
+                <div class="resource-link" style="cursor: default;">
+                    Ingmar Bergman - Images
+                </div>
+                <div class="resource-link" style="cursor: default;">
+                    Hans Dieter Betz - The Greek Magical Papyri
+                </div>
+                <div class="resource-link" style="cursor: default;">
+                    William Blake - Songs of Innocence
+                </div>
+                <div class="resource-link" style="cursor: default;">
+                    Jakob Böhme - The Signature of All Things
+                </div>
+                <div class="resource-link" style="cursor: default;">
+                    Brene Brown - Atlas of the Heart
+                </div>
+                <div class="resource-link" style="cursor: default;">
+                    Martin Buber - I and Thou
+                </div>
+                <div class="resource-link" style="cursor: default;">
+                    John Burnet - Fragments of Parmenides
+                </div>
+                <div class="resource-link" style="cursor: default;">
+                    Deirdre Carabine - The Unknown God
+                </div>
+                <div class="resource-link" style="cursor: default;">
+                    Tom Cheetham - All the World an Icon
+                </div>
+                <div class="resource-link" style="cursor: default;">
+                    William C. Chittick - The Heart of Islamic Philosophy
+                </div>
+                <div class="resource-link" style="cursor: default;">
+                    Cicero - Tusculan Disputations
+                </div>
+                <div class="resource-link" style="cursor: default;">
+                    Rich Cohen - The Fish That Ate the Whale
+                </div>
+                <div class="resource-link" style="cursor: default;">
+                    Ananda Kentish Coomaraswamy - Guardians of the Sun Door
+                </div>
+                <div class="resource-link" style="cursor: default;">
+                    John M. Cooper - Plato Complete Works
+                </div>
+                <div class="resource-link" style="cursor: default;">
+                    Brian P. Copenhaver - Hermetica
+                </div>
+                <div class="resource-link" style="cursor: default;">
+                    Henry Corbin - Avicenna & The Visionary Recital
+                </div>
+                <div class="resource-link" style="cursor: default;">
+                    Mihaly Csikszentmihalyi - Flow
+                </div>
+                <div class="resource-link" style="cursor: default;">
+                    Roald Dahl - The Witches
+                </div>
+                <div class="resource-link" style="cursor: default;">
+                    John Dillon - The Middle Platonists
+                </div>
+                <div class="resource-link" style="cursor: default;">
+                    Robert Dilts - Sleight of Mouth
+                </div>
+                <div class="resource-link" style="cursor: default;">
+                    Brent Dunham - James Cameron Interviews
+                </div>
+                <div class="resource-link" style="cursor: default;">
+                    Umberto Eco - Foucault's Pendulum
+                </div>
+                <div class="resource-link" style="cursor: default;">
+                    Radcliffe G. Edmonds - Orphic Gold Tablets
+                </div>
+                <div class="resource-link" style="cursor: default;">
+                    T.S. Eliot - Four Quartets
+                </div>
+                <div class="resource-link" style="cursor: default;">
+                    Ralph Waldo Emerson - Nature
+                </div>
+                <div class="resource-link" style="cursor: default;">
+                    John Scotus Eriugena - Periphyseon
+                </div>
+                <div class="resource-link" style="cursor: default;">
+                    John Acheson Faris - Paradoxes of Zeno
+                </div>
+                <div class="resource-link" style="cursor: default;">
+                    Marsilio Ficino - Three Books of Life
+                </div>
+                <div class="resource-link" style="cursor: default;">
+                    Harry G. Frankfurt - On Bullshit
+                </div>
+                <div class="resource-link" style="cursor: default;">
+                    George Grimm - The Doctrine of the Buddha
+                </div>
+                <div class="resource-link" style="cursor: default;">
+                    Andrew S. Grove - Only the Paranoid Survive
+                </div>
+                <div class="resource-link" style="cursor: default;">
+                    Kapil Gupta - There is No How
+                </div>
+                <div class="resource-link" style="cursor: default;">
+                    Wouter J. Hanegraaff - Hermetic Spirituality
+                </div>
+                <div class="resource-link" style="cursor: default;">
+                    Martin Heidegger - Poetry, Language & Thought
+                </div>
+                <div class="resource-link" style="cursor: default;">
+                    Iamblichus - On The Mysteries
+                </div>
+                <div class="resource-link" style="cursor: default;">
+                    Eric Jorgensen - Almanack of Naval Ravikant
+                </div>
+                <div class="resource-link" style="cursor: default;">
+                    C.G. Jung - Aion
+                </div>
+                <div class="resource-link" style="cursor: default;">
+                    G.B. Kerford - The Sophistic Movement
+                </div>
+                <div class="resource-link" style="cursor: default;">
+                    Leonard King - The Seven Tablets of Creation
+                </div>
+                <div class="resource-link" style="cursor: default;">
+                    Peter Kingsley - Reality
+                </div>
+                <div class="resource-link" style="cursor: default;">
+                    Jeffrey J. Kripal - The Serpent's Gift
+                </div>
+                <div class="resource-link" style="cursor: default;">
+                    Jiddu Krishnamurti - Truth is a Pathless Land
+                </div>
+                <div class="resource-link" style="cursor: default;">
+                    U.G. Krishnamurti - There is No How
+                </div>
+                <div class="resource-link" style="cursor: default;">
+                    Estée Lauder - Estée
+                </div>
+                <div class="resource-link" style="cursor: default;">
+                    Sidney Lumet - Making Movies
+                </div>
+                <div class="resource-link" style="cursor: default;">
+                    Majjhima Nikāya - Ānāpānasati Sutta
+                </div>
+                <div class="resource-link" style="cursor: default;">
+                    Gabor Maté - Scattered Minds
+                </div>
+                <div class="resource-link" style="cursor: default;">
+                    Cormac McCarthy - Suttree
+                </div>
+                <div class="resource-link" style="cursor: default;">
+                    Larry McMurty - Streets of Laredo
+                </div>
+                <div class="resource-link" style="cursor: default;">
+                    C.A. Meier - Healing Dream and Ritual
+                </div>
+                <div class="resource-link" style="cursor: default;">
+                    Silvia Montiglio - Silence in the Land of Logos
+                </div>
+                <div class="resource-link" style="cursor: default;">
+                    Charles Munger - Poor Charlie's Almanack
+                </div>
+                <div class="resource-link" style="cursor: default;">
+                    Michael Nikoletseas - Parmenides in Apophatic Philosophy
+                </div>
+                <div class="resource-link" style="cursor: default;">
+                    Eric Nisenson - Ascension
+                </div>
+                <div class="resource-link" style="cursor: default;">
+                    Mark Olshaker - The Instant Image
+                </div>
+                <div class="resource-link" style="cursor: default;">
+                    Origen - On First Principles
+                </div>
+                <div class="resource-link" style="cursor: default;">
+                    Arthur Osborne - Works of Ramana Maharshi
+                </div>
+                <div class="resource-link" style="cursor: default;">
+                    Stephen E. Palmer - Vision Science
+                </div>
+                <div class="resource-link" style="cursor: default;">
+                    J.A. Philip - Pythagoras and Early Pythagoreanism
+                </div>
+                <div class="resource-link" style="cursor: default;">
+                    Plotinus - Enneads
+                </div>
+                <div class="resource-link" style="cursor: default;">
+                    Edgar Allen Poe - Mesmeric Revelation
+                </div>
+                <div class="resource-link" style="cursor: default;">
+                    Graham Priest - One
+                </div>
+                <div class="resource-link" style="cursor: default;">
+                    Proclus - The Elements of Theology
+                </div>
+                <div class="resource-link" style="cursor: default;">
+                    Pseudo-Dionysius - The Complete Works
+                </div>
+                <div class="resource-link" style="cursor: default;">
+                    Sarvepalli Radhakrishnan - Principal Upanishads
+                </div>
+                <div class="resource-link" style="cursor: default;">
+                    Richard Rorty - Philosophy and the Mirror of Nature
+                </div>
+                <div class="resource-link" style="cursor: default;">
+                    Rick Rubin - The Creative Act
+                </div>
+                <div class="resource-link" style="cursor: default;">
+                    Edward Schiappa - Protagoras and Logos
+                </div>
+                <div class="resource-link" style="cursor: default;">
+                    Adi Shankaracharya - Vivekachudamani
+                </div>
+                <div class="resource-link" style="cursor: default;">
+                    Gregory Shaw - Theurgy and the Soul
+                </div>
+                <div class="resource-link" style="cursor: default;">
+                    Dmitry Shlapentokh - Soviet Cinematography
+                </div>
+                <div class="resource-link" style="cursor: default;">
+                    Shel Silverstein - Falling Upwards
+                </div>
+                <div class="resource-link" style="cursor: default;">
+                    Vladimir Solovyov - Divine Sophia
+                </div>
+                <div class="resource-link" style="cursor: default;">
+                    Charles M. Stang - Our Divine Double
+                </div>
+                <div class="resource-link" style="cursor: default;">
+                    C.P. Steinmetz - Electrical Discharges, Waves & Impulses
+                </div>
+                <div class="resource-link" style="cursor: default;">
+                    Suhrawardi - The Shape of Light
+                </div>
+                <div class="resource-link" style="cursor: default;">
+                    Synesius - On Dreams
+                </div>
+                <div class="resource-link" style="cursor: default;">
+                    Syrianus - On Aristotle Metaphysics
+                </div>
+                <div class="resource-link" style="cursor: default;">
+                    Nassim Nicholas Taleb - Incerto
+                </div>
+                <div class="resource-link" style="cursor: default;">
+                    Andrei Tarkovsky - Sculpting in Time
+                </div>
+                <div class="resource-link" style="cursor: default;">
+                    Thomas Taylor - The Eleusinian and Bacchic Mysteries
+                </div>
+                <div class="resource-link" style="cursor: default;">
+                    Peter Thiel - Zero to One
+                </div>
+                <div class="resource-link" style="cursor: default;">
+                    Lao Tzu - Tao Te Ching
+                </div>
+                <div class="resource-link" style="cursor: default;">
+                    Charles Upton - What Poets Used to Know
+                </div>
+                <div class="resource-link" style="cursor: default;">
+                    Algis Uždavinys - Philosophy as a Rite of Rebirth
+                </div>
+                <div class="resource-link" style="cursor: default;">
+                    Via Veritatis - The Golden Chain of Homer
+                </div>
+                <div class="resource-link" style="cursor: default;">
+                    Paramahansa Yogananda - Autobiography of a Yogi
+                </div>
+                <div class="resource-link" style="cursor: default;">
+                    Tom Wainwright - Narconomics
+                </div>
+                <div class="resource-link" style="cursor: default;">
+                    John Walbridge - Leaven of the Ancients
+                </div>
+                <div class="resource-link" style="cursor: default;">
+                    Robin Waterfield - The Theology of Arithmetic
+                </div>
+                <div class="resource-link" style="cursor: default;">
+                    Ludwig Wittgenstein - Tractatus Logico-Philosophicus
+                </div>
+                <div class="resource-link" style="cursor: default;">
+                    Walt Whitman - Leaves of Grass
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            const toggle = document.getElementById('booksToggle');
+            const panel = document.getElementById('books-panel');
+
+            if (toggle && panel) {
+                toggle.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const isExpanded = panel.classList.contains('expanded');
+
+                    if (isExpanded) {
+                        panel.classList.remove('expanded');
+                        toggle.setAttribute('aria-expanded', 'false');
+                    } else {
+                        panel.classList.add('expanded');
+                        toggle.setAttribute('aria-expanded', 'true');
+                    }
+                });
+
+                toggle.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        toggle.click();
+                    }
+                });
+            }
+        })();
+    </script>
+</body>
+</html>
+

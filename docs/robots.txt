@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /$
+Disallow: /monos-pros-monon.html
+Disallow: /reading-list.html
+Disallow: /resources.html
+
+Sitemap: https://alecwisdom.com/sitemap.xml
