@@ -76,7 +76,7 @@ export default async function handler(req, res) {
   // Send email
   try {
     await resend.emails.send({
-      from: 'Aletheia <delivery@alecwisdom.com>',
+      from: 'Aletheia <delivery@monosprosmonon.com>',
       to: email,
       subject: 'Your Aletheia License Key (TEST)',
       html: `
