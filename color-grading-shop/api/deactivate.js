@@ -1,7 +1,7 @@
 const { Resend } = require('resend');
 const { findByLicenseKey, updateRow, appendLog, COLS } = require('./lib/sheets');
 
-const ADMIN_EMAIL = 'alecwisdom@gmail.com';
+const ADMIN_EMAIL = 'support@monosprosmonon.com';
 
 async function notifyAdmin(details) {
   try {

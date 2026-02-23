@@ -1,7 +1,7 @@
 const Stripe = require('stripe');
 const { Resend } = require('resend');
 const { generateLicenseKey } = require('./lib/keygen');
-const { findByEmail, appendRow, ensureHeaders, COLS } = require('./lib/sheets');
+const { findByEmail, appendRow, ensureHeaders, markTrialConverted, COLS } = require('./lib/sheets');
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 const resend = new Resend(process.env.RESEND_API_KEY);
@@ -150,7 +150,7 @@ export default async function handler(req, res) {
               </div>
 
               <p style="color: #666; font-size: 14px;">
-                <a href="https://pub-4dc33a44af7f46a893a8ed507f349db3.r2.dev/v1.0.0/Aletheia_User_Guide.pdf" style="color: #3498db;">Download User Guide (PDF)</a>
+                <a href="https://monosprosmonon.com/aletheia" style="color: #3498db;">Download User Guide</a>
               </p>
 
               <p style="color: #666; font-size: 14px; margin-top: 32px;">
@@ -172,6 +172,13 @@ export default async function handler(req, res) {
         console.log('Email sent to:', customerEmail, 'License:', licenseKey);
       } catch (emailErr) {
         console.error('Failed to send email:', emailErr);
+      }
+
+      // Mark trial signup as converted (if they came through the trial)
+      try {
+        await markTrialConverted(customerEmail);
+      } catch (err) {
+        console.error('Trial conversion tracking error:', err);
       }
     }
   }
