@@ -7,7 +7,7 @@ const ADMIN_EMAIL = 'alecwisdom@gmail.com';
 
 // HMAC signing for activation tokens
 function signToken(payload) {
-  const secret = process.env.ACTIVATION_SECRET;
+  const secret = (process.env.ACTIVATION_SECRET || '').trim();
   if (!secret) throw new Error('ACTIVATION_SECRET not configured');
   const data = Buffer.from(JSON.stringify(payload)).toString('base64');
   const sig = crypto.createHmac('sha256', secret).update(data).digest('hex');
