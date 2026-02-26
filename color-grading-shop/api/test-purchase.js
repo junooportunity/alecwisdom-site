@@ -4,8 +4,8 @@ const { findByEmail, appendRow, ensureHeaders } = require('./lib/sheets');
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-// Test secret to prevent abuse — no fallback, must be configured
-const TEST_SECRET = process.env.TEST_SECRET;
+// Secret to prevent abuse — must be configured
+const ACTIVATION_SECRET = process.env.ACTIVATION_SECRET;
 
 async function findExistingLicense(email) {
   try {
@@ -28,7 +28,7 @@ export default async function handler(req, res) {
   const { email, secret } = req.body;
 
   // Validate secret
-  if (!TEST_SECRET || secret !== TEST_SECRET) {
+  if (!ACTIVATION_SECRET || secret !== ACTIVATION_SECRET) {
     return res.status(401).json({ error: 'Invalid test secret' });
   }
 
