@@ -2,6 +2,7 @@ const Stripe = require('stripe');
 const { Resend } = require('resend');
 const { generateLicenseKey } = require('./lib/keygen');
 const { findByEmail, appendRow, ensureHeaders, markTrialConverted, COLS } = require('./lib/sheets');
+const { fetchObject } = require('./lib/r2');
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 const resend = new Resend(process.env.RESEND_API_KEY);
@@ -111,12 +112,29 @@ export default async function handler(req, res) {
         }
       }
 
+      // Fetch installers from R2 for email attachments
+      let attachments = [];
+      try {
+        const [macPkg, winZip] = await Promise.all([
+          fetchObject('v1.0.0/Aletheia-Installer.pkg'),
+          fetchObject('v1.0.0/Aletheia-Installer-Windows.zip'),
+        ]);
+        attachments = [
+          { filename: 'Aletheia-Installer.pkg', content: macPkg.toString('base64') },
+          { filename: 'Aletheia-Installer-Windows.zip', content: winZip.toString('base64') },
+        ];
+        console.log('Installers fetched from R2');
+      } catch (r2Err) {
+        console.error('R2 fetch error (sending email without attachments):', r2Err);
+      }
+
       // Send email via Resend
       try {
         await resend.emails.send({
           from: 'Aletheia <delivery@monosprosmonon.com>',
           to: customerEmail,
           subject: 'Your Aletheia License Key',
+          attachments,
           html: `
             <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 600px; margin: 0 auto; padding: 40px 20px; background: #ffffff;">
               <h1 style="color: #0a0a0a; font-size: 24px; margin-bottom: 24px;">Thank you for your purchase</h1>
@@ -132,21 +150,14 @@ export default async function handler(req, res) {
                 </p>
               </div>
 
-              <div style="text-align: center; margin: 24px 0;">
-                <a href="https://monosprosmonon.com/aletheia" style="display: inline-block; background: #0a0a0a; color: #ffffff; padding: 14px 28px; text-decoration: none; border-radius: 6px; font-size: 16px; font-weight: 500;">
-                  Download for macOS
-                </a>
-              </div>
-              <div style="text-align: center; margin: 12px 0;">
-                <span style="display: inline-block; background: #d0d0d0; color: #888888; padding: 14px 28px; border-radius: 6px; font-size: 16px; font-weight: 500;">
-                  Windows &mdash; Coming Soon
-                </span>
-              </div>
+              <p style="color: #333; font-size: 14px; text-align: center; margin: 24px 0;">
+                Your installers are attached to this email. Download the one for your platform.
+              </p>
 
               <div style="background: #fafafa; border-radius: 8px; padding: 20px; margin: 24px 0;">
                 <p style="color: #333; font-size: 14px; font-weight: bold; margin: 0 0 12px 0;">Getting Started</p>
                 <ol style="color: #666; font-size: 14px; line-height: 1.8; margin: 0; padding-left: 20px;">
-                  <li>Download the installer for your platform from the link above</li>
+                  <li>Download the attached installer for your platform</li>
                   <li>Run the installer</li>
                   <li>Enter your license key when prompted</li>
                   <li>Restart DaVinci Resolve</li>
