@@ -133,12 +133,12 @@ export default async function handler(req, res) {
               </div>
 
               <div style="text-align: center; margin: 24px 0;">
-                <a href="https://pub-4dc33a44af7f46a893a8ed507f349db3.r2.dev/v1.0.0/Aletheia-Installer.pkg" style="display: inline-block; background: #0a0a0a; color: #ffffff; padding: 14px 28px; text-decoration: none; border-radius: 6px; font-size: 16px; font-weight: 500;">
+                <a href="https://downloads.monosprosmonon.com/v1.1.0/Aletheia-Installer.pkg" style="display: inline-block; background: #0a0a0a; color: #ffffff; padding: 14px 28px; text-decoration: none; border-radius: 6px; font-size: 16px; font-weight: 500;">
                   Download for macOS
                 </a>
               </div>
               <div style="text-align: center; margin: 12px 0;">
-                <a href="https://pub-4dc33a44af7f46a893a8ed507f349db3.r2.dev/v1.0.0/Aletheia_Installer_v1.0.0.exe" style="display: inline-block; background: #0a0a0a; color: #ffffff; padding: 14px 28px; text-decoration: none; border-radius: 6px; font-size: 16px; font-weight: 500;">
+                <a href="https://downloads.monosprosmonon.com/v1.1.0/Aletheia-Installer.exe" style="display: inline-block; background: #0a0a0a; color: #ffffff; padding: 14px 28px; text-decoration: none; border-radius: 6px; font-size: 16px; font-weight: 500;">
                   Download for Windows
                 </a>
               </div>
