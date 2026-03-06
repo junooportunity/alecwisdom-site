@@ -115,6 +115,7 @@ export default async function handler(req, res) {
       try {
         await resend.emails.send({
           from: 'Aletheia <delivery@monosprosmonon.com>',
+          replyTo: 'support@monosprosmonon.com',
           to: customerEmail,
           subject: 'Your Aletheia License Key',
           html: `
@@ -171,6 +172,29 @@ export default async function handler(req, res) {
           `
         });
         console.log('Email sent to:', customerEmail, 'License:', licenseKey);
+
+        // Notify admin that a license was delivered
+        try {
+          await resend.emails.send({
+            from: 'Aletheia Licenses <delivery@monosprosmonon.com>',
+            to: 'support@monosprosmonon.com',
+            subject: `License Delivered: ${customerEmail}`,
+            html: `
+              <div style="font-family: monospace; padding: 20px;">
+                <h2>New License Delivered</h2>
+                <p><strong>Customer:</strong> ${customerName || 'N/A'}</p>
+                <p><strong>Email:</strong> ${customerEmail}</p>
+                <p><strong>License Key:</strong> ${licenseKey}</p>
+                <p><strong>Product:</strong> ${product.name}</p>
+                <p><strong>Existing Customer:</strong> ${isExisting ? 'Yes' : 'No'}</p>
+                <p><strong>Stripe Session:</strong> ${session.id}</p>
+                <p><strong>Time:</strong> ${new Date().toISOString()}</p>
+              </div>
+            `
+          });
+        } catch (notifyErr) {
+          console.error('Admin notification failed:', notifyErr);
+        }
       } catch (emailErr) {
         console.error('Failed to send email:', emailErr);
       }
