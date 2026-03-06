@@ -52,8 +52,6 @@ export default async function handler(req, res) {
   // Generate license key (AT = Aletheia full suite)
   const licenseKey = generateLicenseKey('AT');
 
-  const downloadUrl = process.env.DOWNLOAD_URL || 'https://monosprosmonon.com/aletheia';
-
   // Create Google Sheets record
   let sheetsResult = null;
   try {
@@ -96,22 +94,34 @@ export default async function handler(req, res) {
             </p>
           </div>
 
-          <a href="${downloadUrl}" style="display: inline-block; background: #0a0a0a; color: #fff; padding: 14px 28px; text-decoration: none; border-radius: 6px; margin: 24px 0; font-size: 16px;">
-            Download Installer
-          </a>
+          <div style="text-align: center; margin: 24px 0;">
+            <a href="https://monosprosmonon.com/aletheia" style="display: inline-block; background: #0a0a0a; color: #ffffff; padding: 14px 28px; text-decoration: none; border-radius: 6px; font-size: 16px; font-weight: 500;">
+              Download for macOS
+            </a>
+          </div>
+          <div style="text-align: center; margin: 12px 0;">
+            <span style="display: inline-block; background: #d0d0d0; color: #888888; padding: 14px 28px; border-radius: 6px; font-size: 16px; font-weight: 500;">
+              Windows &mdash; Coming Soon
+            </span>
+          </div>
 
           <div style="background: #fafafa; border-radius: 8px; padding: 20px; margin: 24px 0;">
             <p style="color: #333; font-size: 14px; font-weight: bold; margin: 0 0 12px 0;">Getting Started</p>
             <ol style="color: #666; font-size: 14px; line-height: 1.8; margin: 0; padding-left: 20px;">
-              <li>Download the installer for your OS (macOS, Windows, or Linux)</li>
-              <li>Run the installer and enter your license key when prompted</li>
-              <li>The installer activates your license automatically</li>
-              <li>Open DaVinci Resolve &mdash; find Alpha, Phi, Helix, and Omega in Color page &rarr; OpenFX</li>
+              <li>Download the installer for your platform from the link above</li>
+              <li>Run the installer</li>
+              <li>Enter your license key when prompted</li>
+              <li>Restart DaVinci Resolve</li>
+              <li>Find Alpha, Phi, Helix, and Omega in Color page &rarr; OpenFX</li>
             </ol>
           </div>
 
           <p style="color: #666; font-size: 14px; margin-top: 32px;">
             Save your license key &mdash; you'll need it if you reinstall. Your key works on up to 2 machines.
+          </p>
+
+          <p style="color: #666; font-size: 14px;">
+            Questions? Reply to this email.
           </p>
 
           <hr style="border: none; border-top: 1px solid #eee; margin: 32px 0;">
@@ -128,7 +138,6 @@ export default async function handler(req, res) {
       message: 'Test purchase completed',
       email: email,
       licenseKey: licenseKey,
-      downloadUrl: downloadUrl,
       sheetsResult: sheetsResult
     });
   } catch (err) {
