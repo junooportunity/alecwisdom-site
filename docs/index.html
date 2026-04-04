@@ -3015,10 +3015,7 @@
 
         <section class="work-section" id="archive">
             <div class="section-inner">
-                <div class="section-label fade-in" id="archiveToggle">Archive</div>
-                
                 <div class="archive-content expanded">
-                    <div class="divider cinematography-divider" style="margin: 2rem auto; max-width: 200px;"></div>
                     <div class="section-label fade-in cinematography-pill" id="cinematographyToggle" style="margin: 2rem auto;">Cinematography</div>
 
                 <div class="cinematography-content">
@@ -3589,18 +3586,8 @@
                 window.requestAnimationFrame(() => {
                     const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
                     
-                    // Archive collapse logic
-                    if (archiveSection && archiveContent) {
-                        const archiveRect = archiveSection.getBoundingClientRect();
-                        const isArchiveVisible = archiveRect.top < window.innerHeight && archiveRect.bottom > 0;
-
-                        if (currentScroll < lastScrollTop && archiveContent.classList.contains('expanded')) {
-                            if (archiveRect.top > window.innerHeight * 0.5 || !isArchiveVisible) {
-                                archiveContent.classList.remove('expanded');
-                                archiveExpanded = false;
-                            }
-                        }
-                    }
+                    // Archive collapse logic - disabled for job application version
+                    // (keep archive always expanded)
 
                     // Make elements disappear when more than 50% off screen
                     const scrollFadeEnabled = true;
