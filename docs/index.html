@@ -21,7 +21,7 @@
     <link rel="icon" type="image/png" sizes="32x32" href="Images/icons/icon-32x32.png?v=3">
     <link rel="icon" type="image/png" sizes="16x16" href="Images/icons/icon-16x16.png?v=3">
     <link rel="apple-touch-icon" sizes="180x180" href="Images/icons/apple-icon.png?v=3">
-    <meta name="description" content="Alec Wisdom - Cinematographer">
+    <meta name="description" content="Alec Wisdom - Writer & Director">
     <meta name="keywords" content="Alec Wisdom">
     <meta name="author" content="Alec Wisdom">
     
@@ -36,14 +36,14 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://alecwisdom.com/">
     <meta property="og:title" content="Alec Wisdom">
-    <meta property="og:description" content="Cinematographer">
+    <meta property="og:description" content="Writer & Director">
     <meta property="og:site_name" content="Alec Wisdom">
     <meta property="og:image" content="https://alecwisdom.com/og-preview.png">
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Alec Wisdom">
-    <meta name="twitter:description" content="Cinematographer">
+    <meta name="twitter:description" content="Writer & Director">
     <meta name="twitter:image" content="https://alecwisdom.com/og-preview.png">
         
     <!-- Structured Data -->
@@ -52,7 +52,7 @@
         "@context": "https://schema.org",
         "@type": "Person",
         "name": "Alec Wisdom",
-        "jobTitle": "Cinematographer",
+        "jobTitle": "Writer & Director",
         "description": "Alec Wisdom",
         "url": "https://alecwisdom.com",
         "sameAs": []
@@ -370,7 +370,7 @@
             font-family: 'Times New Roman', Times, serif;
             font-size: clamp(0.99rem, 3.15vw, 1.62rem);
             font-weight: 400;
-            margin: 1.5rem auto 0 auto;
+            margin: 0 auto 0.15rem auto;
             letter-spacing: 0.5px;
             text-transform: uppercase;
             color: #cccccc;
@@ -514,7 +514,7 @@
         }
 
         #archive {
-            padding: 16px 32px;
+            padding: 48px 32px;
         }
 
         #bio-section {
@@ -2888,10 +2888,12 @@
 
     <div class="grain"></div>
 
-    <!-- Nav hidden for job application version -->
-    <!-- <nav class="nav">
+    <!-- Nav -->
+    <nav class="nav">
+        <a href="#bio-section">Bio</a>
+        <a href="#narrative">Narrative</a>
         <a href="#archive">Archive</a>
-    </nav> -->
+    </nav>
 
     <!-- Hidden buttons for modal triggers from iframes -->
     <a href="#" id="resourcesButton" style="display: none;">Resources</a>
@@ -2913,7 +2915,6 @@
                         </div>
                     </div>
                     <h1 class="hero-name fade-in">Alec Wisdom</h1>
-                    <!-- HIDDEN FOR JOB APPLICATION VERSION
                     <p class="hero-title fade-in">Writer & Director</p>
                     <div class="divider" style="margin: 16px auto;"></div>
                     <div class="bio-blurb">
@@ -2928,13 +2929,11 @@
                         <p>After surviving two near-death experiences while commuting to work on Yellowstone: 1883, I knew I needed to direct, which meant I needed to write.</p>
                         <p>Over the following two years, I survived two additional near-death experiences. The threat of death stopped feeling occasional & became imminent. I lived with PTSD for years & worked through it deliberately, through EMDR & with the help of a steady community. Writing stabilized my attention & gave form to my experiences. That practice matured into finished work: stories grounded in my lived experience, set in my home state—holding a mirror up to the people who inhabit it.</p>
                     </div>
-                    END HIDDEN -->
                 </div>
             </div>
         </section>
 
-        <!-- Monos Pros Monon Logo - hidden for job application version -->
-        <!--
+        <!-- Monos Pros Monon Logo -->
         <section class="work-section" id="monos-logo-section" style="padding-top: 6rem;">
             <div class="section-inner">
                 <div class="logo-wrapper fade-in" style="margin: 0 auto; padding: 0 48px;">
@@ -2944,9 +2943,8 @@
                 </div>
             </div>
         </section>
-        -->
 
-        <!-- HIDDEN FOR JOB APPLICATION VERSION
+        <!-- Narrative -->
         <section class="work-section" id="narrative">
             <div class="section-inner">
                 <div class="section-label fade-in">Narrative</div>
@@ -2978,9 +2976,8 @@
                 </div>
             </div>
         </section>
-        END HIDDEN -->
 
-        <!-- HIDDEN FOR JOB APPLICATION VERSION
+        <!-- On Monism Book -->
         <section class="work-section" id="on-monism" style="padding: 6rem 32px 3rem 32px;">
             <div class="section-inner">
                 <div class="fade-in" style="display:flex;flex-direction:column;align-items:center;gap:32px;">
@@ -3011,11 +3008,13 @@
                 </div>
             </div>
         </section>
-        END HIDDEN -->
 
         <section class="work-section" id="archive">
             <div class="section-inner">
+                <div class="section-label fade-in" id="archiveToggle">Archive</div>
+                
                 <div class="archive-content expanded">
+                    <div class="divider cinematography-divider" style="margin: 2rem auto; max-width: 200px;"></div>
                     <div class="section-label fade-in cinematography-pill" id="cinematographyToggle" style="margin: 2rem auto;">Cinematography</div>
 
                 <div class="cinematography-content">
@@ -3586,8 +3585,8 @@
                 window.requestAnimationFrame(() => {
                     const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
                     
-                    // Archive collapse logic - disabled for job application version
-                    // (keep archive always expanded)
+                    // Archive collapse logic - disabled, keep always expanded
+                    // Archive stays open regardless of scroll position
 
                     // Make elements disappear when more than 50% off screen
                     const scrollFadeEnabled = true;
