@@ -3043,17 +3043,24 @@
                 #on-monism .shelf.selecting .slot.selected .trilogy-label { opacity: 0; }
                 #on-monism .trilogy-detail {
                     max-width: 600px;
-                    margin: -60px auto 0;
+                    margin: 0 auto;
                     text-align: center;
                     opacity: 0;
                     transform: translateY(24px);
                     pointer-events: none;
-                    transition: opacity 0.8s cubic-bezier(0.22,1,0.36,1), transform 0.8s cubic-bezier(0.22,1,0.36,1);
+                    max-height: 0;
+                    overflow: hidden;
+                    transition: opacity 0.8s cubic-bezier(0.22,1,0.36,1),
+                                transform 0.8s cubic-bezier(0.22,1,0.36,1),
+                                max-height 0.8s cubic-bezier(0.22,1,0.36,1),
+                                margin 0.8s cubic-bezier(0.22,1,0.36,1);
                 }
                 #on-monism .trilogy-detail.visible {
                     opacity: 1;
                     transform: translateY(0);
                     pointer-events: auto;
+                    max-height: 1200px;
+                    margin: -60px auto 0;
                     transition-delay: 0.3s;
                 }
                 #on-monism .trilogy-detail .title {
