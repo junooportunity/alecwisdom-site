@@ -2991,7 +2991,7 @@
                     display: flex;
                     flex-direction: column;
                     align-items: center;
-                    gap: 10px;
+                    gap: 0;
                     transition: opacity 0.7s cubic-bezier(0.22,1,0.36,1),
                                 transform 0.9s cubic-bezier(0.22,1,0.36,1),
                                 max-width 0.9s cubic-bezier(0.22,1,0.36,1),
@@ -3010,7 +3010,7 @@
                 #on-monism .slot model-viewer::part(default-progress-bar) { display: none; }
                 #on-monism .slot model-viewer:focus,
                 #on-monism .slot model-viewer:focus-visible { outline: none; box-shadow: none; }
-                #on-monism .slot .trilogy-label { text-align: center; transition: opacity 0.4s cubic-bezier(0.22,1,0.36,1); }
+                #on-monism .slot .trilogy-label { text-align: center; transition: opacity 0.4s cubic-bezier(0.22,1,0.36,1); margin-top: -60px; }
                 #on-monism .slot .trilogy-label .title {
                     font-size: 0.8rem;
                     letter-spacing: 0.18em;
@@ -3043,7 +3043,7 @@
                 #on-monism .shelf.selecting .slot.selected .trilogy-label { opacity: 0; }
                 #on-monism .trilogy-detail {
                     max-width: 600px;
-                    margin: 16px auto 0;
+                    margin: -60px auto 0;
                     text-align: center;
                     opacity: 0;
                     transform: translateY(24px);
@@ -3117,9 +3117,13 @@
                     #on-monism .slot model-viewer { width: 340px; height: 440px; }
                     #on-monism .shelf.selecting .slot.selected model-viewer { width: 460px; height: 580px; }
                 }
+                @media (max-width: 1280px) {
+                    #on-monism .slot .trilogy-label { margin-top: -50px; }
+                }
                 @media (max-width: 900px) {
                     #on-monism .slot model-viewer { width: 240px; height: 320px; }
                     #on-monism .shelf.selecting .slot.selected model-viewer { width: 320px; height: 420px; }
+                    #on-monism .slot .trilogy-label { margin-top: -36px; }
                     #on-monism .slot .trilogy-label .title { font-size: 0.7rem; letter-spacing: 0.15em; }
                     #on-monism .slot .trilogy-label .sub,
                     #on-monism .slot .trilogy-label .pages { font-size: 0.54rem; letter-spacing: 0.18em; }
@@ -3127,6 +3131,7 @@
                 @media (max-width: 640px) {
                     #on-monism .slot model-viewer { width: 150px; height: 200px; }
                     #on-monism .shelf.selecting .slot.selected model-viewer { width: 260px; height: 340px; }
+                    #on-monism .slot .trilogy-label { margin-top: -22px; }
                     #on-monism .slot .trilogy-label .title { font-size: 0.58rem; letter-spacing: 0.12em; }
                     #on-monism .slot .trilogy-label .sub,
                     #on-monism .slot .trilogy-label .pages { font-size: 0.48rem; letter-spacing: 0.16em; }
@@ -3134,6 +3139,7 @@
                 @media (max-width: 420px) {
                     #on-monism .slot model-viewer { width: 115px; height: 155px; }
                     #on-monism .shelf.selecting .slot.selected model-viewer { width: 220px; height: 290px; }
+                    #on-monism .slot .trilogy-label { margin-top: -16px; }
                 }
             </style>
             <div class="section-inner">
