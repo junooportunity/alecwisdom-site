@@ -2967,7 +2967,7 @@
         </section>
 
         <!-- The Noetic Trilogy -->
-        <section class="work-section" id="on-monism" style="padding: 6rem 32px 3rem 32px;">
+        <section class="work-section" id="on-monism" style="padding: 6rem 32px 0.5rem 32px;">
             <style>
                 #on-monism .trilogy-hint {
                     font-size: 0.6rem;
@@ -3118,13 +3118,22 @@
                     #on-monism .shelf.selecting .slot.selected model-viewer { width: 460px; height: 580px; }
                 }
                 @media (max-width: 900px) {
-                    #on-monism .shelf { flex-direction: column; align-items: center; gap: 16px; }
-                    #on-monism .slot model-viewer { width: 300px; height: 400px; }
-                    #on-monism .shelf.selecting .slot.selected model-viewer { width: 340px; height: 440px; }
-                    #on-monism .shelf.selecting .slot:not(.selected) { max-width: 0; max-height: 0; margin: 0; }
+                    #on-monism .slot model-viewer { width: 240px; height: 320px; }
+                    #on-monism .shelf.selecting .slot.selected model-viewer { width: 320px; height: 420px; }
+                    #on-monism .slot .trilogy-label .title { font-size: 0.7rem; letter-spacing: 0.15em; }
+                    #on-monism .slot .trilogy-label .sub,
+                    #on-monism .slot .trilogy-label .pages { font-size: 0.54rem; letter-spacing: 0.18em; }
                 }
-                @media (max-width: 480px) {
-                    #on-monism .slot model-viewer { width: 260px; height: 340px; }
+                @media (max-width: 640px) {
+                    #on-monism .slot model-viewer { width: 150px; height: 200px; }
+                    #on-monism .shelf.selecting .slot.selected model-viewer { width: 260px; height: 340px; }
+                    #on-monism .slot .trilogy-label .title { font-size: 0.58rem; letter-spacing: 0.12em; }
+                    #on-monism .slot .trilogy-label .sub,
+                    #on-monism .slot .trilogy-label .pages { font-size: 0.48rem; letter-spacing: 0.16em; }
+                }
+                @media (max-width: 420px) {
+                    #on-monism .slot model-viewer { width: 115px; height: 155px; }
+                    #on-monism .shelf.selecting .slot.selected model-viewer { width: 220px; height: 290px; }
                 }
             </style>
             <div class="section-inner">
@@ -3262,7 +3271,7 @@
         </section>
 
         <!-- Monos Pros Monon Logo -->
-        <section class="work-section" id="monos-logo-section" style="padding-top: 4rem; padding-bottom: 2rem;">
+        <section class="work-section" id="monos-logo-section" style="padding-top: 1rem; padding-bottom: 1rem;">
             <div class="section-inner">
                 <div class="logo-wrapper fade-in" style="margin: 0 auto; padding: 0 48px;">
                     <a href="https://monosprosmonon.com" target="_blank">
