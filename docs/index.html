@@ -3001,7 +3001,7 @@
                 }
                 #on-monism .slot model-viewer {
                     width: 420px;
-                    height: 540px;
+                    height: 460px;
                     background: transparent;
                     --poster-color: transparent;
                     transition: width 0.9s cubic-bezier(0.22,1,0.36,1),
@@ -3011,7 +3011,7 @@
                 #on-monism .slot model-viewer::part(default-progress-bar) { display: none; }
                 #on-monism .slot model-viewer:focus,
                 #on-monism .slot model-viewer:focus-visible { outline: none; box-shadow: none; }
-                #on-monism .slot .trilogy-label { text-align: center; transition: opacity 0.4s cubic-bezier(0.22,1,0.36,1); margin-top: -60px; }
+                #on-monism .slot .trilogy-label { text-align: center; transition: opacity 0.4s cubic-bezier(0.22,1,0.36,1); margin-top: 4px; }
                 #on-monism .slot .trilogy-label .title {
                     font-size: 0.8rem;
                     letter-spacing: 0.18em;
@@ -3122,31 +3122,29 @@
                 #on-monism.trilogy-selecting .section-label { opacity: 0.4; transition: opacity 0.5s cubic-bezier(0.22,1,0.36,1); }
                 #on-monism.trilogy-selecting .trilogy-hint { opacity: 0; transition: opacity 0.4s cubic-bezier(0.22,1,0.36,1); }
                 @media (max-width: 1280px) {
-                    #on-monism .slot model-viewer { width: 340px; height: 440px; }
-                    #on-monism .shelf.selecting .slot.selected model-viewer { width: 460px; height: 580px; }
-                }
-                @media (max-width: 1280px) {
-                    #on-monism .slot .trilogy-label { margin-top: -50px; }
+                    #on-monism .slot model-viewer { width: 340px; height: 380px; }
+                    #on-monism .shelf.selecting .slot.selected model-viewer { width: 460px; height: 500px; }
+                    #on-monism .slot .trilogy-label { margin-top: 4px; }
                 }
                 @media (max-width: 900px) {
-                    #on-monism .slot model-viewer { width: 240px; height: 320px; }
-                    #on-monism .shelf.selecting .slot.selected model-viewer { width: 320px; height: 420px; }
-                    #on-monism .slot .trilogy-label { margin-top: -36px; }
+                    #on-monism .slot model-viewer { width: 240px; height: 270px; }
+                    #on-monism .shelf.selecting .slot.selected model-viewer { width: 320px; height: 360px; }
+                    #on-monism .slot .trilogy-label { margin-top: 4px; }
                     #on-monism .slot .trilogy-label .title { font-size: 0.7rem; letter-spacing: 0.15em; }
                     #on-monism .slot .trilogy-label .sub,
                     #on-monism .slot .trilogy-label .pages { font-size: 0.54rem; letter-spacing: 0.18em; }
                 }
                 @media (max-width: 640px) {
-                    #on-monism .slot model-viewer { width: 150px; height: 200px; }
-                    #on-monism .shelf.selecting .slot.selected model-viewer { width: 260px; height: 340px; }
+                    #on-monism .slot model-viewer { width: 150px; height: 170px; }
+                    #on-monism .shelf.selecting .slot.selected model-viewer { width: 260px; height: 290px; }
                     #on-monism .slot .trilogy-label { margin-top: 4px; }
                     #on-monism .slot .trilogy-label .title { font-size: 0.58rem; letter-spacing: 0.12em; }
                     #on-monism .slot .trilogy-label .sub,
                     #on-monism .slot .trilogy-label .pages { font-size: 0.48rem; letter-spacing: 0.16em; }
                 }
                 @media (max-width: 420px) {
-                    #on-monism .slot model-viewer { width: 115px; height: 155px; }
-                    #on-monism .shelf.selecting .slot.selected model-viewer { width: 220px; height: 290px; }
+                    #on-monism .slot model-viewer { width: 115px; height: 130px; }
+                    #on-monism .shelf.selecting .slot.selected model-viewer { width: 220px; height: 245px; }
                     #on-monism .slot .trilogy-label { margin-top: 6px; }
                 }
             </style>
@@ -3241,9 +3239,9 @@
                         monism: { title: "On Monism", sub: "Book I", pages: "360 Pages",
                             blurb: "On Monism traces Plato's reorientation as the fracture of an older, unified mode of knowing, and follows the consequences of that division through the history of Western thought. In the age of artificial intelligence, it marks the possibility of a return to monism as the quiet reemergence of a deeper coherence beneath analysis." },
                         gnosis: { title: "On Gnosis", sub: "Book II", pages: "180 Pages",
-                            blurb: "On Gnosis traces the three rejections — orthodox, rationalist, commercial — by which the West has pushed a specific mode of knowing outside the boundaries of legitimate inquiry. In the age of spiritual marketplaces and enlightenment-as-achievement, it returns to a recognition that cannot be routinized or sold: a knowing that is given rather than attained, and that every institutional form has eventually had to eject." },
+                            blurb: "On Gnosis argues that a specific mode of knowing has been expelled from Western inquiry three times over — by Christian orthodoxy, by Enlightenment rationality, and by the contemporary spiritual marketplace that kept the word and discarded the content. In the age of enlightenment-as-purchase, it recovers what each expulsion refused: a recognition that is received rather than attained, and which no institution can transmit without dissolving into it." },
                         logos:  { title: "On Logos",  sub: "Book III", pages: "90 Pages",
-                            blurb: "On Logos traces the three kidnaps of the word — Stoic, Christian, computational — that have progressively narrowed what it was built to carry. In the age of large language models, it recovers Heraclitus's older sense: that the world is already speaking, that pattern is already gathering, and that the human task is not to produce logos but to become capable of hearing it." }
+                            blurb: "What the Stoics systematized, what John made flesh, and what computation now flattens into statistical output, Heraclitus named first: logos as the world's own gathering, audible only to the one who has stopped producing speech. On Logos argues that each capture has narrowed the word without exhausting it — and that large language models are the most consequential reduction yet, a surface of speech at industrial scale, sold as depth to a generation no longer taught the difference." }
                     };
                     const section = document.getElementById("on-monism");
                     const shelf = document.getElementById("trilogy-shelf");
