@@ -508,6 +508,10 @@
             transition: transform 2.0s ease-out;
         }
 
+        #narrative .section-inner {
+            max-width: 1125px;
+        }
+
         #narrative .section-label {
             margin-top: 100px;
             margin-bottom: 100px;
@@ -1219,6 +1223,12 @@
             max-width: 350px;
             margin: 0 auto;
             padding: 0 1rem;
+        }
+
+        .book-modal-blurb {
+            text-align: left;
+            text-indent: 2em;
+            max-width: 380px;
         }
 
         .film-modal-cta {
@@ -2892,7 +2902,7 @@
     <!-- Nav -->
     <nav class="nav">
         <a href="#bio-section">Bio</a>
-        <a href="#narrative">Narrative</a>
+        <a href="#narrative">Work</a>
         <a href="#archive">Archive</a>
     </nav>
 
@@ -2934,41 +2944,8 @@
             </div>
         </section>
 
-        <!-- Narrative -->
-        <section class="work-section" id="narrative">
-            <div class="section-inner">
-                <div class="section-label fade-in">Narrative</div>
-                <div class="narrative-content">
-
-                <div class="poster-grid fade-in">
-                    <div class="poster-item" data-modal="unsayingModal">
-                        <div class="glass-frame poster-glass-frame">
-                            <div class="glass-inner">
-                                <img src="Images/Posters/An Unsaying.webp" alt="An Unsaying" class="poster-image" loading="eager">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="poster-item" data-modal="jewelModal">
-                        <div class="glass-frame poster-glass-frame">
-                            <div class="glass-inner">
-                                <img src="Images/Posters/Jewel of the Silent Plain.webp" alt="Jewel of the Silent Plain" class="poster-image" loading="eager">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="poster-item" data-modal="groundwaterModal">
-                        <div class="glass-frame poster-glass-frame">
-                            <div class="glass-inner">
-                                <img src="Images/Posters/Groundwater.webp" alt="Groundwater" class="poster-image" loading="eager">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                </div>
-            </div>
-        </section>
-
         <!-- The Kénōsis Trilogy -->
-        <section class="work-section" id="on-monism" style="padding: 6rem 32px 0 32px;">
+        <section class="work-section" id="on-monism" style="padding: 6rem 32px 1rem 32px;">
             <style>
                 #on-monism .trilogy-hint {
                     font-size: 0.6rem;
@@ -3009,8 +2986,8 @@
                     max-width: 460px;
                 }
                 #on-monism .slot model-viewer {
-                    width: 420px;
-                    height: 540px;
+                    width: 400px;
+                    height: 520px;
                     background: transparent;
                     --poster-color: transparent;
                     transition: width 0.9s cubic-bezier(0.22,1,0.36,1),
@@ -3054,8 +3031,8 @@
                     max-width: none;
                 }
                 #on-monism .shelf.selecting .slot.selected model-viewer {
-                    width: 520px;
-                    height: 660px;
+                    width: 500px;
+                    height: 640px;
                 }
                 #on-monism .shelf.selecting .slot.selected .trilogy-label { opacity: 0; }
                 #on-monism .trilogy-detail {
@@ -3176,7 +3153,7 @@
                     <p class="trilogy-hint">Releasing Free &#8212; 2026</p>
 
                     <div class="shelf fade-in" id="trilogy-shelf">
-                        <div class="slot" data-id="monism">
+                        <div class="slot" data-id="monism" data-modal="monismModal">
                             <model-viewer
                                 src="monos-pros-monon/trilogy-monism.glb?v=1"
                                 alt="On Monism"
@@ -3199,7 +3176,7 @@
                             </div>
                         </div>
 
-                        <div class="slot" data-id="gnosis">
+                        <div class="slot" data-id="gnosis" data-modal="gnosisModal">
                             <model-viewer
                                 src="monos-pros-monon/trilogy-gnosis.glb?v=1"
                                 alt="On Gnosis"
@@ -3222,7 +3199,7 @@
                             </div>
                         </div>
 
-                        <div class="slot" data-id="logos">
+                        <div class="slot" data-id="logos" data-modal="logosModal">
                             <model-viewer
                                 src="monos-pros-monon/trilogy-logos.glb?v=1"
                                 alt="On Logos"
@@ -3246,68 +3223,45 @@
                         </div>
                     </div>
 
-                    <div class="trilogy-detail" id="trilogy-detail">
-                        <p class="title" id="trilogy-detail-title"></p>
-                        <p class="sub" id="trilogy-detail-sub"></p>
-                        <p class="pages" id="trilogy-detail-pages"></p>
-                        <div class="blurb"><p id="trilogy-detail-blurb"></p></div>
-                        <button class="back" id="trilogy-back-btn">&larr; Back</button>
-                    </div>
                 </div>
             </div>
-            <script>
-                (function() {
-                    const TRILOGY_BOOKS = {
-                        monism: { title: "On Monism", sub: "Book I", pages: "360 Pages",
-                            blurb: "On Monism traces Plato's reorientation as the fracture of an older, unified mode of Being, and follows the consequences of that division through the history of Western thought. In the age of artificial intelligence, it marks the possibility of a return to monism as the quiet reemergence of a deeper coherence beneath analysis." },
-                        gnosis: { title: "On Gnosis", sub: "Book II", pages: "180 Pages",
-                            blurb: "On Gnosis takes its name from the sixth Ancient Greek word for knowing, the only one without an English equivalent. What that word names is not accumulation but a stripping away: the via negativa in psychological form. It asks what that annihilation costs, against a market that sells the additive illusion of enlightenment-as-achievement." },
-                        logos:  { title: "On Logos",  sub: "Book III", pages: "90 Pages",
-                            blurb: "On Logos recovers the word Heraclitus placed in a temple at Ephesus, knowing most would walk past. It imbibes the patterning through which the world speaks itself into intelligibility, prior to any speaker. The Stoics made it a principle, John made it a person, computation has made it a product. Large language models are its latest reduction: a surface of speech at industrial scale, mistaken for depth by a generation no longer taught to hear." }
-                    };
-                    const section = document.getElementById("on-monism");
-                    const shelf = document.getElementById("trilogy-shelf");
-                    const detail = document.getElementById("trilogy-detail");
-                    let selectedId = null;
-                    function selectBook(id) {
-                        if (selectedId) return;
-                        selectedId = id;
-                        shelf.classList.add("selecting");
-                        section.classList.add("trilogy-selecting");
-                        shelf.querySelectorAll(".slot").forEach(s => {
-                            if (s.dataset.id === id) s.classList.add("selected");
-                        });
-                        setTimeout(() => {
-                            const b = TRILOGY_BOOKS[id];
-                            document.getElementById("trilogy-detail-title").textContent = b.title;
-                            document.getElementById("trilogy-detail-sub").textContent = b.sub;
-                            document.getElementById("trilogy-detail-pages").textContent = b.pages;
-                            document.getElementById("trilogy-detail-blurb").textContent = b.blurb;
-                            detail.classList.add("visible");
-                        }, 350);
-                    }
-                    function reset() {
-                        if (!selectedId) return;
-                        detail.classList.remove("visible");
-                        shelf.classList.remove("selecting");
-                        section.classList.remove("trilogy-selecting");
-                        shelf.querySelectorAll(".slot").forEach(s => s.classList.remove("selected"));
-                        selectedId = null;
-                    }
-                    shelf.querySelectorAll(".slot").forEach(slot => {
-                        slot.addEventListener("click", () => {
-                            if (slot.classList.contains("selected")) return;
-                            selectBook(slot.dataset.id);
-                        });
-                    });
-                    document.getElementById("trilogy-back-btn").addEventListener("click", reset);
-                    document.addEventListener("keydown", e => { if (e.key === "Escape" && selectedId) reset(); });
-                })();
-            </script>
+        </section>
+
+        <!-- Narrative -->
+        <section class="work-section" id="narrative">
+            <div class="section-inner">
+                <div class="section-label fade-in">Narrative</div>
+                <div class="narrative-content">
+
+                <div class="poster-grid fade-in">
+                    <div class="poster-item" data-modal="unsayingModal">
+                        <div class="glass-frame poster-glass-frame">
+                            <div class="glass-inner">
+                                <img src="Images/Posters/An Unsaying.webp" alt="An Unsaying" class="poster-image" loading="eager">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="poster-item" data-modal="jewelModal">
+                        <div class="glass-frame poster-glass-frame">
+                            <div class="glass-inner">
+                                <img src="Images/Posters/Jewel of the Silent Plain.webp" alt="Jewel of the Silent Plain" class="poster-image" loading="eager">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="poster-item" data-modal="groundwaterModal">
+                        <div class="glass-frame poster-glass-frame">
+                            <div class="glass-inner">
+                                <img src="Images/Posters/Groundwater.webp" alt="Groundwater" class="poster-image" loading="eager">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
         </section>
 
         <!-- Monos Pros Monon Logo -->
-        <section class="work-section" id="monos-logo-section" style="padding-top: 24px; padding-bottom: 1rem;">
+        <section class="work-section" id="monos-logo-section" style="padding-top: 4rem; padding-bottom: 1rem;">
             <div class="section-inner">
                 <div class="logo-wrapper fade-in" style="margin: 0 auto; padding: 0 48px;">
                     <a href="https://monosprosmonon.com" target="_blank">
@@ -3509,6 +3463,39 @@
             <p class="film-modal-logline">In pursuit of a trafficking ring, an HSI agent unearths a morgue technician's demonic rite.</p>
             <a href="Images/PDFs/Alec Wisdom - Groundwater.pdf" target="_blank" class="film-modal-cta">Read Script</a>
             <button class="film-modal-cta pitch-deck-trigger" data-project="Groundwater" data-logo="Images/Logos/groundwater-title-cropped.png">Pitch Deck</button>
+            <div class="film-modal-divider"></div>
+            <p class="film-modal-copyright">© 2026 Monos Pros Monon</p>
+        </div>
+    </div>
+
+    <!-- Kénōsis Trilogy: On Monism -->
+    <div class="video-modal film-modal" id="monismModal">
+        <div class="video-modal-content">
+            <p class="film-modal-type">On Monism</p>
+            <div class="film-modal-divider"></div>
+            <p class="film-modal-logline book-modal-blurb">On Monism traces Plato's reorientation as the fracture of an older, unified mode of Being, and follows the consequences of that division through the history of Western thought. In the age of artificial intelligence, it marks the possibility of a return to monism as the quiet reemergence of a deeper coherence beneath analysis.</p>
+            <div class="film-modal-divider"></div>
+            <p class="film-modal-copyright">© 2026 Monos Pros Monon</p>
+        </div>
+    </div>
+
+    <!-- Kénōsis Trilogy: On Gnosis -->
+    <div class="video-modal film-modal" id="gnosisModal">
+        <div class="video-modal-content">
+            <p class="film-modal-type">On Gnosis</p>
+            <div class="film-modal-divider"></div>
+            <p class="film-modal-logline book-modal-blurb">On Gnosis takes its name from the sixth Ancient Greek word for knowing, the only one without an English equivalent. What that word names is not accumulation but a stripping away: the via negativa in psychological form. It asks what that annihilation costs, against a market that sells the additive illusion of enlightenment-as-achievement.</p>
+            <div class="film-modal-divider"></div>
+            <p class="film-modal-copyright">© 2026 Monos Pros Monon</p>
+        </div>
+    </div>
+
+    <!-- Kénōsis Trilogy: On Logos -->
+    <div class="video-modal film-modal" id="logosModal">
+        <div class="video-modal-content">
+            <p class="film-modal-type">On Logos</p>
+            <div class="film-modal-divider"></div>
+            <p class="film-modal-logline book-modal-blurb">On Logos recovers the word Heraclitus placed in a temple at Ephesus, knowing most would walk past. It imbibes the patterning through which the world speaks itself into intelligibility, prior to any speaker. The Stoics made it a principle, John made it a person, computation has made it a product. Large language models are its latest reduction: a surface of speech at industrial scale, mistaken for depth by a generation no longer taught to hear.</p>
             <div class="film-modal-divider"></div>
             <p class="film-modal-copyright">© 2026 Monos Pros Monon</p>
         </div>
@@ -5280,7 +5267,10 @@
         const filmModals = {
             jewelModal: document.getElementById('jewelModal'),
             unsayingModal: document.getElementById('unsayingModal'),
-            groundwaterModal: document.getElementById('groundwaterModal')
+            groundwaterModal: document.getElementById('groundwaterModal'),
+            monismModal: document.getElementById('monismModal'),
+            gnosisModal: document.getElementById('gnosisModal'),
+            logosModal: document.getElementById('logosModal')
         };
 
         function openFilmModal(modalId) {
@@ -5312,6 +5302,14 @@
                 e.preventDefault();
                 const modalId = poster.getAttribute('data-modal');
                 openFilmModal(modalId);
+            });
+        });
+
+        // Trilogy book click handlers
+        document.querySelectorAll('#trilogy-shelf .slot[data-modal]').forEach(slot => {
+            slot.addEventListener('click', (e) => {
+                e.preventDefault();
+                openFilmModal(slot.getAttribute('data-modal'));
             });
         });
 
