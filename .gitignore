@@ -11,3 +11,6 @@ Images/on-monism/cover-pdf.png
 Images/on-monism/cover-bump.png
 monos-pros-monon/*.blend
 monos-pros-monon/Demo Book.blend
+
+# Local backups (not for repo)
+99_docs_backup_*/

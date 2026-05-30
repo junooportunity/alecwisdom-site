@@ -1,0 +1,14 @@
+# Node
+node_modules/
+
+# Environment
+.env
+.env.*
+!.env.example
+.env*.local
+
+# Vercel
+.vercel/
+
+# Secrets
+push_keys.js
