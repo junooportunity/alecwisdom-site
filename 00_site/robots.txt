@@ -1,7 +1,7 @@
 User-agent: *
 Allow: /$
-Disallow: /monos-pros-monon.html
-Disallow: /reading-list.html
-Disallow: /resources.html
+Disallow: /monos-pros-monon
+Disallow: /reading-list
+Disallow: /resources
 
-Sitemap: https://alecwisdom.com/sitemap.xml
+Sitemap: https://alecwisdom.com/00_pages/sitemap.xml
