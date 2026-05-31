@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Kénōsis Trilogy — Preview</title>
+<script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0a;
+    --fg: #f4f1ea;
+    --muted: #8a857c;
+    --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+  header {
+    padding: 4rem 2rem 2rem;
+    text-align: center;
+    transition: opacity 0.6s var(--ease);
+  }
+  header h1 {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 400;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    letter-spacing: 0.02em;
+  }
+  header p {
+    color: var(--muted);
+    font-size: 0.8rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    margin-top: 0.6rem;
+  }
+
+  main { position: relative; }
+
+  .shelf {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 0;
+    padding: 2rem 0;
+    max-width: 1500px;
+    margin: 0 auto;
+  }
+
+  .slot {
+    flex: 0 0 auto;
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    transition:
+      opacity 0.7s var(--ease),
+      transform 0.9s var(--ease),
+      max-width 0.9s var(--ease),
+      margin 0.9s var(--ease);
+    max-width: 420px;
+  }
+  .slot model-viewer {
+    width: 460px;
+    height: 600px;
+    background: transparent;
+    transition: width 0.9s var(--ease), height 0.9s var(--ease);
+    --min-hotspot-opacity: 0;
+  }
+  .slot .label {
+    text-align: center;
+    transition: opacity 0.4s var(--ease);
+  }
+  .slot .label .title {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1.5rem;
+    font-weight: 400;
+  }
+  .slot .label .subtitle {
+    color: var(--muted);
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    margin-top: 0.3rem;
+  }
+  .slot .label .pages {
+    color: var(--muted);
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    margin-top: 0.3rem;
+    opacity: 0.7;
+  }
+
+  .shelf.selecting .slot:not(.selected) {
+    opacity: 0;
+    transform: translateY(60px) scale(0.7);
+    pointer-events: none;
+    max-width: 0;
+    margin-left: -2rem;
+    margin-right: -2rem;
+  }
+  .shelf.selecting .slot.selected model-viewer {
+    width: 520px;
+    height: 660px;
+  }
+  .shelf.selecting .slot.selected .label {
+    opacity: 0;
+  }
+  body.selecting header { opacity: 0.4; }
+
+  .detail {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 1rem 2rem 6rem;
+    text-align: center;
+    opacity: 0;
+    transform: translateY(30px);
+    pointer-events: none;
+    transition: opacity 0.8s var(--ease), transform 0.8s var(--ease);
+  }
+  .detail.visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+    transition-delay: 0.3s;
+  }
+  .detail h2 {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 400;
+    font-size: 2.4rem;
+    letter-spacing: 0.02em;
+  }
+  .detail .sub {
+    color: var(--muted);
+    font-size: 0.75rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    margin: 0.4rem 0 2rem;
+  }
+  .detail p {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1.2rem;
+    line-height: 1.7;
+    color: var(--fg);
+    opacity: 0.9;
+    letter-spacing: 0.01em;
+  }
+  .detail .actions {
+    margin-top: 2.5rem;
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+  }
+  .detail button {
+    background: transparent;
+    border: 1px solid rgba(244, 241, 234, 0.25);
+    color: var(--fg);
+    padding: 0.8rem 2rem;
+    font-family: "Inter", sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.3s, border-color 0.3s;
+  }
+  .detail button:hover {
+    background: rgba(244, 241, 234, 0.06);
+    border-color: rgba(244, 241, 234, 0.5);
+  }
+
+  @media (max-width: 600px) {
+    .slot model-viewer { width: 260px; height: 340px; }
+    .shelf.selecting .slot.selected model-viewer { width: 320px; height: 420px; }
+  }
+</style>
+</head>
+<body>
+  <header>
+    <h1>The Kénōsis Trilogy</h1>
+    <p>Select a volume</p>
+  </header>
+
+  <main>
+    <section class="shelf" id="shelf">
+      <div class="slot" data-id="monism">
+        <model-viewer id="mv-monism"
+          src="books/on-monism.glb?v=6"
+          alt="On Monism"
+          camera-orbit="-38deg 82deg 0.72m"
+          camera-target="0m 0m 0m"
+          field-of-view="22deg"
+          min-field-of-view="22deg"
+          max-field-of-view="22deg"
+          interaction-prompt="none"
+          shadow-intensity="0"
+          exposure="1.3"
+          environment-image="neutral"
+          disable-zoom>
+        </model-viewer>
+        <div class="label">
+          <div class="title">On Monism</div>
+          <div class="subtitle">Book I</div>
+          <div class="pages">360 pages</div>
+        </div>
+      </div>
+
+      <div class="slot" data-id="gnosis">
+        <model-viewer id="mv-gnosis"
+          src="books/on-gnosis.glb?v=6"
+          alt="On Gnosis"
+          camera-orbit="-38deg 82deg 0.72m"
+          camera-target="0m 0m 0m"
+          field-of-view="22deg"
+          min-field-of-view="22deg"
+          max-field-of-view="22deg"
+          interaction-prompt="none"
+          shadow-intensity="0"
+          exposure="1.3"
+          environment-image="neutral"
+          disable-zoom>
+        </model-viewer>
+        <div class="label">
+          <div class="title">On Gnosis</div>
+          <div class="subtitle">Book II</div>
+          <div class="pages">180 pages</div>
+        </div>
+      </div>
+
+      <div class="slot" data-id="logos">
+        <model-viewer id="mv-logos"
+          src="books/on-logos.glb?v=6"
+          alt="On Logos"
+          camera-orbit="-38deg 82deg 0.72m"
+          camera-target="0m 0m 0m"
+          field-of-view="22deg"
+          min-field-of-view="22deg"
+          max-field-of-view="22deg"
+          interaction-prompt="none"
+          shadow-intensity="0"
+          exposure="1.3"
+          environment-image="neutral"
+          disable-zoom>
+        </model-viewer>
+        <div class="label">
+          <div class="title">On Logos</div>
+          <div class="subtitle">Book III</div>
+          <div class="pages">90 pages</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="detail" id="detail">
+      <h2 id="detail-title"></h2>
+      <div class="sub" id="detail-sub"></div>
+      <p id="detail-blurb"></p>
+      <div class="actions">
+        <button id="back-btn">← Back</button>
+      </div>
+    </section>
+  </main>
+
+<script>
+  const BOOKS = {
+    monism: {
+      title: "On Monism",
+      sub: "Book I",
+      blurb: "On Monism traces Plato's reorientation as the fracture of an older, unified mode of knowing, and follows the consequences of that division through the history of Western thought. In the age of artificial intelligence, it marks the possibility of a return to monism as the quiet reemergence of a deeper coherence beneath analysis."
+    },
+    gnosis: { title: "On Gnosis", sub: "Book II", blurb: "Description coming soon." },
+    logos:  { title: "On Logos",  sub: "Book III", blurb: "Description coming soon." }
+  };
+
+  const shelf = document.getElementById("shelf");
+  const detail = document.getElementById("detail");
+
+  let selectedId = null;
+
+  function selectBook(id) {
+    if (selectedId) return;
+    selectedId = id;
+    shelf.classList.add("selecting");
+    document.body.classList.add("selecting");
+    document.querySelectorAll(".slot").forEach(s => {
+      if (s.dataset.id === id) s.classList.add("selected");
+    });
+
+    const mv = document.getElementById(`mv-${id}`);
+    mv.setAttribute("camera-controls", "");
+
+    setTimeout(() => {
+      const b = BOOKS[id];
+      document.getElementById("detail-title").textContent = b.title;
+      document.getElementById("detail-sub").textContent = b.sub;
+      document.getElementById("detail-blurb").textContent = b.blurb;
+      detail.classList.add("visible");
+    }, 350);
+  }
+
+  function reset() {
+    if (!selectedId) return;
+    detail.classList.remove("visible");
+
+    const mv = document.getElementById(`mv-${selectedId}`);
+    mv.removeAttribute("camera-controls");
+    mv.cameraOrbit = "-38deg 82deg 0.72m";
+    mv.jumpCameraToGoal();
+
+    shelf.classList.remove("selecting");
+    document.body.classList.remove("selecting");
+    document.querySelectorAll(".slot").forEach(s => s.classList.remove("selected"));
+    selectedId = null;
+  }
+
+  document.querySelectorAll(".slot").forEach(slot => {
+    slot.addEventListener("click", () => {
+      if (slot.classList.contains("selected")) return;
+      selectBook(slot.dataset.id);
+    });
+  });
+
+  document.getElementById("back-btn").addEventListener("click", reset);
+  document.addEventListener("keydown", e => {
+    if (e.key === "Escape" && selectedId) reset();
+  });
+</script>
+</body>
+</html>

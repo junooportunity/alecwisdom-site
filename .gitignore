@@ -1,19 +1,17 @@
 *.blend
 *.blend1
 *.DS_Store
-Images/on-monism/build_cover.py
-Images/on-monism/back-cover-texture.png
-Images/on-monism/back-cover-new.png
-Images/on-monism/cover-front.png
-Images/on-monism/cover-front-new.png
-Images/on-monism/cover-front-linen.png
-Images/on-monism/cover-pdf.png
-Images/on-monism/cover-bump.png
-monos-pros-monon/*.blend
-monos-pros-monon/Demo Book.blend
+00_site/Images/on-monism/build_cover.py
+00_site/Images/on-monism/back-cover-texture.png
+00_site/Images/on-monism/back-cover-new.png
+00_site/Images/on-monism/cover-front.png
+00_site/Images/on-monism/cover-front-new.png
+00_site/Images/on-monism/cover-front-linen.png
+00_site/Images/on-monism/cover-pdf.png
+00_site/Images/on-monism/cover-bump.png
+00_site/monos-pros-monon/*.blend
+00_site/monos-pros-monon/Demo Book.blend
 
-# Local backups (not for repo)
-90_docs_backup_*/
-
-# Local tools (not for deploy)
+# Local-only (not for deploy/repo)
 02_tools/
+03_archive/
