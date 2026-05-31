@@ -13,4 +13,7 @@ monos-pros-monon/*.blend
 monos-pros-monon/Demo Book.blend
 
 # Local backups (not for repo)
-99_docs_backup_*/
+90_docs_backup_*/
+
+# Local tools (not for deploy)
+02_tools/
