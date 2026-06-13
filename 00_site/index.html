@@ -1251,6 +1251,7 @@
             box-shadow: 0px 6px var(--lg-outer-shadow-blur) rgba(0, 0, 0, 0.2);
             transition: all 0.2s ease;
         }
+        .film-modal-cta-disabled { opacity: 0.4; pointer-events: none; cursor: default; }
 
         .film-modal-cta::before {
             content: '';
@@ -3237,7 +3238,7 @@
                     <div class="poster-item" data-modal="knoxModal">
                         <div class="glass-frame poster-glass-frame">
                             <div class="glass-inner">
-                                <img src="01_images/Posters/Knox City.webp" alt="Knox City" class="poster-image" loading="eager">
+                                <img src="01_images/Posters/Knox City.webp?v=2" alt="Knox City" class="poster-image" loading="eager">
                             </div>
                         </div>
                     </div>
@@ -3438,13 +3439,13 @@
         <div class="video-modal-content">
             <div class="glass-frame modal-poster-frame">
                 <div class="glass-inner">
-                    <img src="01_images/Posters/Knox City.webp" alt="Knox City Poster" class="film-modal-poster">
+                    <img src="01_images/Posters/Knox City.webp?v=2" alt="Knox City Poster" class="film-modal-poster">
                 </div>
             </div>
             <p class="film-modal-type">Feature Screenplay</p>
             <div class="film-modal-divider"></div>
             <p class="film-modal-logline">A widower spends his final days in a flophouse on the Texas plains, painting his toenails between benders.</p>
-            <a href="01_images/PDFs/Knox City - Screenplay.pdf" target="_blank" class="film-modal-cta">Read Script</a>
+            <a class="film-modal-cta film-modal-cta-disabled" aria-disabled="true">Read Script</a>
             <button class="film-modal-cta pitch-deck-trigger" data-project="Knox City" data-logo="01_images/Logos/knox-city-title-cropped.png">Pitch Deck</button>
             <div class="film-modal-divider"></div>
             <p class="film-modal-copyright">© 2026 Monos Pros Monon</p>
