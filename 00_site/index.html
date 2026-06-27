@@ -478,6 +478,8 @@
         #on-monism, #on-monism .section-inner, #on-monism .section-inner > div {
             overflow: visible !important;
         }
+        /* Keep trilogy section hidden everywhere (beats mobile `section{display:flex!important}`) */
+        #on-monism { display: none !important; }
         .book-viewer model-viewer::part(default-progress-bar) {
             display: none;
         }
