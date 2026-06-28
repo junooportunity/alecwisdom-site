@@ -3430,7 +3430,7 @@
             <p class="film-modal-type">Feature Screenplay</p>
             <div class="film-modal-divider"></div>
             <p class="film-modal-logline">A bipolar sex worker steals $500,000 worth of fentanyl from the depths of the Texas Panhandle.</p>
-            <a href="01_images/PDFs/Alec Wisdom - Jewel of the Silent Plain.pdf" target="_blank" class="film-modal-cta">Read Script</a>
+            <button class="film-modal-cta pitch-deck-trigger" data-project="Jewel of the Silent Plain" data-logo="01_images/Logos/jewel-title-cropped.png" data-subject="Script Request">Read Script</button>
             <button class="film-modal-cta pitch-deck-trigger" data-project="Jewel of the Silent Plain" data-logo="01_images/Logos/jewel-title-cropped.png">Pitch Deck</button>
             <div class="film-modal-divider"></div>
             <p class="film-modal-copyright">© 2026 Monos Pros Monon</p>
@@ -3447,7 +3447,7 @@
             <p class="film-modal-type">Feature Screenplay</p>
             <div class="film-modal-divider"></div>
             <p class="film-modal-logline">A widower spends his final days in a flophouse on the Texas plains, painting his toenails between benders.</p>
-            <a class="film-modal-cta film-modal-cta-disabled" aria-disabled="true">Read Script</a>
+            <button class="film-modal-cta pitch-deck-trigger" data-project="Knox City" data-logo="01_images/Logos/knox-city-title-cropped.png" data-subject="Script Request">Read Script</button>
             <button class="film-modal-cta pitch-deck-trigger" data-project="Knox City" data-logo="01_images/Logos/knox-city-title-cropped.png">Pitch Deck</button>
             <div class="film-modal-divider"></div>
             <p class="film-modal-copyright">© 2026 Monos Pros Monon</p>
@@ -3464,7 +3464,7 @@
             <p class="film-modal-type">Feature Screenplay</p>
             <div class="film-modal-divider"></div>
             <p class="film-modal-logline">In pursuit of a trafficking ring, an HSI agent unearths a morgue technician's demonic rite.</p>
-            <a href="01_images/PDFs/Alec Wisdom - Groundwater.pdf" target="_blank" class="film-modal-cta">Read Script</a>
+            <button class="film-modal-cta pitch-deck-trigger" data-project="Groundwater" data-logo="01_images/Logos/groundwater-title-cropped.png" data-subject="Script Request">Read Script</button>
             <button class="film-modal-cta pitch-deck-trigger" data-project="Groundwater" data-logo="01_images/Logos/groundwater-title-cropped.png">Pitch Deck</button>
             <div class="film-modal-divider"></div>
             <p class="film-modal-copyright">© 2026 Monos Pros Monon</p>
@@ -3519,7 +3519,7 @@
             <img src="" alt="" class="film-modal-logo" id="pitchDeckLogo">
             <p class="pitch-deck-popup-subtitle">Enter your email to request</p>
             <form action="https://formsubmit.co/ajax/alecwisdom@gmail.com" method="POST" id="pitchDeckForm">
-                <input type="hidden" name="_subject" value="Pitch Deck Request">
+                <input type="hidden" name="_subject" id="pitchDeckSubject" value="Pitch Deck Request">
                 <input type="hidden" name="_captcha" value="false">
                 <input type="hidden" name="project" id="pitchDeckProjectInput">
                 <input type="email" name="email" placeholder="your@email.com" required>
@@ -5344,6 +5344,8 @@
                 pitchDeckLogo.src = logoSrc;
                 pitchDeckLogo.alt = projectName;
                 pitchDeckProjectInput.value = projectName;
+                const subjEl = document.getElementById('pitchDeckSubject');
+                if (subjEl) subjEl.value = trigger.getAttribute('data-subject') || 'Pitch Deck Request';
                 pitchDeckPopup.classList.add('active');
             });
         });
