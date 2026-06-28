@@ -3263,6 +3263,44 @@
             </div>
         </section>
 
+        <!-- The Corpus: Henōsis -->
+        <section class="work-section" id="corpus" style="padding: 5rem 32px 4rem 32px;">
+            <style>
+                #corpus .henosis-stage { display:flex; flex-direction:column; align-items:center; gap:22px; }
+                #corpus .henosis-book { cursor:pointer; transition: transform .4s cubic-bezier(.22,1,.36,1); }
+                #corpus .henosis-book:hover { transform: translateY(-6px); }
+                #corpus .henosis-book model-viewer { width:390px; height:530px; }
+                #corpus .henosis-book model-viewer::part(default-progress-bar){ display:none; }
+                @media (max-width:600px){ #corpus .henosis-book model-viewer { width:300px; height:410px; } }
+                .henosis-struct { font-family:'Times New Roman',Times,serif; font-size:0.62rem; text-transform:uppercase; letter-spacing:0.24em; color:rgba(255,255,255,0.35); margin:0.9rem 0 0.4rem; }
+                .henosis-toc { text-align:left; max-width:300px; margin:0 auto; }
+                .henosis-intro { font-family:'Times New Roman',Times,serif; font-size:0.9rem; font-style:italic; color:#cccccc; line-height:1.75; letter-spacing:0.3px; text-align:center; max-width:430px; margin:1rem auto 0; padding:0; }
+                .henosis-intro p { text-wrap: balance; text-indent:0; text-align:center; margin:0; }
+                .henosis-tri { margin-bottom:1.25rem; }
+                .henosis-tri:last-child { margin-bottom:0; }
+                .henosis-tri .tri-name { font-family:'Times New Roman',Times,serif; font-size:0.72rem; text-transform:uppercase; letter-spacing:0.22em; color:#cccccc; margin:0; }
+                .henosis-tri .tri-sub { font-family:'Times New Roman',Times,serif; font-size:0.6rem; font-style:italic; letter-spacing:0.06em; color:rgba(255,255,255,0.3); margin:2px 0 8px; }
+                .henosis-tri .tri-name { margin-bottom:8px; }
+                .henosis-tri .tri-book { font-family:'Times New Roman',Times,serif; font-size:0.72rem; color:#b9b9b9; letter-spacing:0.08em; margin:0 0 4px 1.4em; line-height:1.5; }
+            </style>
+            <div class="section-inner">
+                <div class="fade-in henosis-stage">
+                    <div class="section-label">Henōsis</div>
+                    <div class="poster-item henosis-book" data-modal="henosisModal">
+                        <model-viewer
+                            src="02_models/henosis.glb?v=1"
+                            alt="Henōsis"
+                            camera-orbit="-38deg 82deg 0.72m"
+                            camera-target="0m 0m 0m"
+                            field-of-view="22deg" min-field-of-view="22deg" max-field-of-view="22deg"
+                            interaction-prompt="none" shadow-intensity="0" exposure="1.3"
+                            environment-image="neutral" disable-zoom touch-action="pan-y"
+                        ></model-viewer>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- Monos Pros Monon Logo -->
         <section class="work-section" id="monos-logo-section" style="padding-top: 4rem; padding-bottom: 1rem;">
             <div class="section-inner">
@@ -3477,6 +3515,39 @@
             <p class="film-modal-type">On Monism</p>
             <div class="film-modal-divider"></div>
             <p class="film-modal-logline book-modal-blurb">On Monism traces Plato's reorientation as the fracture of an older, unified mode of Being, and follows the consequences of that division through the history of Western thought. In the age of artificial intelligence, it marks the possibility of a return to monism as the quiet reemergence of a deeper coherence beneath analysis.</p>
+            <div class="film-modal-divider"></div>
+            <p class="film-modal-copyright">© 2026 Monos Pros Monon</p>
+        </div>
+    </div>
+
+    <!-- The Corpus: Henōsis -->
+    <div class="video-modal film-modal" id="henosisModal">
+        <div class="video-modal-content">
+            <p class="film-modal-type">Henōsis</p>
+            <p class="film-modal-type" style="color:rgba(255,255,255,0.4); margin-top:1.1rem;">Releasing Free &#8212; 2026</p>
+            <p class="henosis-struct">Nine Books &#183; Sixty-Three Essays</p>
+            <div class="bio-extended henosis-intro" style="max-width:420px; margin:1rem auto 0;"><p>Henōsis circles lost ways of experience prior to reason dividing the watcher from the watched. The West spent two thousand years forgetting the union. Nine books lead back to where the two are one again.</p></div>
+            <div class="film-modal-divider"></div>
+            <div class="henosis-toc">
+                <div class="henosis-tri">
+                    <p class="tri-name">I &#183; Kénōsis</p>
+                    <p class="tri-book">On Monism</p>
+                    <p class="tri-book">On Gnosis</p>
+                    <p class="tri-book">On Logos</p>
+                </div>
+                <div class="henosis-tri">
+                    <p class="tri-name">II &#183; Apophasis</p>
+                    <p class="tri-book">On Negation</p>
+                    <p class="tri-book">On Absence</p>
+                    <p class="tri-book">On Death</p>
+                </div>
+                <div class="henosis-tri">
+                    <p class="tri-name">III &#183; Poesis</p>
+                    <p class="tri-book">On Cinema</p>
+                    <p class="tri-book">On Myth</p>
+                    <p class="tri-book">On Form</p>
+                </div>
+            </div>
             <div class="film-modal-divider"></div>
             <p class="film-modal-copyright">© 2026 Monos Pros Monon</p>
         </div>
@@ -5272,6 +5343,7 @@
             knoxModal: document.getElementById('knoxModal'),
             groundwaterModal: document.getElementById('groundwaterModal'),
             monismModal: document.getElementById('monismModal'),
+            henosisModal: document.getElementById('henosisModal'),
             gnosisModal: document.getElementById('gnosisModal'),
             logosModal: document.getElementById('logosModal')
         };
