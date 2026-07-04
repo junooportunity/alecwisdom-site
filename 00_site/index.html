@@ -622,13 +622,14 @@
         .bio-content {
             max-height: 0;
             overflow: hidden;
-            /* max-height is set to the real content height in JS, so this duration
-               is the actual visible unfold — even, not front-loaded. */
-            transition: max-height 1.1s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.8s ease;
+            /* Space opens quickly; the long opacity fade is the dominant motion, so
+               the bio fades ON and down rather than mechanically unfolding. */
+            transition: max-height 0.9s cubic-bezier(0.4, 0, 0.2, 1), opacity 1.8s ease;
             opacity: 0;
         }
 
         .bio-content.expanded {
+            max-height: 2000px;
             opacity: 1;
         }
 
@@ -2918,7 +2919,7 @@
             body.hero-scrolled .portrait-container img { width: 240px !important; }
             #bio-section #bioToggle { margin-top: 24px !important; }
             .nav { transition: transform 1.2s ease, opacity 1.2s ease, width 1.2s cubic-bezier(0.4, 0, 0.2, 1) !important; }
-            body:not(.hero-scrolled) .nav { width: min(80vw, 340px) !important; }
+            body:not(.hero-scrolled) .nav { width: calc(min(80vw, 340px) + 14px) !important; }
             body.hero-scrolled .nav { width: 257px !important; }
         }
 
@@ -2941,7 +2942,7 @@
     <!-- Nav -->
     <nav class="nav">
         <a href="#bio-section">Bio</a>
-        <a href="#on-monism">Work</a>
+        <a href="#narrative">Work</a>
         <a href="#archive">Archive</a>
     </nav>
 
@@ -3921,15 +3922,7 @@
         let bioManual = false; // becomes true once the user taps the pill
 
         function setBioExpanded(on) {
-            if (!bioContent) return;
-            const isOpen = bioContent.classList.contains('expanded');
-            if (on && !isOpen) {
-                bioContent.classList.add('expanded');
-                bioContent.style.maxHeight = bioContent.scrollHeight + 'px';
-            } else if (!on && isOpen) {
-                bioContent.classList.remove('expanded');
-                bioContent.style.maxHeight = '';
-            }
+            if (bioContent) bioContent.classList.toggle('expanded', on);
         }
 
         if (bioToggle && bioContent) {
@@ -3960,13 +3953,19 @@
                     bioScrollTicking = false;
                 });
             }, { passive: true });
+        }
 
-            // Keep the open height correct if the viewport resizes
-            window.addEventListener('resize', () => {
-                if (bioContent.classList.contains('expanded')) {
-                    bioContent.style.maxHeight = bioContent.scrollHeight + 'px';
-                }
-            }, { passive: true });
+        // Nav pills open their sections' accordions
+        const navBioLink = document.querySelector('.nav a[href="#bio-section"]');
+        if (navBioLink) {
+            navBioLink.addEventListener('click', () => { bioManual = true; setBioExpanded(true); });
+        }
+        const navArchiveLink = document.querySelector('.nav a[href="#archive"]');
+        if (navArchiveLink) {
+            navArchiveLink.addEventListener('click', () => {
+                const ac = document.querySelector('.archive-content');
+                if (ac) setTimeout(() => ac.classList.add('expanded'), 650);
+            });
         }
 
         // Narrative toggle functionality
@@ -4147,8 +4146,16 @@
                             }
                         }
                         
+                        // Bio blurb/extended follow the accordion's own fade — exempt from scroll-ghosting
+                        if (el.closest('.bio-content')) {
+                            el.style.opacity = '';
+                            el.style.transform = '';
+                            el.classList.remove('push-up', 'push-down', 'fade-out');
+                            return;
+                        }
+
                         // Skip portrait/headshot - exempt from fade rules
-                        if (el.closest('.portrait-container') || 
+                        if (el.closest('.portrait-container') ||
                             (el.tagName === 'IMG' && el.closest('.portrait-container'))) {
                             el.style.opacity = '';
                             el.style.transform = '';
