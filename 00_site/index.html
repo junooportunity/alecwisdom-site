@@ -2915,8 +2915,9 @@
         }
         body:not(.hero-scrolled) .portrait-container img { width: min(72vw, 430px); }
         body.hero-scrolled .portrait-container img { width: 360px; }
-        /* Nav opens as wide as the large portrait, then settles to compact on scroll */
-        body:not(.hero-scrolled) .nav { width: min(72vw, 430px); }
+        /* Nav opens as wide as the portrait container (image + frame padding),
+           then settles to compact on scroll */
+        body:not(.hero-scrolled) .nav { width: calc(min(72vw, 430px) + 22px); }
         body.hero-scrolled .nav { width: 380px; }
         /* Bio pill drops a little lower under the title */
         #bioToggle { margin-top: 34px !important; }
