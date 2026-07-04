@@ -618,18 +618,18 @@
             transition: max-height 0.5s ease-in, opacity 0.3s ease-in;
         }
 
-        /* Bio accordion */
+        /* Bio accordion — eased to match the scroll-ghosting cadence */
         .bio-content {
             max-height: 0;
             overflow: hidden;
-            transition: max-height 1.2s ease-out, opacity 1.0s ease-out;
+            transition: max-height 2.4s cubic-bezier(0.22,1,0.36,1), opacity 1.4s cubic-bezier(0.22,1,0.36,1);
             opacity: 0;
         }
 
         .bio-content.expanded {
             max-height: 2000px;
             opacity: 1;
-            transition: max-height 0.5s ease-in, opacity 0.3s ease-in;
+            transition: max-height 2.4s cubic-bezier(0.22,1,0.36,1), opacity 1.4s cubic-bezier(0.22,1,0.36,1);
         }
 
         #bio-section .section-label {
@@ -2886,6 +2886,31 @@
             }
         }
 
+        /* ===== Hero first screen: fills the viewport so Narrative/posters
+           sit below the fold on open. Portrait is large at rest and eases
+           to its native size once the user scrolls; bio accordions down. ===== */
+        #bio-section {
+            min-height: 100svh;
+            justify-content: center;
+        }
+        .portrait-container img {
+            transition: width 0.9s cubic-bezier(0.22,1,0.36,1);
+        }
+        body:not(.hero-scrolled) .portrait-container img { width: min(72vw, 430px); }
+        body.hero-scrolled .portrait-container img { width: 360px; }
+        /* Bio pill drops a little lower under the title */
+        #bioToggle { margin-top: 34px !important; }
+
+        @media (max-width: 900px) {
+            #bio-section {
+                min-height: 100svh !important;
+                justify-content: center !important;
+            }
+            body:not(.hero-scrolled) .portrait-container img { width: min(80vw, 340px) !important; }
+            body.hero-scrolled .portrait-container img { width: 240px !important; }
+            #bio-section #bioToggle { margin-top: 24px !important; }
+        }
+
     </style>
 </head>
 <body>
@@ -3272,7 +3297,7 @@
                 #corpus .henosis-book:hover { transform: translateY(-6px); }
                 #corpus .henosis-book model-viewer { width:390px; height:530px; }
                 #corpus .henosis-book model-viewer::part(default-progress-bar){ display:none; }
-                @media (max-width:600px){ #corpus .henosis-book model-viewer { width:48vw; height:65vw; } }
+                @media (max-width:600px){ #corpus .henosis-book model-viewer { width:42vw; height:57vw; } }
                 .henosis-struct { font-family:'Times New Roman',Times,serif; font-size:0.62rem; text-transform:uppercase; letter-spacing:0.24em; color:rgba(255,255,255,0.35); margin:0.9rem 0 0.4rem; }
                 .henosis-toc { text-align:left; max-width:300px; margin:0 auto; }
                 .henosis-intro { font-family:'Times New Roman',Times,serif; font-size:0.9rem; font-style:italic; color:#cccccc; line-height:1.75; letter-spacing:0.3px; text-align:center; max-width:430px; margin:1rem auto 0; padding:0; }
@@ -3893,14 +3918,15 @@
                 bioContent.classList.toggle('expanded');
             }, true);
 
-            // Accordion reveals on scroll-down, re-collapses at the very top
+            // Portrait shrinks + bio accordions down as you scroll; both revert at the top
             let bioScrollTicking = false;
             window.addEventListener('scroll', () => {
                 if (bioScrollTicking) return;
                 bioScrollTicking = true;
                 requestAnimationFrame(() => {
+                    const y = window.pageYOffset || document.documentElement.scrollTop;
+                    document.body.classList.toggle('hero-scrolled', y > 30);
                     if (!bioManual) {
-                        const y = window.pageYOffset || document.documentElement.scrollTop;
                         if (y > 40) {
                             bioContent.classList.add('expanded');
                         } else if (y < 8) {
