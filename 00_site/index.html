@@ -2927,6 +2927,10 @@
             #bio-section {
                 justify-content: flex-start !important;
                 padding-top: 66px !important;
+                /* Size to content instead of a full screen, so short/ultrawide
+                   desktops don't get a big void below the portrait + bio pill. */
+                min-height: auto !important;
+                margin-bottom: 48px !important;
             }
         }
 
