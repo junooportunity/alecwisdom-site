@@ -2919,17 +2919,18 @@
         <!-- Bio -->
         <section class="work-section" id="bio-section" style="padding-top: calc(80px + env(safe-area-inset-top, 0px));">
             <div class="section-inner">
-                <div class="bio-content expanded">
-                    <div class="portrait-container fade-in">
-                        <div class="glass-frame">
-                            <div class="glass-inner">
-                                <img src="01_images/Headshot/AlecW-optimized.webp" alt="Alec Wisdom" loading="eager">
-                            </div>
-                            <div class="glass-reflection"></div>
+                <div class="portrait-container fade-in">
+                    <div class="glass-frame">
+                        <div class="glass-inner">
+                            <img src="01_images/Headshot/AlecW-optimized.webp" alt="Alec Wisdom" loading="eager">
                         </div>
+                        <div class="glass-reflection"></div>
                     </div>
-                    <h1 class="hero-name fade-in">Alec Wisdom</h1>
-                    <p class="hero-title fade-in">Writer & Director</p>
+                </div>
+                <h1 class="hero-name fade-in">Alec Wisdom</h1>
+                <p class="hero-title fade-in">Writer & Director</p>
+                <div class="section-label fade-in" id="bioToggle" style="margin: 20px auto 0 auto;">Bio</div>
+                <div class="bio-content">
                     <div class="divider" style="margin: 16px auto;"></div>
                     <div class="bio-blurb">
                         <p class="bio-text fade-in" style="margin: 0 auto; max-width: 600px; padding: 8px 0; letter-spacing: 0.5px;">Born and raised in Fort Worth, Texas.</p>
@@ -3876,10 +3877,10 @@
             }, true); // Use capture phase to ensure it fires
         }
 
-        // Bio toggle functionality
+        // Bio toggle functionality — collapsed on load, opens as you scroll down
         const bioToggle = document.getElementById('bioToggle');
         const bioContent = document.querySelector('.bio-content');
-        let bioExpanded = true;
+        let bioManual = false; // becomes true once the user taps the pill
 
         if (bioToggle && bioContent) {
             bioToggle.style.pointerEvents = 'auto';
@@ -3888,9 +3889,27 @@
                 e.preventDefault();
                 e.stopPropagation();
                 e.stopImmediatePropagation();
-                bioExpanded = !bioExpanded;
+                bioManual = true;
                 bioContent.classList.toggle('expanded');
             }, true);
+
+            // Accordion reveals on scroll-down, re-collapses at the very top
+            let bioScrollTicking = false;
+            window.addEventListener('scroll', () => {
+                if (bioScrollTicking) return;
+                bioScrollTicking = true;
+                requestAnimationFrame(() => {
+                    if (!bioManual) {
+                        const y = window.pageYOffset || document.documentElement.scrollTop;
+                        if (y > 40) {
+                            bioContent.classList.add('expanded');
+                        } else if (y < 8) {
+                            bioContent.classList.remove('expanded');
+                        }
+                    }
+                    bioScrollTicking = false;
+                });
+            }, { passive: true });
         }
 
         // Narrative toggle functionality
