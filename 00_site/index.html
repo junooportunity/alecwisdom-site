@@ -622,14 +622,16 @@
         .bio-content {
             max-height: 0;
             overflow: hidden;
-            /* max-height animates to the real content height (set in JS) so the bio
-               slides down and fades in together over the full duration — smooth, not abrupt. */
-            transition: max-height 1.4s cubic-bezier(0.22, 1, 0.36, 1), opacity 1.2s ease;
+            transition: max-height 0.4s ease, opacity 0.5s ease;
             opacity: 0;
         }
 
         .bio-content.expanded {
             opacity: 1;
+            /* Open: make room quickly while still invisible (so the clip edge sweeps
+               through nothing — no hard line), THEN fade the content in like the rest
+               of the site. A fade, not an accordion wipe. */
+            transition: max-height 0.4s ease, opacity 1.3s ease 0.35s;
         }
 
         #bio-section .section-label {
@@ -2890,9 +2892,12 @@
            sit below the fold on open. Portrait is large at rest and eases
            to its native size once the user scrolls; bio accordions down. ===== */
         #bio-section {
-            min-height: calc(100vh + 96px);
-            min-height: calc(100dvh + 96px);
+            min-height: 100vh;
+            min-height: 100dvh;
             justify-content: center;
+            /* buffer below (not extra height) so Narrative can't peek during the bio
+               open, without shifting the centered portrait / nav spacing */
+            margin-bottom: 96px;
         }
         .portrait-container img {
             transition: width 1.5s cubic-bezier(0.33, 0, 0.15, 1);
@@ -2910,9 +2915,10 @@
 
         @media (max-width: 900px) {
             #bio-section {
-                min-height: calc(100vh + 96px) !important;
-                min-height: calc(100dvh + 96px) !important;
+                min-height: 100vh !important;
+                min-height: 100dvh !important;
                 justify-content: center !important;
+                margin-bottom: 96px !important;
             }
             body:not(.hero-scrolled) .portrait-container img { width: min(80vw, 340px) !important; }
             body.hero-scrolled .portrait-container img { width: 240px !important; }
@@ -3874,24 +3880,22 @@
                 const target = document.querySelector(href);
                 if (!target) return;
 
-                // Open the destination accordion first so its height is in the layout
                 if (href === '#bio-section') {
+                    // Bio sits at the very top — open it and scroll DOWN to its pill
                     bioManual = true;
                     setBioExpanded(true);
+                    requestAnimationFrame(() =>
+                        smoothScrollTo(document.getElementById('bioToggle') || target, 1200, NAV_OFFSET));
                 } else if (href === '#archive') {
+                    // Archive is the LAST section, so when collapsed there isn't a full
+                    // screen below its pill to scroll into. Expand first, wait for the
+                    // height to grow, THEN scroll so the pill lands at the top.
                     const ac = document.querySelector('.archive-content');
                     if (ac) ac.classList.add('expanded');
+                    setTimeout(() => smoothScrollTo(target, 1200, NAV_OFFSET), 340);
+                } else {
+                    requestAnimationFrame(() => smoothScrollTo(target, 1200, NAV_OFFSET));
                 }
-
-                // Next frame (accordion started opening), then scroll.
-                // Bio lives at the very top, so scroll DOWN to its pill to reveal the bio;
-                // Work/Archive land their own pill just beneath the nav.
-                requestAnimationFrame(() => {
-                    const scrollTarget = (href === '#bio-section')
-                        ? (document.getElementById('bioToggle') || target)
-                        : target;
-                    smoothScrollTo(scrollTarget, 1200, NAV_OFFSET);
-                });
             });
         });
 
