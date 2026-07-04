@@ -622,14 +622,14 @@
         .bio-content {
             max-height: 0;
             overflow: hidden;
-            transition: max-height 2.4s cubic-bezier(0.22,1,0.36,1), opacity 1.4s cubic-bezier(0.22,1,0.36,1);
+            transition: max-height 4.5s cubic-bezier(0.22,1,0.36,1), opacity 2.4s cubic-bezier(0.22,1,0.36,1);
             opacity: 0;
         }
 
         .bio-content.expanded {
             max-height: 2000px;
             opacity: 1;
-            transition: max-height 2.4s cubic-bezier(0.22,1,0.36,1), opacity 1.4s cubic-bezier(0.22,1,0.36,1);
+            transition: max-height 4.5s cubic-bezier(0.22,1,0.36,1), opacity 2.4s cubic-bezier(0.22,1,0.36,1);
         }
 
         #bio-section .section-label {
@@ -2894,7 +2894,8 @@
             justify-content: center;
         }
         .portrait-container img {
-            transition: width 0.9s cubic-bezier(0.22,1,0.36,1);
+            transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+            will-change: width;
         }
         body:not(.hero-scrolled) .portrait-container img { width: min(72vw, 430px); }
         body.hero-scrolled .portrait-container img { width: 360px; }
@@ -3925,7 +3926,9 @@
                 bioScrollTicking = true;
                 requestAnimationFrame(() => {
                     const y = window.pageYOffset || document.documentElement.scrollTop;
-                    document.body.classList.toggle('hero-scrolled', y > 30);
+                    // Hysteresis dead-zone so the portrait resize doesn't flip-flop at the threshold
+                    if (y > 48) document.body.classList.add('hero-scrolled');
+                    else if (y < 12) document.body.classList.remove('hero-scrolled');
                     if (!bioManual) {
                         if (y > 40) {
                             bioContent.classList.add('expanded');
