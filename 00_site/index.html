@@ -2895,9 +2895,6 @@
             min-height: 100vh;
             min-height: 100dvh;
             justify-content: center;
-            /* buffer below (not extra height) so Narrative can't peek during the bio
-               open, without shifting the centered portrait / nav spacing */
-            margin-bottom: 96px;
         }
         .portrait-container img {
             transition: width 1.5s cubic-bezier(0.33, 0, 0.15, 1);
@@ -2912,13 +2909,26 @@
         body.hero-scrolled .nav { width: 380px; }
         /* Bio pill drops a little lower under the title */
         #bioToggle { margin-top: 34px !important; }
+        /* On wide screens, sit the hero near the nav instead of dead-centered —
+           centering leaves too large a gap under the nav on desktop. */
+        @media (min-width: 901px) {
+            #bio-section {
+                justify-content: flex-start;
+                padding-top: 120px !important;
+            }
+        }
 
         @media (max-width: 900px) {
             #bio-section {
                 min-height: 100vh !important;
                 min-height: 100dvh !important;
                 justify-content: center !important;
-                margin-bottom: 96px !important;
+            }
+            /* Archive is the last section — give it a screen of height so its pill
+               can be scrolled to the top when opened from the nav. */
+            #archive {
+                min-height: 100dvh !important;
+                justify-content: flex-start !important;
             }
             body:not(.hero-scrolled) .portrait-container img { width: min(80vw, 340px) !important; }
             body.hero-scrolled .portrait-container img { width: 240px !important; }
@@ -3847,24 +3857,20 @@
 
         // Smooth scroll function with slower speed
         function smoothScrollTo(target, duration = 1200, offset = 0) {
-            const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - offset;
             const startPosition = window.pageYOffset;
-            const distance = targetPosition - startPosition;
             let startTime = null;
+            const targetTop = () => target.getBoundingClientRect().top + window.pageYOffset - offset;
 
             function animation(currentTime) {
                 if (startTime === null) startTime = currentTime;
-                const timeElapsed = currentTime - startTime;
-                const run = easeInOutCubic(timeElapsed, startPosition, distance, duration);
-                window.scrollTo(0, run);
-                if (timeElapsed < duration) requestAnimationFrame(animation);
-            }
-
-            function easeInOutCubic(t, b, c, d) {
-                t /= d / 2;
-                if (t < 1) return c / 2 * t * t * t + b;
-                t -= 2;
-                return c / 2 * (t * t * t + 2) + b;
+                const elapsed = currentTime - startTime;
+                const t = Math.min(elapsed / duration, 1);
+                const eased = t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+                // Track the LIVE target each frame so layout shifts during the scroll
+                // (portrait resizing, accordions opening) don't leave us at the wrong
+                // spot; keep correcting briefly after so the settling layout stays pinned.
+                window.scrollTo(0, startPosition + (targetTop() - startPosition) * eased);
+                if (elapsed < Math.max(duration, 1700)) requestAnimationFrame(animation);
             }
 
             requestAnimationFrame(animation);
