@@ -624,10 +624,11 @@
             overflow: hidden;
             opacity: 0;
             transform: translateY(-10px);
-            /* Collapse (scroll back to top): slow, gentle fade + shrink. */
-            transition: max-height 1.1s cubic-bezier(0.22, 1, 0.36, 1),
-                        opacity 1.1s ease,
-                        transform 1.1s cubic-bezier(0.22, 1, 0.36, 1);
+            /* Collapse (scroll back to top): fade the content OUT first, then close
+               the empty space (height delayed past the fade) so it reads as a fade. */
+            transition: max-height 0.7s ease 0.55s,
+                        opacity 0.75s ease,
+                        transform 0.75s ease;
         }
 
         .bio-content.expanded {
