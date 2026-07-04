@@ -624,12 +624,12 @@
             overflow: hidden;
             opacity: 0;
             transform: translateY(-10px);
-            padding-bottom: 24px;
+            padding-bottom: 40px;
             /* Soft-faded bottom edge: the clip edge is never a hard line, so the
                height can animate smoothly on collapse without the wipe/snap. The
-               24px fade sits over the padding, below the text. */
-            -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 24px), transparent);
-            mask-image: linear-gradient(to bottom, #000 calc(100% - 24px), transparent);
+               20px fade sits over the padding, well below the last line of text. */
+            -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 20px), transparent);
+            mask-image: linear-gradient(to bottom, #000 calc(100% - 20px), transparent);
             /* Collapse (scroll back to top): smooth simultaneous fade + shrink. */
             transition: max-height 0.9s ease, opacity 0.9s ease, transform 0.9s ease;
         }
@@ -2309,7 +2309,7 @@
             }
 
             .bio-content {
-                padding-bottom: 0 !important;
+                padding-bottom: 40px !important; /* clears the soft-edge mask off the last line */
                 margin-bottom: 0 !important;
             }
 
