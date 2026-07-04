@@ -4012,6 +4012,7 @@
                     // Hysteresis dead-zone so the portrait resize doesn't flip-flop at the threshold
                     if (y > 48) document.body.classList.add('hero-scrolled');
                     else if (y < 12) document.body.classList.remove('hero-scrolled');
+                    startNavTracking();
                     if (!bioManual) {
                         if (y > 40) setBioExpanded(true);
                         else if (y < 8) setBioExpanded(false);
@@ -4092,6 +4093,25 @@
         window.addEventListener('load', positionDesktopNav);
         window.addEventListener('resize', positionDesktopNav);
         requestAnimationFrame(positionDesktopNav);
+
+        // The portrait resizes over ~1.5s when you scroll to/from the top, so keep the
+        // nav tracking it for a bit after each scroll — otherwise the growing portrait
+        // collides with the statically-placed nav. Desktop only.
+        let navTrackRAF = null, navTrackEnd = 0;
+        function startNavTracking() {
+            if (window.innerWidth < 901) return;
+            navTrackEnd = performance.now() + 1700;
+            if (navTrackRAF) return;
+            const step = () => {
+                positionDesktopNav();
+                if (performance.now() < navTrackEnd) {
+                    navTrackRAF = requestAnimationFrame(step);
+                } else {
+                    navTrackRAF = null;
+                }
+            };
+            navTrackRAF = requestAnimationFrame(step);
+        }
         
         const handleScroll = () => {
             if (!scrollTicking) {
