@@ -622,14 +622,14 @@
         .bio-content {
             max-height: 0;
             overflow: hidden;
-            transition: max-height 2.6s cubic-bezier(0.45, 0, 0.25, 1), opacity 1.6s ease;
+            transition: max-height 4.5s cubic-bezier(0.22,1,0.36,1), opacity 2.4s cubic-bezier(0.22,1,0.36,1);
             opacity: 0;
         }
 
         .bio-content.expanded {
-            max-height: 1400px;
+            max-height: 2000px;
             opacity: 1;
-            transition: max-height 2.6s cubic-bezier(0.45, 0, 0.25, 1), opacity 1.6s ease;
+            transition: max-height 4.5s cubic-bezier(0.22,1,0.36,1), opacity 2.4s cubic-bezier(0.22,1,0.36,1);
         }
 
         #bio-section .section-label {
@@ -2916,7 +2916,7 @@
             body.hero-scrolled .portrait-container img { width: 240px !important; }
             #bio-section #bioToggle { margin-top: 24px !important; }
             .nav { transition: transform 1.2s ease, opacity 1.2s ease, width 1.2s cubic-bezier(0.4, 0, 0.2, 1) !important; }
-            body:not(.hero-scrolled) .nav { width: min(88vw, 360px) !important; }
+            body:not(.hero-scrolled) .nav { width: min(80vw, 310px) !important; }
             body.hero-scrolled .nav { width: 257px !important; }
         }
 
@@ -4051,7 +4051,8 @@
                         .content .footer-brand,
                         .still-item img,
                         .project-item img,
-                        .portrait-container img
+                        .portrait-container img,
+                        .henosis-book model-viewer
                     `);
                     
                     individualElements.forEach(el => {
@@ -4070,7 +4071,7 @@
                             return;
                         }
                         
-                        const elIsImage = el.tagName === 'IMG' || el.classList.contains('still-image') || el.classList.contains('project-name');
+                        const elIsImage = el.tagName === 'IMG' || el.tagName === 'MODEL-VIEWER' || el.classList.contains('still-image') || el.classList.contains('project-name');
                         
                         // Skip if element is a container with significant children (we want leaf elements)
                         // But allow images and text elements even if they have children
@@ -4079,8 +4080,9 @@
                             return childRect.height > 10 && window.getComputedStyle(child).display !== 'none';
                         });
                         // Allow images, text elements, and logos even if they have children
-                        const isLeafElement = el.tagName === 'IMG' || 
-                                            el.tagName === 'P' || 
+                        const isLeafElement = el.tagName === 'IMG' ||
+                                            el.tagName === 'MODEL-VIEWER' ||
+                                            el.tagName === 'P' ||
                                             el.tagName === 'H1' || 
                                             el.tagName === 'H2' || 
                                             el.tagName === 'H3' || 
