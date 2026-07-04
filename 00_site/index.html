@@ -622,14 +622,14 @@
         .bio-content {
             max-height: 0;
             overflow: hidden;
-            transition: max-height 4.5s cubic-bezier(0.22,1,0.36,1), opacity 2.4s cubic-bezier(0.22,1,0.36,1);
+            transition: max-height 4s cubic-bezier(0.45, 0, 0.25, 1), opacity 2.2s ease;
             opacity: 0;
         }
 
         .bio-content.expanded {
-            max-height: 2000px;
+            max-height: 1400px;
             opacity: 1;
-            transition: max-height 4.5s cubic-bezier(0.22,1,0.36,1), opacity 2.4s cubic-bezier(0.22,1,0.36,1);
+            transition: max-height 4s cubic-bezier(0.45, 0, 0.25, 1), opacity 2.2s ease;
         }
 
         #bio-section .section-label {
@@ -2916,7 +2916,7 @@
             body.hero-scrolled .portrait-container img { width: 240px !important; }
             #bio-section #bioToggle { margin-top: 24px !important; }
             .nav { transition: transform 1.2s ease, opacity 1.2s ease, width 1.2s cubic-bezier(0.4, 0, 0.2, 1) !important; }
-            body:not(.hero-scrolled) .nav { width: min(80vw, 340px) !important; }
+            body:not(.hero-scrolled) .nav { width: min(90vw, 380px) !important; }
             body.hero-scrolled .nav { width: 257px !important; }
         }
 
@@ -2999,7 +2999,7 @@
                     <div class="poster-item" data-modal="jewelModal">
                         <div class="glass-frame poster-glass-frame">
                             <div class="glass-inner">
-                                <img src="01_images/Posters/Jewel of the Silent Plain.webp" alt="Jewel of the Silent Plain" class="poster-image" loading="eager">
+                                <img src="01_images/Posters/Jewel of the Silent Plain.webp?v=2" alt="Jewel of the Silent Plain" class="poster-image" loading="eager">
                             </div>
                         </div>
                     </div>
@@ -3497,7 +3497,7 @@
         <div class="video-modal-content">
             <div class="glass-frame modal-poster-frame">
                 <div class="glass-inner">
-                    <img src="01_images/Posters/Jewel of the Silent Plain.webp" alt="Jewel of the Silent Plain Poster" class="film-modal-poster">
+                    <img src="01_images/Posters/Jewel of the Silent Plain.webp?v=2" alt="Jewel of the Silent Plain Poster" class="film-modal-poster">
                 </div>
             </div>
             <p class="film-modal-type">Feature Screenplay</p>
@@ -4017,6 +4017,13 @@
 
                     const scrollingDown = currentScroll > lastScrollTop;
                     const scrollingUp = currentScroll < lastScrollTop;
+
+                    // Collapse the Archive accordion when scrolling up out of it
+                    if (scrollingUp && archiveSection && archiveContent && archiveContent.classList.contains('expanded')) {
+                        if (archiveSection.getBoundingClientRect().top > window.innerHeight * 0.5) {
+                            archiveContent.classList.remove('expanded');
+                        }
+                    }
 
                     // Get individual elements (not containers) - each text line, image, logo separately
                     // Target leaf elements: individual text elements, images, logos
