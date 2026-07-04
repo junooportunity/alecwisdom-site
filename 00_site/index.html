@@ -2924,13 +2924,13 @@
         /* On wide screens, sit the hero near the nav instead of dead-centered —
            centering leaves too large a gap under the nav on desktop. */
         @media (min-width: 901px) {
+            /* Full-height hero, vertically centered: balanced top/bottom space and
+               Narrative stays below the fold (better for short/ultrawide desktops). */
             #bio-section {
-                justify-content: flex-start !important;
-                padding-top: 66px !important;
-                /* Size to content instead of a full screen, so short/ultrawide
-                   desktops don't get a big void below the portrait + bio pill. */
-                min-height: auto !important;
-                margin-bottom: 48px !important;
+                justify-content: center !important;
+                min-height: 100vh !important;
+                min-height: 100dvh !important;
+                padding-top: 0 !important;
             }
         }
 
