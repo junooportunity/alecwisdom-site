@@ -2913,8 +2913,8 @@
            centering leaves too large a gap under the nav on desktop. */
         @media (min-width: 901px) {
             #bio-section {
-                justify-content: flex-start;
-                padding-top: 120px !important;
+                justify-content: flex-start !important;
+                padding-top: 100px !important;
             }
         }
 
@@ -2924,9 +2924,10 @@
                 min-height: 100dvh !important;
                 justify-content: center !important;
             }
-            /* Archive is the last section — give it a screen of height so its pill
-               can be scrolled to the top when opened from the nav. */
-            #archive {
+            /* Archive is the last section. Only give it a screen of height WHEN OPENED,
+               so its pill can be scrolled to the top; collapsed it stays compact
+               (otherwise it floats miles above the footer). */
+            #archive:has(.archive-content.expanded) {
                 min-height: 100dvh !important;
                 justify-content: flex-start !important;
             }
