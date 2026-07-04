@@ -622,14 +622,13 @@
         .bio-content {
             max-height: 0;
             overflow: hidden;
-            /* Space opens quickly; the long opacity fade is the dominant motion, so
-               the bio fades ON and down rather than mechanically unfolding. */
-            transition: max-height 0.9s cubic-bezier(0.4, 0, 0.2, 1), opacity 1.8s ease;
+            /* max-height animates to the real content height (set in JS) so the bio
+               slides down and fades in together over the full duration — smooth, not abrupt. */
+            transition: max-height 1.4s cubic-bezier(0.22, 1, 0.36, 1), opacity 1.2s ease;
             opacity: 0;
         }
 
         .bio-content.expanded {
-            max-height: 2000px;
             opacity: 1;
         }
 
@@ -2891,8 +2890,8 @@
            sit below the fold on open. Portrait is large at rest and eases
            to its native size once the user scrolls; bio accordions down. ===== */
         #bio-section {
-            min-height: 100vh;
-            min-height: 100dvh;
+            min-height: calc(100vh + 96px);
+            min-height: calc(100dvh + 96px);
             justify-content: center;
         }
         .portrait-container img {
@@ -2911,8 +2910,8 @@
 
         @media (max-width: 900px) {
             #bio-section {
-                min-height: 100vh !important;
-                min-height: 100dvh !important;
+                min-height: calc(100vh + 96px) !important;
+                min-height: calc(100dvh + 96px) !important;
                 justify-content: center !important;
             }
             body:not(.hero-scrolled) .portrait-container img { width: min(80vw, 340px) !important; }
@@ -3841,8 +3840,8 @@
         });
 
         // Smooth scroll function with slower speed
-        function smoothScrollTo(target, duration = 1200) {
-            const targetPosition = target.getBoundingClientRect().top + window.pageYOffset;
+        function smoothScrollTo(target, duration = 1200, offset = 0) {
+            const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - offset;
             const startPosition = window.pageYOffset;
             const distance = targetPosition - startPosition;
             let startTime = null;
@@ -3866,26 +3865,33 @@
         }
 
         // Smooth scroll (exclude reading list button which opens a modal)
+        const NAV_OFFSET = 88; // land destination pills just below the fixed nav
         document.querySelectorAll('a[href^="#"]:not(#readingListButton)').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 const href = this.getAttribute('href');
-                if (href !== '#') {
-                    e.preventDefault();
-                    const target = document.querySelector(href);
-                    if (target) {
-                        smoothScrollTo(target, 1200);
-                        // If clicking Archive link, expand the archive content
-                        if (href === '#archive') {
-                            setTimeout(() => {
-                                const archiveToggle = document.getElementById('archiveToggle');
-                                const archiveContent = document.querySelector('.archive-content');
-                                if (archiveToggle && archiveContent && !archiveContent.classList.contains('expanded')) {
-                                    archiveContent.classList.add('expanded');
-                                }
-                            }, 600);
-                        }
-                    }
+                if (href === '#') return;
+                e.preventDefault();
+                const target = document.querySelector(href);
+                if (!target) return;
+
+                // Open the destination accordion first so its height is in the layout
+                if (href === '#bio-section') {
+                    bioManual = true;
+                    setBioExpanded(true);
+                } else if (href === '#archive') {
+                    const ac = document.querySelector('.archive-content');
+                    if (ac) ac.classList.add('expanded');
                 }
+
+                // Next frame (accordion started opening), then scroll.
+                // Bio lives at the very top, so scroll DOWN to its pill to reveal the bio;
+                // Work/Archive land their own pill just beneath the nav.
+                requestAnimationFrame(() => {
+                    const scrollTarget = (href === '#bio-section')
+                        ? (document.getElementById('bioToggle') || target)
+                        : target;
+                    smoothScrollTo(scrollTarget, 1200, NAV_OFFSET);
+                });
             });
         });
 
@@ -3922,7 +3928,14 @@
         let bioManual = false; // becomes true once the user taps the pill
 
         function setBioExpanded(on) {
-            if (bioContent) bioContent.classList.toggle('expanded', on);
+            if (!bioContent) return;
+            if (on) {
+                bioContent.classList.add('expanded');
+                bioContent.style.maxHeight = bioContent.scrollHeight + 'px';
+            } else {
+                bioContent.classList.remove('expanded');
+                bioContent.style.maxHeight = '';
+            }
         }
 
         if (bioToggle && bioContent) {
@@ -3955,18 +3968,6 @@
             }, { passive: true });
         }
 
-        // Nav pills open their sections' accordions
-        const navBioLink = document.querySelector('.nav a[href="#bio-section"]');
-        if (navBioLink) {
-            navBioLink.addEventListener('click', () => { bioManual = true; setBioExpanded(true); });
-        }
-        const navArchiveLink = document.querySelector('.nav a[href="#archive"]');
-        if (navArchiveLink) {
-            navArchiveLink.addEventListener('click', () => {
-                const ac = document.querySelector('.archive-content');
-                if (ac) setTimeout(() => ac.classList.add('expanded'), 650);
-            });
-        }
 
         // Narrative toggle functionality
         const narrativeToggle = document.getElementById('narrativeToggle');
