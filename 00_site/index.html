@@ -4083,12 +4083,13 @@
         // nav floating alone at the very top. (Mobile keeps the top-pinned nav.)
         function positionDesktopNav() {
             if (!nav || !portrait) return;
-            if (window.innerWidth >= 901) {
-                const portraitTop = portrait.getBoundingClientRect().top + window.pageYOffset;
-                nav.style.top = Math.max(12, Math.round(portraitTop - nav.offsetHeight - 24)) + 'px';
-            } else {
-                nav.style.top = '';
-            }
+            if (window.innerWidth < 901) { nav.style.top = ''; return; }
+            // Only reposition while the hero is near the viewport. Deep in the page
+            // (e.g. Archive open) the nav is hidden anyway, and recomputing there makes
+            // it jump into other elements on the way back up.
+            if (window.pageYOffset > window.innerHeight) return;
+            const portraitTop = portrait.getBoundingClientRect().top + window.pageYOffset;
+            nav.style.top = Math.max(12, Math.round(portraitTop - nav.offsetHeight - 24)) + 'px';
         }
         window.addEventListener('load', positionDesktopNav);
         window.addEventListener('resize', positionDesktopNav);
