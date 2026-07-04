@@ -4050,9 +4050,25 @@
         const portrait = document.querySelector('.portrait-container');
         let scrollTicking = false;
         let scrollTimeout;
-        
+
         // Check if mobile device
         const isMobile = window.innerWidth <= 900;
+
+        // On desktop the hero is vertically centered, so pin the nav just above the
+        // portrait — the nav + hero then read as one centered group instead of the
+        // nav floating alone at the very top. (Mobile keeps the top-pinned nav.)
+        function positionDesktopNav() {
+            if (!nav || !portrait) return;
+            if (window.innerWidth >= 901) {
+                const portraitTop = portrait.getBoundingClientRect().top + window.pageYOffset;
+                nav.style.top = Math.max(12, Math.round(portraitTop - nav.offsetHeight - 24)) + 'px';
+            } else {
+                nav.style.top = '';
+            }
+        }
+        window.addEventListener('load', positionDesktopNav);
+        window.addEventListener('resize', positionDesktopNav);
+        requestAnimationFrame(positionDesktopNav);
         
         const handleScroll = () => {
             if (!scrollTicking) {
