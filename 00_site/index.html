@@ -2890,7 +2890,8 @@
            sit below the fold on open. Portrait is large at rest and eases
            to its native size once the user scrolls; bio accordions down. ===== */
         #bio-section {
-            min-height: 100svh;
+            min-height: 100vh;
+            min-height: 100dvh;
             justify-content: center;
         }
         .portrait-container img {
@@ -2904,7 +2905,8 @@
 
         @media (max-width: 900px) {
             #bio-section {
-                min-height: 100svh !important;
+                min-height: 100vh !important;
+                min-height: 100dvh !important;
                 justify-content: center !important;
             }
             body:not(.hero-scrolled) .portrait-container img { width: min(80vw, 340px) !important; }
