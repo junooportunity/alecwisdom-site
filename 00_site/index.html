@@ -622,16 +622,20 @@
         .bio-content {
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.4s ease, opacity 0.5s ease;
             opacity: 0;
+            transform: translateY(-10px);
+            transition: max-height 0.4s ease, opacity 0.5s ease, transform 0.5s ease;
         }
 
         .bio-content.expanded {
             opacity: 1;
-            /* Open: make room quickly while still invisible (so the clip edge sweeps
-               through nothing — no hard line), THEN fade the content in like the rest
-               of the site. A fade, not an accordion wipe. */
-            transition: max-height 0.4s ease, opacity 1.3s ease 0.35s;
+            transform: translateY(0);
+            /* Open: make room quickly while still invisible (clip edge sweeps through
+               nothing — no hard line), THEN fade the content in and settle it down
+               like the rest of the site. A fade + drift, not an accordion wipe. */
+            transition: max-height 0.4s ease,
+                        opacity 1.2s ease 0.35s,
+                        transform 1.2s cubic-bezier(0.22, 1, 0.36, 1) 0.35s;
         }
 
         #bio-section .section-label {
@@ -2895,6 +2899,13 @@
             min-height: 100vh;
             min-height: 100dvh;
             justify-content: center;
+            /* Buffer below the closed hero so nothing below the bio pill peeks while
+               you begin scrolling; removed once the bio opens so it stays balanced. */
+            margin-bottom: 120px;
+            transition: margin-bottom 0.5s ease;
+        }
+        #bio-section:has(.bio-content.expanded) {
+            margin-bottom: 0;
         }
         .portrait-container img {
             transition: width 1.5s cubic-bezier(0.33, 0, 0.15, 1);
@@ -3940,6 +3951,9 @@
 
         function setBioExpanded(on) {
             if (!bioContent) return;
+            // Guard: do nothing if already in the requested state, so the scroll
+            // handler calling this every frame can't re-trigger / jitter the animation.
+            if (on === bioContent.classList.contains('expanded')) return;
             if (on) {
                 bioContent.classList.add('expanded');
                 bioContent.style.maxHeight = bioContent.scrollHeight + 'px';
