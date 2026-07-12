@@ -3927,9 +3927,14 @@
                 if (!target) return;
 
                 if (href === '#bio-section') {
-                    // Bio sits at the very top — open it and scroll DOWN to its pill
+                    // Bio sits at the very top — open it and scroll DOWN to its pill.
+                    // Engage the scrolled hero state + nav tracking up front so the
+                    // portrait shrink and nav compaction run in step with the accordion
+                    // (same cadence as scrolling in), not lagging behind the scroll.
                     bioManual = true;
                     setBioExpanded(true);
+                    document.body.classList.add('hero-scrolled');
+                    startNavTracking();
                     requestAnimationFrame(() =>
                         smoothScrollTo(document.getElementById('bioToggle') || target, 1200, NAV_OFFSET));
                 } else if (href === '#archive') {
@@ -3999,7 +4004,24 @@
                 e.stopPropagation();
                 e.stopImmediatePropagation();
                 bioManual = true;
-                setBioExpanded(!bioContent.classList.contains('expanded'));
+                const willExpand = !bioContent.classList.contains('expanded');
+                setBioExpanded(willExpand);
+                if (willExpand) {
+                    // Replay the scroll-driven reveal so a pill tap reads identically to
+                    // scrolling in: shrink the portrait + compact the nav (hero-scrolled),
+                    // keep the fixed nav pinned to the moving portrait (startNavTracking),
+                    // and ease down to the pill instead of letting the centered 100vh hero
+                    // reflow-jump under the growing accordion.
+                    document.body.classList.add('hero-scrolled');
+                    startNavTracking();
+                    requestAnimationFrame(() =>
+                        smoothScrollTo(document.getElementById('bioToggle') || bioToggle, 1200, NAV_OFFSET));
+                } else {
+                    // Collapsing: ease back to the top where the hero re-centers and the
+                    // portrait grows again (scroll listener drops hero-scrolled near y=0).
+                    startNavTracking();
+                    smoothScrollTo(document.body, 1200, 0);
+                }
             }, true);
 
             // Portrait shrinks + bio accordions down as you scroll; both revert at the top
