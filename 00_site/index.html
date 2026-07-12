@@ -4035,6 +4035,12 @@
                     if (y > 48) document.body.classList.add('hero-scrolled');
                     else if (y < 12) document.body.classList.remove('hero-scrolled');
                     startNavTracking();
+                    // Returning to the very top hands control back to scroll: clear the
+                    // manual latch so a pill-opened bio collapses and the hero re-centers,
+                    // exactly like a normal scroll-up. Without this the bio stays open at
+                    // the top, shoving the portrait up under the nav (which then clamps to
+                    // top:12 and overlaps it).
+                    if (y < 8) bioManual = false;
                     if (!bioManual) {
                         if (y > 40) setBioExpanded(true);
                         else if (y < 8) setBioExpanded(false);
