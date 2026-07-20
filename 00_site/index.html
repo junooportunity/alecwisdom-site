@@ -1182,6 +1182,55 @@
             display: none;
         }
 
+        /* Henōsis PDF reader modal */
+        #henosisModal .video-modal-content {
+            max-width: min(760px, 94vw);
+            width: 94vw;
+            height: 92vh;
+            max-height: 92vh;
+            padding: 0;
+            background: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+            display: block;
+            gap: 0;
+        }
+        #henosisModal .video-modal-content iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 12px;
+            display: block;
+        }
+        #henosisModal .henosis-fullpdf {
+            position: absolute;
+            top: 12px;
+            right: 14px;
+            z-index: 4;
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            letter-spacing: 0.18em;
+            color: #f2f2f2;
+            text-decoration: none;
+            padding: 6px 13px;
+            border-radius: 16px;
+            background: rgba(18, 18, 18, 0.72);
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            transition: background 0.2s ease, color 0.2s ease;
+        }
+        #henosisModal .henosis-fullpdf:hover {
+            color: #ffffff;
+            background: rgba(42, 42, 42, 0.85);
+        }
+        @media (max-width: 600px) {
+            #henosisModal .video-modal-content { width: 96vw; height: 90vh; }
+        }
+
         .modal-poster-frame {
             max-width: 280px;
             width: 70%;
@@ -3614,36 +3663,10 @@
     </div>
 
     <!-- The Corpus: Henōsis -->
-    <div class="video-modal film-modal" id="henosisModal">
+    <div class="video-modal film-modal henosis-reader" id="henosisModal">
         <div class="video-modal-content">
-            <p class="film-modal-type">Henōsis</p>
-            <p class="film-modal-type" style="color:rgba(255,255,255,0.4); margin-top:1.1rem; font-size:0.62rem; letter-spacing:0.24em;">Releasing Free &#183; 2026</p>
-            <p class="henosis-struct">One Volume &#183; Nine Essays</p>
-            <div class="film-modal-divider"></div>
-            <div class="henosis-toc">
-                <div class="henosis-tri">
-                    <p class="tri-name">I &#183; Kénōsis</p>
-                    <p class="tri-book">On Monism</p>
-                    <p class="tri-book">On Gnosis</p>
-                    <p class="tri-book">On Logos</p>
-                </div>
-                <div class="henosis-tri">
-                    <p class="tri-name">II &#183; Apophasis</p>
-                    <p class="tri-book">On Negation</p>
-                    <p class="tri-book">On Absence</p>
-                    <p class="tri-book">On Death</p>
-                </div>
-                <div class="henosis-tri">
-                    <p class="tri-name">III &#183; Poesis</p>
-                    <p class="tri-book">On Form</p>
-                    <p class="tri-book">On Myth</p>
-                    <p class="tri-book">On Cinema</p>
-                </div>
-            </div>
-            <div class="film-modal-divider"></div>
-            <a class="film-modal-cta" href="04_books/henosis.pdf" target="_blank" rel="noopener">Read</a>
-            <div class="film-modal-divider"></div>
-            <p class="film-modal-copyright">© 2026 Monos Pros Monon</p>
+            <a class="henosis-fullpdf" href="04_books/henosis.pdf" target="_blank" rel="noopener">Full PDF &#8599;</a>
+            <iframe src="04_books/henosis.pdf#view=FitH" title="Henōsis" loading="lazy"></iframe>
         </div>
     </div>
 
