@@ -3811,6 +3811,20 @@
     }
   }
 </style>
+<style>
+  /* section pills pinned to the nav's height — one label slot across all scenes */
+  .bio-content .section-label, #narrative .section-label, #corpus .section-label, .mscene .section-label {
+    position: fixed !important;
+    top: calc(var(--nav-top, 12px) + 6px) !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    margin: 0 !important;
+    z-index: 50;
+  }
+  .bio-content .section-label:hover, #narrative .section-label:hover, #corpus .section-label:hover, .mscene .section-label:hover {
+    transform: translateX(-50%) translateY(-1px) !important;
+  }
+</style>
 <script>
 (function(){
   var bio = document.querySelector('.bio-content');
