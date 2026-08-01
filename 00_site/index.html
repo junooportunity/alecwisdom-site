@@ -3760,6 +3760,24 @@
       padding: 1.4rem 1rem calc(0.6rem + env(safe-area-inset-bottom, 0px));
       gap: 1rem;
     }
+    /* restore containers on mobile (live mobile CSS strips them; iOS can't run the SVG glass, use the bordered frame) */
+    .glass-frame {
+      border: 0.5px solid rgba(255, 255, 255, 0.25) !important;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.02) !important;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35) !important;
+      padding: 6px !important;
+    }
+    .poster-glass-frame { border-radius: 8px; padding: 4px !important; }
+    .poster-glass-frame .glass-inner { padding: 3px !important; }
+    /* pull the portrait up toward the nav on the opener */
+    #bio-section::before { flex: 0 0 0 !important; }
+    /* compress bio so it fits a phone viewport (internal scroll remains as fallback) */
+    .bio-content .bio-text { font-size: 0.85rem !important; padding: 5px 0 !important; }
+    .bio-content .divider { margin: 10px auto !important; }
+    .bio-content .bio-extended { font-size: 0.82rem !important; line-height: 1.5 !important; padding: 0 0.25rem !important; margin-top: 1rem !important; }
+    .bio-content .bio-extended p { margin-bottom: 0.8em !important; }
+    .bio-content::before { flex: 0 0 0 !important; }
   }
 </style>
 <script>
