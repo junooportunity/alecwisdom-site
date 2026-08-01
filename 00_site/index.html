@@ -3743,7 +3743,9 @@
   @media (max-width: 820px){
     /* mobile section{display:flex !important} resurrects the hidden archive — force it dead */
     #archive { display: none !important; }
-    .nav { top: var(--nav-top, calc(10px + env(safe-area-inset-top, 0px))) !important; }
+    .nav { top: var(--nav-top, calc(10px + env(safe-area-inset-top, 0px))) !important;
+      width: auto !important; min-width: 0 !important; padding: 6px 10px !important; }
+    .nav a { padding: 7px 12px !important; }
     #bio-section, #narrative, #corpus, #monos-logo-section, .bio-content, .mscene {
       justify-content: flex-start !important;
       overflow-x: hidden !important;
@@ -3762,7 +3764,13 @@
       padding: 1.2rem 1rem calc(0.8rem + env(safe-area-inset-bottom, 0px)) !important;
       gap: 0.9rem;
     }
-    #monos-logo-section .footer-brand { width: 58% !important; max-width: 58% !important; }
+    #monos-logo-section .footer-brand { width: 72% !important; max-width: 72% !important; }
+    #monos-logo-section .footer-icon { width: 36px !important; height: 36px !important; border-radius: 10px !important; }
+    #monos-logo-section .footer-icon svg { width: 17px !important; height: 17px !important; }
+    /* portrait must fit its padded scene — overflow was clipping right edge (off-center look) */
+    .portrait-container { max-width: 100% !important; }
+    .portrait-container img { width: auto !important; max-width: 100% !important; height: auto !important; }
+    #bio-section .glass-frame { max-width: 100% !important; }
     /* restore containers on mobile (live mobile CSS strips them; iOS can't run the SVG glass, use the bordered frame) */
     .glass-frame {
       border: 0.5px solid rgba(255, 255, 255, 0.25) !important;
@@ -3792,9 +3800,10 @@
     }
     .bio-content .bio-extended p { margin-bottom: 0.6em !important; }
     /* narrative on mobile: one poster per scene, sized like the portrait */
-    .mscene .section-label { margin: 0 auto 16px auto !important; }
+    .mscene .section-label { margin: 0 auto 30px auto !important; }
     .mscene .poster-item { width: auto !important; margin: 0 auto !important; }
     .mscene .poster-glass-frame { width: auto !important; }
+    #corpus .henosis-book model-viewer { width: 58vw !important; height: 79vw !important; }
     .mscene .poster-image {
       width: auto !important; height: auto !important;
       max-width: 80vw !important;
@@ -3822,7 +3831,7 @@
       var subs = items.map(function(it, i){
         var sec = document.createElement('section');
         sec.className = 'mscene';
-        if(i === 0 && narrPill) sec.appendChild(narrPill);
+        if(narrPill) sec.appendChild(i === 0 ? narrPill : narrPill.cloneNode(true));
         sec.appendChild(it);
         document.body.appendChild(sec);
         return sec;
