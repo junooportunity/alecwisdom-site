@@ -3785,7 +3785,9 @@
     /* bio scene must fit a phone with NO internal scroll:
        nav is hidden on this scene, so drop its clearance; scale type to viewport height
        (keeps the original look — centered blurb, indented paragraphs — just sized to fit) */
-    .bio-content { padding-top: calc(14px + env(safe-area-inset-top, 0px)) !important; }
+    .bio-content, .mscene, #corpus {
+      padding-top: var(--content-top, calc(74px + env(safe-area-inset-top, 0px))) !important;
+    }
     .bio-content::before { flex: 0 0 0 !important; }
     .bio-content .section-label { margin-bottom: 6px !important; }
     .bio-content .bio-text {
@@ -3795,8 +3797,8 @@
     }
     .bio-content .divider { margin: 8px auto !important; }
     .bio-content .bio-extended {
-      font-size: clamp(11px, 1.65vh, 14.4px) !important;
-      font-size: clamp(11px, 1.65dvh, 14.4px) !important;
+      font-size: clamp(11px, 1.55vh, 14px) !important;
+      font-size: clamp(11px, 1.55dvh, 14px) !important;
       line-height: 1.5 !important; margin-top: 0.7rem !important;
     }
     .bio-content .bio-extended p { margin-bottom: 0.6em !important; }
@@ -3870,6 +3872,7 @@
     var top = Math.max(12, Math.round(r.top - nav.offsetHeight - pad));
     nav.style.top = top + 'px';
     document.documentElement.style.setProperty('--nav-top', top + 'px');
+    document.documentElement.style.setProperty('--content-top', (top + nav.offsetHeight + 16) + 'px');
     if(window.innerWidth < 901){ nav.style.setProperty('width', Math.round(r.width) + 'px', 'important'); }
   }
   placeNav();
