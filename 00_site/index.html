@@ -3790,6 +3790,22 @@
       line-height: 1.5 !important; margin-top: 0.7rem !important;
     }
     .bio-content .bio-extended p { margin-bottom: 0.6em !important; }
+    /* narrative on mobile: vertical stack, all three posters on one screen, no scroll */
+    #narrative { padding-top: calc(14px + env(safe-area-inset-top, 0px)) !important; }
+    #narrative::before { flex: 0 0 0 !important; }
+    #narrative .section-label { margin: 0 auto 10px auto !important; }
+    #narrative .poster-grid {
+      display: flex !important; flex-direction: column !important; align-items: center !important;
+      gap: 10px !important; padding: 0 !important; margin: 0 !important;
+      width: auto !important; max-width: none !important;
+    }
+    #narrative .poster-item { width: auto !important; }
+    #narrative .poster-glass-frame { width: auto !important; }
+    #narrative .poster-image {
+      width: auto !important;
+      height: clamp(150px, 24vh, 250px) !important;
+      height: clamp(150px, 24dvh, 250px) !important;
+    }
   }
 </style>
 <script>
