@@ -3744,7 +3744,8 @@
     /* mobile section{display:flex !important} resurrects the hidden archive — force it dead */
     #archive { display: none !important; }
     .nav { top: var(--nav-top, calc(10px + env(safe-area-inset-top, 0px))) !important;
-      width: auto !important; min-width: 0 !important; padding: 6px 10px !important; }
+      width: auto !important; min-width: 0 !important; padding: 6px 10px !important;
+      transition: transform 0.6s ease, opacity 0.6s ease !important; }
     .nav a { padding: 7px 12px !important; }
     #bio-section, #narrative, #corpus, #monos-logo-section, .bio-content, .mscene {
       justify-content: flex-start !important;
