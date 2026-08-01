@@ -3772,8 +3772,24 @@
     .poster-glass-frame .glass-inner { padding: 3px !important; }
     /* pull the portrait up toward the nav on the opener */
     #bio-section::before { flex: 0 0 0 !important; }
-    /* bio typography: defer to the site's original mobile rules (0.85rem, indented paragraphs) */
+    /* bio scene must fit a phone with NO internal scroll:
+       nav is hidden on this scene, so drop its clearance; scale type to viewport height
+       (keeps the original look — centered blurb, indented paragraphs — just sized to fit) */
+    .bio-content { padding-top: calc(14px + env(safe-area-inset-top, 0px)) !important; }
     .bio-content::before { flex: 0 0 0 !important; }
+    .bio-content .section-label { margin-bottom: 6px !important; }
+    .bio-content .bio-text {
+      font-size: clamp(11px, 1.7vh, 14px) !important;
+      font-size: clamp(11px, 1.7dvh, 14px) !important;
+      line-height: 1.6 !important; padding: 4px 0 !important;
+    }
+    .bio-content .divider { margin: 8px auto !important; }
+    .bio-content .bio-extended {
+      font-size: clamp(10.5px, 1.5vh, 13.6px) !important;
+      font-size: clamp(10.5px, 1.5dvh, 13.6px) !important;
+      line-height: 1.5 !important; margin-top: 0.7rem !important;
+    }
+    .bio-content .bio-extended p { margin-bottom: 0.6em !important; }
   }
 </style>
 <script>
