@@ -3764,7 +3764,8 @@
       padding: 1.2rem 1rem calc(0.8rem + env(safe-area-inset-bottom, 0px)) !important;
       gap: 0.9rem;
     }
-    #monos-logo-section .footer-brand { width: 72% !important; max-width: 72% !important; }
+    #monos-logo-section .footer-brand { width: 80% !important; max-width: 80% !important; }
+    #monos-logo-section::after { flex: 1.25 0 0 !important; }
     #monos-logo-section .footer-icon { width: 36px !important; height: 36px !important; border-radius: 10px !important; }
     #monos-logo-section .footer-icon svg { width: 17px !important; height: 17px !important; }
     /* portrait must fit its padded scene — overflow was clipping right edge (off-center look) */
@@ -3803,7 +3804,8 @@
     .mscene .section-label { margin: 0 auto 30px auto !important; }
     .mscene .poster-item { width: auto !important; margin: 0 auto !important; }
     .mscene .poster-glass-frame { width: auto !important; }
-    #corpus .henosis-book model-viewer { width: 58vw !important; height: 79vw !important; }
+    #corpus .henosis-book model-viewer { width: 66vw !important; height: 90vw !important; }
+    #corpus::after { flex: 1.3 0 0 !important; }
     .mscene .poster-image {
       width: auto !important; height: auto !important;
       max-width: 80vw !important;
@@ -3864,9 +3866,11 @@
     var p = document.querySelector('#bio-section .glass-frame');
     if(!p) return;
     var pad = window.innerWidth < 901 ? 14 : 24;
-    var top = Math.max(12, Math.round(p.getBoundingClientRect().top - nav.offsetHeight - pad));
+    var r = p.getBoundingClientRect();
+    var top = Math.max(12, Math.round(r.top - nav.offsetHeight - pad));
     nav.style.top = top + 'px';
     document.documentElement.style.setProperty('--nav-top', top + 'px');
+    if(window.innerWidth < 901){ nav.style.setProperty('width', Math.round(r.width) + 'px', 'important'); }
   }
   placeNav();
   addEventListener('resize', placeNav);
