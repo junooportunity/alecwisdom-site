@@ -3722,7 +3722,7 @@
   /* ===== scene viewer layer (prototype only) ===== */
   html, body { height: 100%; overflow: hidden !important; }
   .fade-in { opacity: 1 !important; transform: none !important; }
-  #bio-section, #narrative, #corpus, #monos-logo-section, .bio-content {
+  #bio-section, #narrative, #corpus, #monos-logo-section, .bio-content, .mscene {
     position: fixed !important; inset: 0 !important; z-index: 2;
     display: flex !important; flex-direction: column; align-items: center; justify-content: center;
     margin: 0 !important; padding: 0 32px !important;
@@ -3743,23 +3743,26 @@
   @media (max-width: 820px){
     /* mobile section{display:flex !important} resurrects the hidden archive — force it dead */
     #archive { display: none !important; }
-    #bio-section, #narrative, #corpus, #monos-logo-section, .bio-content {
+    .nav { top: var(--nav-top, calc(10px + env(safe-area-inset-top, 0px))) !important; }
+    #bio-section, #narrative, #corpus, #monos-logo-section, .bio-content, .mscene {
       justify-content: flex-start !important;
+      overflow-x: hidden !important;
       overflow-y: auto !important;
       -webkit-overflow-scrolling: touch;
       padding-top: calc(74px + env(safe-area-inset-top, 0px)) !important;
       padding-bottom: calc(24px + env(safe-area-inset-bottom, 0px)) !important;
     }
-    #bio-section::before, #narrative::before, #corpus::before, #monos-logo-section::before, .bio-content::before,
-    #bio-section::after, #narrative::after, #corpus::after, #monos-logo-section::after, .bio-content::after {
+    #bio-section::before, #narrative::before, #corpus::before, #monos-logo-section::before, .bio-content::before, .mscene::before,
+    #bio-section::after, #narrative::after, #corpus::after, #monos-logo-section::after, .bio-content::after, .mscene::after {
       content: ''; flex: 1 0 0; min-height: 0;
     }
     #monos-logo-section .footer {
-      position: static;
-      width: calc(100% + 64px); margin: 3rem -32px 0;
-      padding: 1.4rem 1rem calc(0.6rem + env(safe-area-inset-bottom, 0px));
-      gap: 1rem;
+      position: absolute !important; bottom: 0; left: 0; right: 0;
+      width: 100% !important; margin: 0 !important;
+      padding: 1.2rem 1rem calc(0.8rem + env(safe-area-inset-bottom, 0px)) !important;
+      gap: 0.9rem;
     }
+    #monos-logo-section .footer-brand { width: 58% !important; max-width: 58% !important; }
     /* restore containers on mobile (live mobile CSS strips them; iOS can't run the SVG glass, use the bordered frame) */
     .glass-frame {
       border: 0.5px solid rgba(255, 255, 255, 0.25) !important;
@@ -3770,8 +3773,6 @@
     }
     .poster-glass-frame { border-radius: 8px; padding: 4px !important; }
     .poster-glass-frame .glass-inner { padding: 3px !important; }
-    /* pull the portrait up toward the nav on the opener */
-    #bio-section::before { flex: 0 0 0 !important; }
     /* bio scene must fit a phone with NO internal scroll:
        nav is hidden on this scene, so drop its clearance; scale type to viewport height
        (keeps the original look — centered blurb, indented paragraphs — just sized to fit) */
@@ -3779,32 +3780,25 @@
     .bio-content::before { flex: 0 0 0 !important; }
     .bio-content .section-label { margin-bottom: 6px !important; }
     .bio-content .bio-text {
-      font-size: clamp(11px, 1.7vh, 14px) !important;
-      font-size: clamp(11px, 1.7dvh, 14px) !important;
+      font-size: clamp(11.5px, 1.9vh, 15px) !important;
+      font-size: clamp(11.5px, 1.9dvh, 15px) !important;
       line-height: 1.6 !important; padding: 4px 0 !important;
     }
     .bio-content .divider { margin: 8px auto !important; }
     .bio-content .bio-extended {
-      font-size: clamp(10.5px, 1.5vh, 13.6px) !important;
-      font-size: clamp(10.5px, 1.5dvh, 13.6px) !important;
+      font-size: clamp(11px, 1.65vh, 14.4px) !important;
+      font-size: clamp(11px, 1.65dvh, 14.4px) !important;
       line-height: 1.5 !important; margin-top: 0.7rem !important;
     }
     .bio-content .bio-extended p { margin-bottom: 0.6em !important; }
-    /* narrative on mobile: vertical stack, all three posters on one screen, no scroll */
-    #narrative { padding-top: calc(14px + env(safe-area-inset-top, 0px)) !important; }
-    #narrative::before { flex: 0 0 0 !important; }
-    #narrative .section-label { margin: 0 auto 10px auto !important; }
-    #narrative .poster-grid {
-      display: flex !important; flex-direction: column !important; align-items: center !important;
-      gap: 10px !important; padding: 0 !important; margin: 0 !important;
-      width: auto !important; max-width: none !important;
-    }
-    #narrative .poster-item { width: auto !important; }
-    #narrative .poster-glass-frame { width: auto !important; }
-    #narrative .poster-image {
-      width: auto !important;
-      height: clamp(150px, 24vh, 250px) !important;
-      height: clamp(150px, 24dvh, 250px) !important;
+    /* narrative on mobile: one poster per scene, sized like the portrait */
+    .mscene .section-label { margin: 0 auto 16px auto !important; }
+    .mscene .poster-item { width: auto !important; margin: 0 auto !important; }
+    .mscene .poster-glass-frame { width: auto !important; }
+    .mscene .poster-image {
+      width: auto !important; height: auto !important;
+      max-width: 80vw !important;
+      max-height: 64vh !important; max-height: 64dvh !important;
     }
   }
 </style>
@@ -3820,6 +3814,23 @@
     document.getElementById('monos-logo-section')
   ];
   var nav = document.querySelector('.nav');
+  if(window.matchMedia('(max-width: 820px)').matches){
+    var narrGrid = document.getElementById('narrative');
+    var narrPill = document.querySelector('#narrative .section-label');
+    var items = Array.prototype.slice.call(document.querySelectorAll('#narrative .poster-item'));
+    if(items.length){
+      var subs = items.map(function(it, i){
+        var sec = document.createElement('section');
+        sec.className = 'mscene';
+        if(i === 0 && narrPill) sec.appendChild(narrPill);
+        sec.appendChild(it);
+        document.body.appendChild(sec);
+        return sec;
+      });
+      narrGrid.style.setProperty('display', 'none', 'important');
+      scenes = [scenes[0], scenes[1]].concat(subs).concat([scenes[3], scenes[4]]);
+    }
+  }
   var OUT = 300;              /* ghost-out before next appears */
   var REFRACTORY = 550;       /* min ms between scene changes  */
   var idx = 0, lastFire = 0;
@@ -3827,11 +3838,12 @@
 
   function placeNav(){
     if(!nav) return;
-    if(window.innerWidth < 901){ nav.style.top = ''; return; }
     var p = document.querySelector('#bio-section .glass-frame');
     if(!p) return;
-    var top = p.getBoundingClientRect().top;
-    nav.style.top = Math.max(12, Math.round(top - nav.offsetHeight - 24)) + 'px';
+    var pad = window.innerWidth < 901 ? 14 : 24;
+    var top = Math.max(12, Math.round(p.getBoundingClientRect().top - nav.offsetHeight - pad));
+    nav.style.top = top + 'px';
+    document.documentElement.style.setProperty('--nav-top', top + 'px');
   }
   placeNav();
   addEventListener('resize', placeNav);
@@ -3917,8 +3929,11 @@
   document.querySelectorAll('.nav a').forEach(function(a){
     a.addEventListener('click', function(e){
       e.preventDefault();
-      var map = { '#bio-section': 0, '#narrative': 2, '#corpus': 3 };
-      go(map[a.getAttribute('href')] || 0);
+      var href = a.getAttribute('href');
+      var t = 0;
+      if(href === '#narrative') t = 2;
+      else if(href === '#corpus') t = scenes.indexOf(document.getElementById('corpus'));
+      go(t < 0 ? 0 : t);
     });
   });
 
