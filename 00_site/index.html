@@ -3720,11 +3720,12 @@
     position: fixed !important; inset: 0 !important; z-index: 2;
     display: flex !important; flex-direction: column; align-items: center; justify-content: center;
     margin: 0 !important; padding: 0 32px !important;
-    opacity: 0; filter: blur(6px); pointer-events: none;
+    opacity: 0; filter: blur(6px); pointer-events: none; visibility: hidden;
     will-change: opacity, filter;
     transition: opacity .32s cubic-bezier(0.4, 0, 1, 1), filter .32s cubic-bezier(0.4, 0, 1, 1);
   }
   .scene-on { opacity: 1 !important; filter: blur(0) !important; pointer-events: auto !important;
+    visibility: visible !important;
     transition: opacity .42s cubic-bezier(0, 0, 0.2, 1), filter .42s cubic-bezier(0, 0, 0.2, 1);
   }
   /* the WebGL canvas can paint one frame before ancestor opacity applies on cold loads;
@@ -3903,7 +3904,10 @@
     n = Math.max(0, Math.min(scenes.length-1, n));
     if(n === idx) return;
     lastFire = Date.now();
-    scenes[idx].classList.remove('scene-on');
+    var out = scenes[idx];
+    out.style.visibility = 'visible'; /* keep painting through the ghost-out */
+    out.classList.remove('scene-on');
+    setTimeout(function(){ if(!out.classList.contains('scene-on')) out.style.visibility = ''; }, 340);
     idx = n;
     setTimeout(function(){ scenes[n].classList.add('scene-on'); }, OUT);
     if(nav) nav.classList.toggle('hidden', n > 0);
