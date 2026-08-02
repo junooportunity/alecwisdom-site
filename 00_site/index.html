@@ -3748,21 +3748,10 @@
       object-fit: contain !important;
     }
   }
-  /* phone landscape: the scene site is a portrait-format piece — show a rotate
-     prompt rather than a half-working layout (mobile JS init is orientation-bound) */
-  #rotate-overlay { display: none; }
-  @media (pointer: coarse) and (orientation: landscape) and (max-height: 500px){
-    #rotate-overlay {
-      display: flex; position: fixed; inset: 0; z-index: 99999;
-      background: #0a0a0a; align-items: center; justify-content: center;
-    }
-    #rotate-overlay p {
-      font-family: 'Times New Roman', Times, serif; font-style: italic;
-      font-size: 0.9rem; color: #777; letter-spacing: 0.05em; text-transform: none;
-    }
-  }
   #monos-logo-section .footer { position: absolute; bottom: 0; left: 0; right: 0; width: 100%; padding-top: 1.5rem; gap: 1.1rem; }
-  @media (max-width: 820px){
+  /* iOS Safari inflates text after rotation without this */
+  html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+  @media (max-width: 820px), ((pointer: coarse) and (max-height: 500px)){
     /* mobile section{display:flex !important} resurrects the hidden archive — force it dead */
     #archive { display: none !important; }
     .nav { top: var(--nav-top, calc(10px + env(safe-area-inset-top, 0px))) !important;
@@ -3837,6 +3826,17 @@
       max-height: 64vh !important; max-height: 64dvh !important;
     }
   }
+  /* phone landscape: the mobile-scene layout above applies (coarse + short), but its
+     vw-based art sizes explode at 852vw — re-key the big elements to vh instead */
+  @media (pointer: coarse) and (max-height: 500px) and (orientation: landscape){
+    .mscene .poster-image { max-width: 70vh !important; max-height: 56vh !important; }
+    #corpus .henosis-book model-viewer { width: 48vh !important; height: 65vh !important; }
+    #monos-logo-section .footer-brand { width: calc(80vh - 147px) !important; max-width: none !important; }
+    .bio-content .bio-extended {
+      font-size: clamp(11px, 3vh, 14px) !important;
+      max-width: 74vw !important; margin-left: auto !important; margin-right: auto !important;
+    }
+  }
 </style>
 <style>
   /* section pills pinned to the nav's height — one label slot across all scenes */
@@ -3883,7 +3883,8 @@
     document.getElementById('monos-logo-section')
   ];
   var nav = document.querySelector('.nav');
-  if(window.matchMedia('(max-width: 820px)').matches){
+  if(window.matchMedia('(max-width: 820px)').matches
+     || (window.matchMedia('(pointer: coarse)').matches && window.matchMedia('(max-height: 500px)').matches)){
     var narrGrid = document.getElementById('narrative');
     var narrPill = document.querySelector('#narrative .section-label');
     var items = Array.prototype.slice.call(document.querySelectorAll('#narrative .poster-item'));
@@ -4069,7 +4070,6 @@
 })();
 </script>
 
-<div id="rotate-overlay" aria-hidden="true"><p>rotate your phone</p></div>
 </body>
 </html>
 
