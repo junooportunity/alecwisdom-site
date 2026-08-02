@@ -3727,6 +3727,9 @@
   .scene-on { opacity: 1 !important; filter: blur(0) !important; pointer-events: auto !important;
     transition: opacity .42s cubic-bezier(0, 0, 0.2, 1), filter .42s cubic-bezier(0, 0, 0.2, 1);
   }
+  /* the WebGL canvas can paint one frame before ancestor opacity applies on cold loads;
+     visibility blocks painting entirely — .34s delay lets the ghost-out finish first */
+  #corpus:not(.scene-on) model-viewer { visibility: hidden; transition: visibility 0s .34s; }
   .bio-content {
     max-height: none !important; transform: none !important;
     -webkit-mask-image: none !important; mask-image: none !important;
