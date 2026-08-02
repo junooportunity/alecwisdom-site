@@ -16,7 +16,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Alec Wisdom</title>
-    <style>#narrative,#corpus,#monos-logo-section,.bio-content{opacity:0;visibility:hidden}</style>
+    <style>body:not(.ready) #bio-section,body:not(.ready) #narrative,body:not(.ready) #corpus,body:not(.ready) #monos-logo-section,body:not(.ready) .bio-content{visibility:hidden!important}</style>
     
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="01_images/icons/icon.ico?v=3">
@@ -3720,12 +3720,12 @@
     position: fixed !important; inset: 0 !important; z-index: 2;
     display: flex !important; flex-direction: column; align-items: center; justify-content: center;
     margin: 0 !important; padding: 0 32px !important;
-    opacity: 0; visibility: hidden; filter: blur(6px); pointer-events: none;
+    opacity: 0; filter: blur(6px); pointer-events: none;
     will-change: opacity, filter;
-    transition: opacity .32s cubic-bezier(0.4, 0, 1, 1), filter .32s cubic-bezier(0.4, 0, 1, 1), visibility 0s linear .32s;
+    transition: opacity .32s cubic-bezier(0.4, 0, 1, 1), filter .32s cubic-bezier(0.4, 0, 1, 1);
   }
-  .scene-on { opacity: 1 !important; visibility: visible !important; filter: blur(0) !important; pointer-events: auto !important;
-    transition: opacity .42s cubic-bezier(0, 0, 0.2, 1), filter .42s cubic-bezier(0, 0, 0.2, 1), visibility 0s;
+  .scene-on { opacity: 1 !important; filter: blur(0) !important; pointer-events: auto !important;
+    transition: opacity .42s cubic-bezier(0, 0, 0.2, 1), filter .42s cubic-bezier(0, 0, 0.2, 1);
   }
   .bio-content {
     max-height: none !important; transform: none !important;
@@ -3876,6 +3876,7 @@
   var REFRACTORY = 550;       /* min ms between scene changes  */
   var idx = 0, lastFire = 0;
   scenes[0].classList.add('scene-on');
+  document.body.classList.add('ready');
 
   function placeNav(){
     if(!nav) return;
