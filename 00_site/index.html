@@ -3738,6 +3738,11 @@
     overflow: visible !important; padding-bottom: 0 !important;
   }
   #narrative .section-label { margin: 0 auto 12px auto !important; }
+  /* short viewports (phone landscape): portrait must leave headroom for the nav,
+     otherwise placeNav clamps to 12px and the pill sits on the face */
+  @media (max-height: 560px){
+    .portrait-container img { width: auto !important; max-height: calc(100vh - 200px) !important; }
+  }
   #monos-logo-section .footer { position: absolute; bottom: 0; left: 0; right: 0; width: 100%; padding-top: 1.5rem; gap: 1.1rem; }
   @media (max-width: 820px){
     /* mobile section{display:flex !important} resurrects the hidden archive — force it dead */
@@ -3893,7 +3898,8 @@
     nav.style.top = top + 'px';
     document.documentElement.style.setProperty('--nav-top', top + 'px');
     document.documentElement.style.setProperty('--content-top', (top + nav.offsetHeight + 16) + 'px');
-    if(window.innerWidth < 901){ nav.style.setProperty('width', Math.round(r.width) + 'px', 'important'); }
+    if(window.innerWidth < 901 && window.innerHeight > window.innerWidth){ nav.style.setProperty('width', Math.round(r.width) + 'px', 'important'); }
+    else if(window.innerWidth < 901){ nav.style.removeProperty('width'); }
   }
   placeNav();
   addEventListener('resize', placeNav);
