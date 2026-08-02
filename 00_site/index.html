@@ -3748,6 +3748,19 @@
       object-fit: contain !important;
     }
   }
+  /* phone landscape: the scene site is a portrait-format piece — show a rotate
+     prompt rather than a half-working layout (mobile JS init is orientation-bound) */
+  #rotate-overlay { display: none; }
+  @media (pointer: coarse) and (orientation: landscape) and (max-height: 500px){
+    #rotate-overlay {
+      display: flex; position: fixed; inset: 0; z-index: 99999;
+      background: #0a0a0a; align-items: center; justify-content: center;
+    }
+    #rotate-overlay p {
+      font-family: 'Times New Roman', Times, serif; font-style: italic;
+      font-size: 0.9rem; color: #777; letter-spacing: 0.05em; text-transform: none;
+    }
+  }
   #monos-logo-section .footer { position: absolute; bottom: 0; left: 0; right: 0; width: 100%; padding-top: 1.5rem; gap: 1.1rem; }
   @media (max-width: 820px){
     /* mobile section{display:flex !important} resurrects the hidden archive — force it dead */
@@ -4056,6 +4069,7 @@
 })();
 </script>
 
+<div id="rotate-overlay" aria-hidden="true"><p>rotate your phone</p></div>
 </body>
 </html>
 
