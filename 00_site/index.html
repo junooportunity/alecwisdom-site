@@ -4102,6 +4102,10 @@
   #archive #archiveToggle, #archive .color-grading-pill, #archive .color-grading-content,
   #archive .cinematography-divider { display: none !important; }
   #archive .cinematography-content { width: min(1100px, 100%); margin: 0 auto; }
+  /* the old archive was an accordion — force its wrappers open inside the scene */
+  #archive .archive-content, #archive .cinematography-content {
+    max-height: none !important; opacity: 1 !important; overflow: visible !important;
+  }
   #archive .still-item { cursor: pointer; }
   #archive .still-item[data-video-id=""] { cursor: default; }
   .footer-copyright { cursor: pointer; }
