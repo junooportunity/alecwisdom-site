@@ -4162,9 +4162,10 @@
     window.__arOn = true;
     deepLink = true;
     document.querySelectorAll('.scene-on').forEach(function(el){ el.classList.remove('scene-on'); });
-    ar.classList.add('scene-on');
     var nv = document.querySelector('.nav');
     if (nv) nv.classList.add('hidden');
+    /* defer activation one frame so the ghost fade/blur transition plays */
+    setTimeout(function(){ ar.classList.add('scene-on'); }, 120);
   }
 
   var vm = document.getElementById('videoModal');
