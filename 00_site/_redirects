@@ -3,4 +3,4 @@
 /resources /00_pages/resources 200
 /monos-pros-monon /00_pages/monos-pros-monon 200
 /Images/* /01_images/:splat 301
-/archive /#cinematography 302
+/archive /index.html 200

@@ -4157,8 +4157,8 @@
   var cr = document.querySelector('.footer-copyright');
   if (cr) cr.addEventListener('click', enter);
 
-  /* hidden direct link: alecwisdom.com/#cinematography (or #archive) */
-  if (location.hash === '#cinematography' || location.hash === '#archive'){
+  /* hidden direct link: alecwisdom.com/archive */
+  if (location.pathname === '/archive' || location.pathname === '/archive/'){
     window.__arOn = true;
     deepLink = true;
     document.querySelectorAll('.scene-on').forEach(function(el){ el.classList.remove('scene-on'); });
