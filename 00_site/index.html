@@ -4092,7 +4092,12 @@
     background: #101010; border: 1px solid rgba(255,255,255,0.12); border-radius: 16px;
     padding: 30px 26px 38px; overflow-y: auto; -webkit-overflow-scrolling: touch;
   }
-  #archiveModal .section-label { margin: 0 auto 24px auto; display: table; }
+  #archiveModal .archive-modal-content { text-align: center; }
+  #archiveModal .section-label {
+    display: inline-block !important; position: static !important;
+    transform: none !important; left: auto !important;
+    margin: 0 auto 24px auto !important;
+  }
   #archiveModal .stills-grid, #archiveModal .cinematography-grid {
     display: grid !important; grid-template-columns: 1fr; gap: 14px; margin: 0 !important; width: 100%;
   }
