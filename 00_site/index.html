@@ -4124,6 +4124,7 @@
   var monos = document.getElementById('monos-logo-section');
   if (!ar || !monos) return;
   window.__arOn = false;
+  var deepLink = false;
 
   function enter(){
     if (window.__arOn) return;
@@ -4135,6 +4136,7 @@
   }
   function exitA(){
     if (!window.__arOn) return;
+    if (deepLink){ location.replace('/'); return; }
     window.__arOn = false;
     ar.style.visibility = 'visible';
     ar.classList.remove('scene-on');
@@ -4158,6 +4160,7 @@
   /* hidden direct link: alecwisdom.com/#cinematography (or #archive) */
   if (location.hash === '#cinematography' || location.hash === '#archive'){
     window.__arOn = true;
+    deepLink = true;
     document.querySelectorAll('.scene-on').forEach(function(el){ el.classList.remove('scene-on'); });
     ar.classList.add('scene-on');
     var nv = document.querySelector('.nav');
