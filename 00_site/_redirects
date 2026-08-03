@@ -4,3 +4,6 @@
 /monos-pros-monon /00_pages/monos-pros-monon 200
 /Images/* /01_images/:splat 301
 /archive /index.html 200
+/bio /index.html 200
+/narrative /index.html 200
+/henosis /index.html 200

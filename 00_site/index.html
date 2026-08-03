@@ -3050,9 +3050,9 @@
 
     <!-- Nav -->
     <nav class="nav">
-        <a href="#bio">Bio</a>
-        <a href="#narrative">Narrative</a>
-        <a href="#henosis">Henōsis</a>
+        <a href="/bio">Bio</a>
+        <a href="/narrative">Narrative</a>
+        <a href="/henosis">Henōsis</a>
     </nav>
 
     <!-- Hidden buttons for modal triggers from iframes -->
@@ -3916,8 +3916,18 @@
   var OUT = 300;              /* ghost-out before next appears */
   var REFRACTORY = 550;       /* min ms between scene changes  */
   var idx = 0, lastFire = 0;
-  scenes[0].classList.add('scene-on');
-  document.body.classList.add('ready');
+  var bootPath = location.pathname.replace(/\/$/, '');
+  var bootMap = { '/bio': 1, '/narrative': 2, '/henosis': scenes.indexOf(document.getElementById('corpus')) };
+  var bootIdx = bootMap[bootPath];
+  if (bootIdx > 0){
+    idx = bootIdx;
+    if (nav) nav.classList.add('hidden');
+    document.body.classList.add('ready');
+    setTimeout(function(){ scenes[bootIdx].classList.add('scene-on'); }, 120);
+  } else {
+    scenes[0].classList.add('scene-on');
+    document.body.classList.add('ready');
+  }
 
   function placeNav(){
     if(!nav) return;
@@ -3942,6 +3952,7 @@
     n = Math.max(0, Math.min(scenes.length-1, n));
     if(n === idx) return;
     lastFire = Date.now();
+    if (location.pathname !== '/') history.replaceState(null, '', '/');
     var out = scenes[idx];
     out.style.visibility = 'visible'; /* keep painting through the ghost-out */
     out.classList.remove('scene-on');
@@ -4026,9 +4037,9 @@
       e.preventDefault();
       var href = a.getAttribute('href');
       var t = 0;
-      if(href === '#bio') t = 1;
-      else if(href === '#narrative') t = 2;
-      else if(href === '#henosis') t = scenes.indexOf(document.getElementById('corpus'));
+      if(href === '/bio') t = 1;
+      else if(href === '/narrative') t = 2;
+      else if(href === '/henosis') t = scenes.indexOf(document.getElementById('corpus'));
       go(t < 0 ? 0 : t);
     });
   });
