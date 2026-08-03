@@ -4111,8 +4111,14 @@
     display: grid !important; grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
     gap: 12px !important; margin: 0 !important; width: 100% !important;
   }
-  #archive .still-item { width: 100% !important; margin: 0 !important; max-width: none !important; }
-  #archive .still-image { width: 100% !important; height: auto !important; display: block; border-radius: 6px; }
+  #archive .still-item {
+    width: 100% !important; margin: 0 !important; max-width: none !important;
+    aspect-ratio: 11 / 2; overflow: hidden; border-radius: 6px;
+  }
+  #archive .still-image {
+    width: 100% !important; height: 100% !important; display: block;
+    object-fit: cover; object-position: center; border-radius: 6px;
+  }
   @media (max-width: 820px){
     #archive .cinematography-grid { grid-template-columns: 1fr !important; gap: 8px !important; }
   }
