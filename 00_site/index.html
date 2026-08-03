@@ -3956,7 +3956,7 @@
   var recent = [];      /* events in the last 160ms */
   var accSlow = 0, prevAbs = 0, slowDir = 0;
   addEventListener('wheel', function(e){
-    if(document.querySelector('.film-modal.active')) return;
+    if(document.querySelector('.film-modal.active, .video-modal.active')) return;
     e.preventDefault();
     var d = e.deltaY;
     if(!d) return;
@@ -3991,7 +3991,7 @@
 
   addEventListener('keydown', function(e){
     if(e.key === 'Escape'){ document.querySelectorAll('.film-modal.active, #pitchDeckPopup.active').forEach(function(m){ m.classList.remove('active'); }); return; }
-    if(document.querySelector('.film-modal.active')) return;
+    if(document.querySelector('.film-modal.active, .video-modal.active')) return;
     if(['ArrowDown','PageDown',' '].indexOf(e.key) > -1){ e.preventDefault(); if(Date.now()-lastFire > 250) next(); }
     else if(['ArrowUp','PageUp'].indexOf(e.key) > -1){ e.preventDefault(); if(Date.now()-lastFire > 250) prev(); }
   });
@@ -3999,7 +3999,7 @@
   var ty = 0;
   addEventListener('touchstart', function(e){ ty = e.touches[0].clientY; }, {passive:true});
   addEventListener('touchend', function(e){
-    if(document.querySelector('.film-modal.active')) return;
+    if(document.querySelector('.film-modal.active, .video-modal.active')) return;
     var dy = ty - e.changedTouches[0].clientY;
     if(Date.now() - lastFire < 450) return;
     var el = scenes[idx];
@@ -4083,6 +4083,74 @@
 </script>
 
 <div id="rotate-overlay" aria-hidden="true"><p>rotate device</p></div>
+
+<!-- Archive modal — opened by clicking the MPM copyright line -->
+<style>
+  #videoModal { z-index: 10001; }
+  #archiveModal .archive-modal-content {
+    position: relative; width: min(1100px, 92vw); max-height: 86vh; margin: 7vh auto;
+    background: #101010; border: 1px solid rgba(255,255,255,0.12); border-radius: 16px;
+    padding: 30px 26px 38px; overflow-y: auto; -webkit-overflow-scrolling: touch;
+  }
+  #archiveModal .section-label { margin: 0 auto 24px auto; display: table; }
+  #archiveModal .stills-grid, #archiveModal .cinematography-grid {
+    display: grid !important; grid-template-columns: 1fr; gap: 14px; margin: 0 !important; width: 100%;
+  }
+  #archiveModal .still-item { width: 100% !important; margin: 0 !important; }
+  #archiveModal .still-item[data-video-id=""] { cursor: default; }
+  #archiveModal .still-image { width: 100%; height: auto; display: block; border-radius: 8px; }
+  #archiveModal .video-modal-close { position: absolute; top: 12px; right: 18px; cursor: pointer; font-size: 26px; color: #aaa; z-index: 2; }
+  .footer-copyright { cursor: pointer; }
+  @media (max-width: 820px){
+    #archiveModal .archive-modal-content { width: 94vw; margin: 5vh auto; padding: 24px 14px 30px; max-height: 88vh; }
+  }
+</style>
+<div class="video-modal" id="archiveModal">
+  <div class="archive-modal-content">
+    <span class="video-modal-close" id="closeArchiveModal">&times;</span>
+    <div class="section-label">Cinematography</div>
+    <div id="archiveModalGrid"></div>
+  </div>
+</div>
+<script>
+(function(){
+  var am = document.getElementById('archiveModal');
+  var grid = document.querySelector('#archive .cinematography-grid');
+  if (am && grid) document.getElementById('archiveModalGrid').appendChild(grid);
+
+  var cr = document.querySelector('.footer-copyright');
+  if (cr) cr.addEventListener('click', function(){ am.classList.add('active'); });
+
+  function closeArchive(){ am.classList.remove('active'); }
+  document.getElementById('closeArchiveModal').addEventListener('click', function(e){ e.stopPropagation(); closeArchive(); });
+  am.addEventListener('click', function(e){ if (e.target === am) closeArchive(); });
+
+  var vm = document.getElementById('videoModal');
+  var vc = document.getElementById('videoContainer');
+  function closeVideo(){ vm.classList.remove('active'); vc.innerHTML = ''; }
+  document.getElementById('closeModal').addEventListener('click', function(e){ e.stopPropagation(); closeVideo(); });
+  vm.addEventListener('click', function(e){ if (e.target === vm) closeVideo(); });
+
+  document.querySelectorAll('#archiveModal .still-item').forEach(function(it){
+    var src = it.getAttribute('data-video-id');
+    if (!src) return;
+    it.addEventListener('click', function(){
+      vc.innerHTML = '';
+      var v = document.createElement('video');
+      v.src = src; v.controls = true; v.autoplay = true; v.playsInline = true;
+      v.style.width = '100%'; v.style.height = '100%'; v.style.borderRadius = '12px'; v.style.background = '#000';
+      vc.appendChild(v);
+      vm.classList.add('active');
+    });
+  });
+
+  addEventListener('keydown', function(e){
+    if (e.key !== 'Escape') return;
+    if (vm.classList.contains('active')) closeVideo();
+    else if (am.classList.contains('active')) closeArchive();
+  });
+})();
+</script>
 </body>
 </html>
 
