@@ -1,2 +1,8 @@
 /01_images/*
   X-Robots-Tag: noindex
+
+/04_books/*
+  X-Robots-Tag: noindex
+
+/02_models/*
+  X-Robots-Tag: noindex
