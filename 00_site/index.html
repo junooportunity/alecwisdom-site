@@ -3785,7 +3785,10 @@
   /* An Unsaying scene: single poster sizing on desktop (mobile .mscene rules already cover it) */
   #unsaying .poster-item { width: auto !important; margin: 0 auto !important; cursor: pointer; }
   #unsaying .poster-glass-frame { width: auto !important; }
-  #unsaying .poster-image { width: auto !important; height: auto !important; max-width: 80vw !important; max-height: 54vh !important; max-height: 54dvh !important; margin-top: 3vh; }
+  #unsaying .poster-image { width: auto !important; height: auto !important; max-width: 80vw !important; max-height: 64vh !important; max-height: 64dvh !important; }
+  @media (min-width: 821px){
+    #unsaying .poster-image { max-height: 54vh !important; max-height: 54dvh !important; margin-top: 3vh; }
+  }
   /* phone landscape: portrait-format piece — show a rotate prompt */
   #rotate-overlay { display: none; }
   @media (pointer: coarse) and (orientation: landscape) and (max-height: 500px){
