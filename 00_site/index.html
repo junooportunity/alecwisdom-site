@@ -3997,7 +3997,7 @@
     out.classList.remove('scene-on');
     setTimeout(function(){ if(!out.classList.contains('scene-on')) out.style.visibility = ''; }, 340);
     idx = n;
-    setTimeout(function(){ scenes[n].classList.add('scene-on'); }, OUT);
+    setTimeout(function(){ if(idx === n) scenes[n].classList.add('scene-on'); }, OUT);
     if(nav) nav.classList.toggle('hidden', n > 0);
   }
   function next(){ go(idx+1); } function prev(){ go(idx-1); }
@@ -4044,8 +4044,8 @@
     if(e.key === 'Escape'){ document.querySelectorAll('.film-modal.active, #pitchDeckPopup.active').forEach(function(m){ m.classList.remove('active'); }); return; }
     if(document.querySelector('.film-modal.active, .video-modal.active')) return;
     if(window.__arOn){ window.__arKey(e); return; }
-    if(['ArrowDown','PageDown',' '].indexOf(e.key) > -1){ e.preventDefault(); if(Date.now()-lastFire > 250) next(); }
-    else if(['ArrowUp','PageUp'].indexOf(e.key) > -1){ e.preventDefault(); if(Date.now()-lastFire > 250) prev(); }
+    if(['ArrowDown','PageDown',' '].indexOf(e.key) > -1){ e.preventDefault(); if(Date.now()-lastFire > REFRACTORY) next(); }
+    else if(['ArrowUp','PageUp'].indexOf(e.key) > -1){ e.preventDefault(); if(Date.now()-lastFire > REFRACTORY) prev(); }
   });
 
   var ty = 0;
