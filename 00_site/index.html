@@ -3088,6 +3088,18 @@
             </div>
         </section>
 
+        <!-- An Unsaying (short) — own scene, first poster -->
+        <section class="mscene" id="unsaying">
+            <div class="section-label fade-in">Narrative</div>
+            <div class="poster-item" data-modal="unsayingModal">
+                <div class="glass-frame poster-glass-frame">
+                    <div class="glass-inner">
+                        <img src="01_images/Posters/An Unsaying.webp" alt="An Unsaying" class="poster-image" loading="eager">
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- Narrative -->
         <section class="work-section" id="narrative">
             <div class="section-inner">
@@ -3697,6 +3709,23 @@
         </div>
     </div>
 
+    <!-- An Unsaying (short) Modal -->
+    <div class="video-modal film-modal" id="unsayingModal">
+        <div class="video-modal-content">
+            <div class="glass-frame modal-poster-frame">
+                <div class="glass-inner">
+                    <img src="01_images/Posters/An Unsaying.webp" alt="An Unsaying Poster" class="film-modal-poster">
+                </div>
+            </div>
+            <p class="film-modal-type">Short Film · In Pre-Production</p>
+            <div class="film-modal-divider"></div>
+            <p class="film-modal-logline">Generational trauma reflects back as a grandmother questions her kin.</p>
+            <button class="film-modal-cta pitch-deck-trigger" data-project="An Unsaying" data-logo="01_images/Logos/an-unsaying-title-cropped.png" data-subject="Script Request">Read Script</button>
+            <div class="film-modal-divider"></div>
+            <p class="film-modal-copyright">© 2026 Monos Pros Monon</p>
+        </div>
+    </div>
+
     <!-- Pitch Deck Request Popup -->
     <div class="pitch-deck-popup" id="pitchDeckPopup">
         <div class="pitch-deck-popup-content">
@@ -3753,6 +3782,10 @@
   #monos-logo-section .footer { position: absolute; bottom: 0; left: 0; right: 0; width: 100%; padding-top: 1.5rem; gap: 1.1rem; }
   /* iOS Safari inflates text after rotation without this */
   html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+  /* An Unsaying scene: single poster sizing on desktop (mobile .mscene rules already cover it) */
+  #unsaying .poster-item { width: auto !important; margin: 0 auto !important; cursor: pointer; }
+  #unsaying .poster-glass-frame { width: auto !important; }
+  #unsaying .poster-image { width: auto !important; height: auto !important; max-width: 80vw !important; max-height: 64vh !important; max-height: 64dvh !important; }
   /* phone landscape: portrait-format piece — show a rotate prompt */
   #rotate-overlay { display: none; }
   @media (pointer: coarse) and (orientation: landscape) and (max-height: 500px){
@@ -3892,6 +3925,7 @@
   var scenes = [
     document.getElementById('bio-section'),
     bio,
+    document.getElementById('unsaying'),
     document.getElementById('narrative'),
     document.getElementById('corpus'),
     document.getElementById('monos-logo-section')
@@ -3912,7 +3946,7 @@
         return sec;
       });
       narrGrid.style.setProperty('display', 'none', 'important');
-      scenes = [scenes[0], scenes[1]].concat(subs).concat([scenes[3], scenes[4]]);
+      scenes = [scenes[0], scenes[1], scenes[2]].concat(subs).concat([scenes[4], scenes[5]]);
     }
   }
   var OUT = 300;              /* ghost-out before next appears */
