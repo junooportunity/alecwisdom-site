@@ -79,7 +79,7 @@ export default async function handler(req, res) {
     }));
   }
 
-  // Verify the session with Stripe — never show a key for an unpaid session
+  // Verify the session with Stripe; never show a key for an unpaid session
   let session;
   try {
     const sr = await fetch(`https://api.stripe.com/v1/checkout/sessions/${encodeURIComponent(sessionId)}`, {
@@ -109,7 +109,7 @@ export default async function handler(req, res) {
     }));
   }
 
-  // Paid — find the license the webhook registered for this session
+  // Paid: find the license the webhook registered for this session
   let found = null;
   try {
     found = await findBySource(sessionId);
@@ -121,7 +121,7 @@ export default async function handler(req, res) {
     // Webhook race: payment confirmed but the key isn't registered yet. Auto-retry.
     res.status(200).setHeader('Content-Type', 'text/html');
     return res.send(page({
-      title: 'Aletheia — preparing your license',
+      title: 'Aletheia · Preparing Your License',
       body: `<p class="lede">Payment confirmed.</p>
         <p class="fine">Your license key is being generated. This page refreshes on its own;
         it usually takes a few seconds.<br>
@@ -134,7 +134,7 @@ export default async function handler(req, res) {
   const key = found.row[COLS.LICENSE_KEY];
   res.status(200).setHeader('Content-Type', 'text/html');
   return res.send(page({
-    title: 'Aletheia — your license',
+    title: 'Aletheia · Your License',
     body: `<p class="lede">Thank you. Your license is ready. One key unlocks all four plugins.</p>
       <p class="key-label">Your License Key</p>
       <div class="key">${key}</div>
