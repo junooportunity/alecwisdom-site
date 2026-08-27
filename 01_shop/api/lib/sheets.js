@@ -89,6 +89,19 @@ async function findByLicenseKey(key) {
   return null;
 }
 
+// Find row by source (stripe checkout session id)
+async function findBySource(source) {
+  const target = (source || '').trim();
+  if (!target) return null;
+  const rows = await getAllRows();
+  for (let i = 0; i < rows.length; i++) {
+    if ((rows[i][COLS.SOURCE] || '').toString().trim() === target) {
+      return { rowIndex: i + 2, row: rows[i] };
+    }
+  }
+  return null;
+}
+
 // Find row by email
 async function findByEmail(email) {
   const target = email.toLowerCase().trim();
@@ -292,4 +305,4 @@ async function markTrialConverted(email) {
   });
 }
 
-module.exports = { COLS, findByLicenseKey, findByEmail, appendRow, updateRow, ensureHeaders, appendLog, markTrialConverted, SPREADSHEET_ID };
+module.exports = { COLS, findByLicenseKey, findByEmail, findBySource, appendRow, updateRow, ensureHeaders, appendLog, markTrialConverted, SPREADSHEET_ID };

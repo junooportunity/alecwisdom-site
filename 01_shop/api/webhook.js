@@ -1,7 +1,7 @@
 const Stripe = require('stripe');
 const { Resend } = require('resend');
 const { generateLicenseKey } = require('./lib/keygen');
-const { findByEmail, appendRow, ensureHeaders, markTrialConverted, COLS } = require('./lib/sheets');
+const { findByEmail, findByLicenseKey, appendRow, updateRow, ensureHeaders, markTrialConverted, COLS } = require('./lib/sheets');
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 const resend = new Resend(process.env.RESEND_API_KEY);
@@ -197,6 +197,33 @@ export default async function handler(req, res) {
         }
       } catch (emailErr) {
         console.error('Failed to send email:', emailErr);
+        // Delivery email failed — flag the row so the Sheet never claims Delivered falsely
+        try {
+          const found = await findByLicenseKey(licenseKey);
+          if (found) await updateRow(found.rowIndex, { [COLS.STATUS]: 'EmailFailed' });
+        } catch (flagErr) {
+          console.error('Failed to flag EmailFailed:', flagErr);
+        }
+        // Alert admin immediately — a customer paid and has no key in hand
+        try {
+          await resend.emails.send({
+            from: 'Aletheia Licenses <delivery@monosprosmonon.com>',
+            to: 'support@monosprosmonon.com',
+            subject: `DELIVERY EMAIL FAILED: ${customerEmail}`,
+            html: `
+              <div style="font-family: monospace; padding: 20px;">
+                <h2 style="color: #b00;">Delivery email FAILED — customer has no key</h2>
+                <p><strong>Customer:</strong> ${customerName || 'N/A'} (${customerEmail})</p>
+                <p><strong>License Key:</strong> ${licenseKey}</p>
+                <p><strong>Stripe Session:</strong> ${session.id}</p>
+                <p><strong>Error:</strong> ${String(emailErr && emailErr.message || emailErr)}</p>
+                <p>The key IS in the Sheet (status EmailFailed). Reply to the customer with the key and download links.</p>
+              </div>
+            `
+          });
+        } catch (alertErr) {
+          console.error('Failure alert failed:', alertErr);
+        }
       }
 
       // Mark trial signup as converted (if they came through the trial)
