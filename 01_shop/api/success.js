@@ -56,7 +56,7 @@ ${refresh ? '<meta http-equiv="refresh" content="4">' : ''}
   <p class="hero-tagline">a company</p>
   <hr class="divider">
   <h1 class="hero-name">Aletheia</h1>
-  <p class="hero-greek">&#7936;&#955;&#942;&#952;&#949;&#953;&#945; &mdash; truth, unconcealment</p>
+  <p class="hero-greek">&#7936;&#955;&#942;&#952;&#949;&#953;&#945; &middot; truth, unconcealment</p>
   <p class="hero-subtitle">Color Grading Suite</p>
 </section>
 <div class="wrap">${body}</div>
@@ -135,7 +135,7 @@ export default async function handler(req, res) {
   res.status(200).setHeader('Content-Type', 'text/html');
   return res.send(page({
     title: 'Aletheia — your license',
-    body: `<p class="lede">Thank you. Your license is ready &mdash; one key unlocks all four plugins.</p>
+    body: `<p class="lede">Thank you. Your license is ready. One key unlocks all four plugins.</p>
       <p class="key-label">Your License Key</p>
       <div class="key">${key}</div>
       <div>
@@ -145,7 +145,7 @@ export default async function handler(req, res) {
       <div class="steps">
         1. Run the installer<br>
         2. Enter your license key when prompted<br>
-        3. Restart DaVinci Resolve <em>&mdash; the plugins appear under OpenFX</em>
+        3. Restart DaVinci Resolve <em>(the plugins appear under OpenFX)</em>
       </div>
       <p class="fine">A copy of this key was emailed to ${found.row[COLS.EMAIL] || 'you'}
       (check spam if it's not in your inbox). Keep the key somewhere safe.<br>
