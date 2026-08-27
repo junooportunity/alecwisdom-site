@@ -1,0 +1,9 @@
+{
+  "name": "aletheia-shop",
+  "private": true,
+  "dependencies": {
+    "jsonwebtoken": "9.0.3",
+    "resend": "2.1.0",
+    "stripe": "14.25.0"
+  }
+}
