@@ -423,7 +423,7 @@
             font-weight: 400;
             font-style: italic;
             color: #cccccc;
-            max-width: 600px;
+            max-width: min(600px, 66ch);
             line-height: 1.6;
             letter-spacing: 0.3px;
             text-transform: none;
@@ -434,7 +434,8 @@
 
         .bio-extended p {
             margin-bottom: 1rem;
-            text-indent: 2em;
+            text-indent: 0;
+            text-wrap: pretty;
         }
 
         .bio-extended p:last-child {
@@ -2357,7 +2358,7 @@
 
             .bio-extended p {
                 margin-bottom: 0.75rem !important;
-                text-indent: 1.5em !important;
+                text-indent: 0 !important;
             }
 
             .bio-extended p:last-child {
@@ -3081,7 +3082,8 @@
                     <div class="section-label" id="bioToggle" style="margin: 0 auto 24px auto;">Bio</div>
                     <div class="bio-extended fade-in">
                         <p>I found storytelling through music. As a producer within a community of like-minded artists I learned why relationships and unified technical systems allow creative work to flourish. I was born and raised in Texas and the way I see and tell stories is rooted in its people and landscapes and paradoxes.</p>
-                        <p>After surviving two near-death experiences while commuting to work on <em>Yellowstone: 1883</em>, I knew I needed to direct, which meant I needed to write. Over the following two years I survived two additional near-death experiences. Death stopped feeling distant and became intimate, natural and inseparable from waking life. I lived with PTSD for years and addressed it deliberately with EMDR and the help of a steady community. Writing stabilized my attention and gave form to what I endured. That practice matured into stories grounded in my lived experience, set in my home state, holding a mirror up to the people who inhabit it.</p>
+                        <p>After surviving two near-death experiences while commuting to work on <em>Yellowstone: 1883</em>, I knew I needed to direct, which meant I needed to write. Over the following two years I survived two additional near-death experiences. Death stopped feeling distant and became intimate, natural and inseparable from waking life. I lived with PTSD for years and addressed it deliberately with EMDR and the help of a steady community.</p>
+                        <p>Writing stabilized my attention and gave form to what I endured. That practice matured into stories grounded in my lived experience, set in my home state, holding a mirror up to the people who inhabit it.</p>
                         <p>My work explores the nature of relationality and being through human compulsion. I am guided by the intrinsic, the unseen and the ineffable.</p>
                     </div>
                 </div>
@@ -3859,8 +3861,8 @@
     }
     .bio-content .divider { margin: 8px auto !important; }
     .bio-content .bio-extended {
-      font-size: clamp(12.5px, 1.85vh, 16px) !important;
-      font-size: clamp(12.5px, 1.85dvh, 16px) !important;
+      font-size: clamp(12.5px, 1.7vh, 15px) !important;
+      font-size: clamp(12.5px, 1.7dvh, 15px) !important;
       line-height: 1.5 !important; margin-top: 0.7rem !important;
     }
     .bio-content .bio-extended p { margin-bottom: 0.6em !important; }
