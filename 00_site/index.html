@@ -4284,18 +4284,22 @@
   }
   #viewerNav {
     top: var(--nav-top) !important;
-    width: min(380px, calc(100% - 48px)) !important;
-    height: 44px !important; min-width: 0 !important;
-    box-sizing: border-box; padding: 6px 10px !important;
+    width: min(452px, calc(100% - 48px)) !important;
+    min-width: 0 !important;
+    box-sizing: border-box;
   }
   #viewerScenePill {
     appearance: none; background: transparent; border: 0; font-style: normal;
     position: fixed !important; top: calc(var(--nav-top) + 6px) !important;
     left: 50% !important; transform: translateX(-50%) !important;
-    margin: 0 !important; min-height: 32px; box-sizing: border-box;
+    margin: 0 !important; height: 25px; min-height: 0; line-height: 1.5; box-sizing: border-box;
     z-index: 9999; cursor: pointer;
   }
   #viewerScenePill[hidden] { display: none !important; }
+  @media (max-width: 900px) {
+    #viewerNav { width: min(354px, calc(100% - 88px)) !important; }
+    #viewerScenePill { height: 21px; }
+  }
   .bio-content > .section-label, #narrative .section-label,
   #corpus .section-label, .mscene > .section-label { display: none !important; }
   #bio-section, #narrative, #corpus, #monos-logo-section, #archive, .bio-content, .mscene {
@@ -4313,6 +4317,8 @@
       text-align: left;
     }
     .bio-content .bio-extended p { text-wrap: wrap; margin: 0 0 1.3em !important; }
+    .bio-content .bio-extended p:first-child,
+    .bio-content .bio-extended p:last-child { text-wrap: balance; }
     .bio-content .bio-extended p:last-child { margin-bottom: 0 !important; }
     .mscene {
       --poster-width: min(340px, calc(100vw - 80px), calc((var(--viewer-height, 100dvh) - var(--content-top) - 48px) * 0.7071));
