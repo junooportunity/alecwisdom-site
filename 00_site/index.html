@@ -3081,7 +3081,7 @@
                 <div class="bio-content">
                     <div class="section-label" id="bioToggle" style="margin: 0 auto 24px auto;">Bio</div>
                     <div class="bio-extended fade-in">
-                        <p>I found storytelling through music. As a producer within a community of like-minded artists I learned why relationships and unified technical systems allow creative work to flourish. I was born and raised in Texas and the way I see and tell stories is rooted in its people and landscapes and paradoxes.</p>
+                        <p>I found storytelling through music. As a producer within a community of like-minded artists I learned why relationships and unified technical systems allow creative work to flourish. I was born and raised in Texas and the way I see and tell stories is rooted in its people and paradoxes.</p>
                         <p>After surviving two near-death experiences while commuting to work on <em>Yellowstone: 1883</em>, I knew I needed to direct, which meant I needed to write. Over the following two years I survived two additional near-death experiences. Death stopped feeling distant and became intimate, natural and inseparable from waking life. I lived with PTSD for years and addressed it deliberately with EMDR and the help of a steady community.</p>
                         <p>Writing stabilized my attention and gave form to what I endured. That practice matured into stories grounded in my lived experience, set in my home state, holding a mirror up to the people who inhabit it.</p>
                         <p>My work explores the nature of relationality and being through human compulsion. I am guided by the intrinsic, the unseen and the ineffable.</p>
@@ -3864,8 +3864,13 @@
       font-size: clamp(12.5px, 1.7vh, 15px) !important;
       font-size: clamp(12.5px, 1.7dvh, 15px) !important;
       line-height: 1.5 !important; margin-top: 0.7rem !important;
+      box-sizing: border-box;
+      width: 100%; max-width: 36rem;
+      margin-left: auto !important; margin-right: auto !important;
+      padding-left: 0 !important; padding-right: 0 !important;
     }
-    .bio-content .bio-extended p { margin-bottom: 0.6em !important; }
+    .bio-content .bio-extended p { margin: 0 0 1.3em !important; }
+    .bio-content .bio-extended p:last-child { margin-bottom: 0 !important; }
     /* narrative on mobile: one poster per scene, sized like the portrait */
     .mscene .section-label { margin: 0 auto 30px auto !important; }
     .mscene .poster-item { width: auto !important; margin: 0 auto !important; }
