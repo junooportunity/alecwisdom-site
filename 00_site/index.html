@@ -4001,6 +4001,7 @@
     if(!portrait) return;
     var pad = window.innerWidth < 901 ? 14 : 24;
     var top = Math.max(12, Math.round(portrait.getBoundingClientRect().top - nav.offsetHeight - pad));
+    nav.style.top = top + 'px';
     document.documentElement.style.setProperty('--nav-top', top + 'px');
     document.documentElement.style.setProperty('--content-top', (top + nav.offsetHeight + 16) + 'px');
   }
@@ -4297,6 +4298,11 @@
     --nav-top: calc(24px + env(safe-area-inset-top, 0px));
     --content-top: calc(var(--nav-top) + 68px);
   }
+  #viewerScenePill { display: none !important; }
+  .bio-content .bio-extended p { text-indent: 1.5em !important; }
+  /* The viewer overrides are mobile-only. Desktop retains its original scene
+     centering, original section pills, nav sizing, and height rules. */
+  @media (max-width: 820px), ((pointer: coarse) and (max-height: 500px)) {
   #viewerNav {
     top: var(--nav-top) !important;
     width: min(452px, calc(100% - 48px)) !important;
@@ -4304,6 +4310,7 @@
     box-sizing: border-box;
   }
   #viewerScenePill {
+    display: inline-block !important;
     appearance: none; background: transparent; border: 0; font-style: normal;
     position: fixed !important; top: calc(var(--nav-top) + 6px) !important;
     left: 50% !important; transform: translateX(-50%) !important;
@@ -4311,7 +4318,6 @@
     z-index: 9999; cursor: pointer;
   }
   #viewerScenePill[hidden] { display: none !important; }
-  .bio-content .bio-extended p { text-indent: 1.5em !important; }
   /* Preserve the original portrait anchor outside Instagram. Keep it independent
      of --content-top so measuring it cannot feed back into its own position. */
   html:not(.instagram-viewer) #bio-section {
@@ -4335,6 +4341,7 @@
     padding-top: var(--content-top) !important;
     padding-bottom: calc(24px + env(safe-area-inset-bottom, 0px)) !important;
   }
+  }
   @media (max-width: 820px), ((pointer: coarse) and (max-height: 500px)) {
     .bio-content { padding-top: calc(var(--content-top) + 20px) !important; padding-left: 24px !important; padding-right: 24px !important; overflow-y: auto !important; }
     /* Instagram already reserves space for its own chrome. Remove the extra
@@ -4342,6 +4349,17 @@
     html.instagram-viewer #bio-section::before,
     html.instagram-viewer .mscene::before,
     html.instagram-viewer #corpus::before { flex: 0 0 0 !important; }
+    html.instagram-viewer #bio-section,
+    html.instagram-viewer .mscene,
+    html.instagram-viewer #corpus { padding-top: calc(var(--content-top) + 36px) !important; }
+    #monos-logo-section {
+      padding-top: 24px !important; padding-bottom: 24px !important;
+    }
+    #monos-logo-section::before,
+    #monos-logo-section::after { flex: 1 0 0 !important; }
+    #monos-logo-section .logo-wrapper { margin: 0 auto !important; }
+    #monos-logo-section .logo-wrapper a { display: block; }
+    #monos-logo-section .footer-brand { display: block; margin: 0 auto; }
     .bio-content .bio-extended {
       flex: 0 0 auto; width: 100%; max-width: 36rem !important;
       font-size: 14px !important; line-height: 1.6 !important;
