@@ -3995,8 +3995,8 @@
   }
   var instagramViewer = /Instagram/i.test(navigator.userAgent);
   document.documentElement.classList.toggle('instagram-viewer', instagramViewer);
-  function placeBrowserHeader(){
-    if(instagramViewer || !nav) return;
+  function placeBrowserHeader(measuringBrowser){
+    if((instagramViewer && measuringBrowser !== true) || !nav) return;
     var portrait = document.querySelector('#bio-section .glass-frame');
     if(!portrait) return;
     var pad = window.innerWidth < 901 ? 14 : 24;
@@ -4005,11 +4005,41 @@
     document.documentElement.style.setProperty('--nav-top', top + 'px');
     document.documentElement.style.setProperty('--content-top', (top + nav.offsetHeight + 16) + 'px');
   }
+  function matchInstagramGaps(){
+    if(!instagramViewer || !matchMedia('(max-width: 820px), ((pointer: coarse) and (max-height: 500px))').matches) return;
+    var root = document.documentElement;
+    var targets = ['#bio-section .portrait-container', '#corpus .henosis-book', '#monos-logo-section > .section-inner'].map(function(s){ return document.querySelector(s); });
+    if(targets.some(function(el){ return !el; })) return;
+    var oldNav = root.style.getPropertyValue('--nav-top');
+    var oldContent = root.style.getPropertyValue('--content-top');
+    var oldTop = nav.style.top;
+    targets.forEach(function(el){ el.style.removeProperty('--instagram-gap-offset'); });
+    // Measure the normal mobile layout synchronously, then restore Instagram
+    // before the browser paints. No guessed device-specific displacement.
+    root.classList.remove('instagram-viewer');
+    placeBrowserHeader(true);
+    function headerBottom(i){
+      var style = getComputedStyle(i === 0 ? nav : scenePill);
+      return parseFloat(style.top) + parseFloat(style.height);
+    }
+    var gaps = targets.map(function(el, i){
+      return el.getBoundingClientRect().top - headerBottom(i);
+    });
+    root.classList.add('instagram-viewer');
+    if(oldNav) root.style.setProperty('--nav-top', oldNav); else root.style.removeProperty('--nav-top');
+    if(oldContent) root.style.setProperty('--content-top', oldContent); else root.style.removeProperty('--content-top');
+    nav.style.top = oldTop;
+    targets.forEach(function(el, i){
+      var desired = headerBottom(i) + gaps[i];
+      el.style.setProperty('--instagram-gap-offset', (desired - el.getBoundingClientRect().top) + 'px');
+    });
+  }
   function sizeViewport(){
     var viewport = window.visualViewport;
     if(viewport && viewport.scale !== 1) return; // leave pinch zoom alone
     document.documentElement.style.setProperty('--viewer-height', (viewport ? viewport.height : window.innerHeight) + 'px');
     placeBrowserHeader();
+    matchInstagramGaps();
   }
   updateHeader(); sizeViewport();
   addEventListener('resize', sizeViewport);
@@ -4017,6 +4047,9 @@
   var headerPortrait = document.querySelector('#bio-section .glass-frame img');
   if(headerPortrait) headerPortrait.addEventListener('load', placeBrowserHeader);
   setTimeout(placeBrowserHeader,300); setTimeout(placeBrowserHeader,1200);
+  if(headerPortrait) headerPortrait.addEventListener('load', matchInstagramGaps);
+  setTimeout(matchInstagramGaps,300); setTimeout(matchInstagramGaps,1200);
+  if(document.fonts) document.fonts.ready.then(matchInstagramGaps);
 
   function go(n){
     n = Math.max(0, Math.min(scenes.length-1, n));
@@ -4352,7 +4385,11 @@
     html.instagram-viewer #bio-section,
     html.instagram-viewer .mscene,
     html.instagram-viewer #corpus { padding-top: calc(var(--content-top) + 36px) !important; }
-    html.instagram-viewer #bio-section { padding-top: calc(var(--content-top) + 12px) !important; }
+    html.instagram-viewer #bio-section .portrait-container,
+    html.instagram-viewer #corpus .henosis-book,
+    html.instagram-viewer #monos-logo-section > .section-inner {
+      position: relative; top: var(--instagram-gap-offset, 0px);
+    }
     #monos-logo-section {
       padding-top: 24px !important; padding-bottom: 24px !important;
     }
@@ -4361,7 +4398,6 @@
     #monos-logo-section .logo-wrapper { margin: 0 auto !important; }
     #monos-logo-section .logo-wrapper a { display: block; }
     #monos-logo-section .footer-brand { display: block; margin: 0 auto; }
-    html.instagram-viewer #monos-logo-section > .section-inner { position: relative; top: -32px; }
     .bio-content .bio-extended {
       flex: 0 0 auto; width: 100%; max-width: 36rem !important;
       font-size: 14px !important; line-height: 1.6 !important;
