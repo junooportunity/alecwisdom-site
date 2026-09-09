@@ -4311,6 +4311,7 @@
     z-index: 9999; cursor: pointer;
   }
   #viewerScenePill[hidden] { display: none !important; }
+  .bio-content .bio-extended p { text-indent: 1.5em !important; }
   /* Preserve the original portrait anchor outside Instagram. Keep it independent
      of --content-top so measuring it cannot feed back into its own position. */
   html:not(.instagram-viewer) #bio-section {
@@ -4369,6 +4370,11 @@
       max-width: none !important; max-height: none !important;
       aspect-ratio: 1 / 1.4142; object-fit: contain; background: #0a0a0a;
     }
+    /* Keep the shared poster height, but fit this narrower 2:3 artwork's frame. */
+    #unsaying .poster-item {
+      width: calc((var(--poster-width) - 15px) * 0.9428 + 15px) !important;
+    }
+    #unsaying .poster-image { aspect-ratio: 2 / 3; }
   }
 </style>
 </body>
