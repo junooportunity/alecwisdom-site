@@ -4031,6 +4031,16 @@
     nav.style.top = oldTop;
     targets.forEach(function(el, i){
       var desired = headerBottom(i) + gaps[i];
+      // Anchor the portrait frame to the same screen height as An Unsaying.
+      // Move its whole section-inner so the name/title follow; never move nav.
+      if(i === 0){
+        var posterFrame = document.querySelector('#unsaying .poster-glass-frame');
+        var portraitFrame = el.querySelector('.glass-frame');
+        if(posterFrame && portraitFrame){
+          desired = posterFrame.getBoundingClientRect().top
+            - (portraitFrame.getBoundingClientRect().top - el.getBoundingClientRect().top);
+        }
+      }
       el.style.setProperty('--instagram-gap-offset', (desired - el.getBoundingClientRect().top) + 'px');
     });
   }
