@@ -3993,13 +3993,24 @@
     scenePill.textContent = label ? label.textContent : '';
     scenePill.setAttribute('aria-label', (label ? label.textContent.trim() + ': ' : '') + 'return to navigation');
   }
+  document.documentElement.classList.toggle('instagram-viewer', /Instagram/i.test(navigator.userAgent));
   // Safari and in-app browsers share one viewport-relative layout.
   function placeBrowserHeader(){
     if(!nav) return;
     var portrait = document.querySelector('#bio-section .glass-frame');
     if(!portrait) return;
     var pad = window.innerWidth < 901 ? 14 : 24;
-    var top = Math.max(12, Math.round(portrait.getBoundingClientRect().top - nav.offsetHeight - pad));
+    var root = document.documentElement;
+    // Measure in the unshifted layout so resize/load callbacks cannot accumulate
+    // the Instagram toolbar correction.
+    var previousOffset = Math.max(0, -parseFloat(getComputedStyle(document.getElementById('bio-section')).top)) || 0;
+    var top = Math.max(12, Math.round(portrait.getBoundingClientRect().top + previousOffset - nav.offsetHeight - pad));
+    // The supplied iPhone screenshots show Instagram's content origin 54 CSS px
+    // below Safari's. Keep at least 12px above the nav on shorter viewports.
+    var offset = root.classList.contains('instagram-viewer')
+      && matchMedia('(max-width: 820px) and (orientation: portrait)').matches
+      ? Math.min(54, Math.max(0, top - 12)) : 0;
+    root.style.setProperty('--instagram-ui-offset', offset + 'px');
     nav.style.top = top + 'px';
     document.documentElement.style.setProperty('--nav-top', top + 'px');
     document.documentElement.style.setProperty('--content-top', (top + nav.offsetHeight + 16) + 'px');
@@ -4295,6 +4306,7 @@
 </script>
 <style id="fixed-viewer-layout">
   :root {
+    --instagram-ui-offset: 0px;
     --nav-top: calc(24px + env(safe-area-inset-top, 0px));
     --content-top: calc(var(--nav-top) + 68px);
   }
@@ -4304,7 +4316,7 @@
      centering, original section pills, nav sizing, and height rules. */
   @media (max-width: 820px), ((pointer: coarse) and (max-height: 500px)) {
   #viewerNav {
-    top: var(--nav-top) !important;
+    top: calc(var(--nav-top) - var(--instagram-ui-offset)) !important;
     width: min(452px, calc(100% - 48px)) !important;
     min-width: 0 !important;
     box-sizing: border-box;
@@ -4312,7 +4324,7 @@
   #viewerScenePill {
     display: inline-block !important;
     appearance: none; background: transparent; border: 0; font-style: normal;
-    position: fixed !important; top: calc(var(--nav-top) + 6px) !important;
+    position: fixed !important; top: calc(var(--nav-top) + 6px - var(--instagram-ui-offset)) !important;
     left: 50% !important; transform: translateX(-50%) !important;
     margin: 0 !important; height: 25px; min-height: 0; line-height: 1.5; box-sizing: border-box;
     z-index: 9999; cursor: pointer;
@@ -4343,9 +4355,25 @@
   }
   }
   @media (max-width: 820px), ((pointer: coarse) and (max-height: 500px)) {
+    /* Offset complete scenes, preserving their dimensions and internal spacing.
+       The MPM end card retains its separate, previous Instagram position. */
+    html.instagram-viewer #bio-section,
+    html.instagram-viewer #narrative,
+    html.instagram-viewer #corpus,
+    html.instagram-viewer #archive,
+    html.instagram-viewer .bio-content,
+    html.instagram-viewer .mscene {
+      top: calc(0px - var(--instagram-ui-offset)) !important;
+    }
     .bio-content { padding-top: calc(var(--content-top) + 20px) !important; padding-left: 24px !important; padding-right: 24px !important; overflow-y: auto !important; }
     #monos-logo-section {
       padding-top: 24px !important; padding-bottom: 24px !important;
+    }
+    /* Preserve the logo's previous Instagram position while the other scenes
+       and navigation continue using the shared mobile placement. */
+    html.instagram-viewer #monos-logo-section > .section-inner {
+      position: relative;
+      top: calc(24px + env(safe-area-inset-top, 0px) - var(--nav-top));
     }
     #monos-logo-section::before,
     #monos-logo-section::after { flex: 1 0 0 !important; }
